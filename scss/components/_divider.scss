@@ -31,4 +31,12 @@
       color: $white !important;
     }
   }
+  &.divider-dark {
+    .divider-custom-line {
+      background-color: $dark;
+    }
+    .divider-custom-icon {
+      color: $dark !important;
+    }
+  }
 }
