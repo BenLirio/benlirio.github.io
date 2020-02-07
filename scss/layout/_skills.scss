@@ -15,7 +15,7 @@
       left: 0;
       transition: $transition-base;
       opacity: 0;
-      background-color: fade-out($primary, .1);
+      background-color: fade-out($primary, 0.1);
       &:hover {
         opacity: 1;
       }
