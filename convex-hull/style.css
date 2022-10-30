@@ -1,0 +1,22 @@
+h1 {
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#p5-canvas {
+  display: block;
+  margin: 0 auto;
+}
+#next-button {
+  margin: 10px;
+}
