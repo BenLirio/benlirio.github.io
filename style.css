@@ -2,22 +2,21 @@ body {
   font: 100%/1.5 Verdana, Arial, Helvetica, sans-serif;
   background-color: gray;
 }
-table {
-  border-collapse: collapse;
-}
-td, th {
-  border: 1px solid #ddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
 .content {
   background-color: #f2f2f2;
   padding: 20px;
   width: 80%;
   margin: 0 auto;
+}
+table {
+  border-collapse: collapse;
+}
+td, th {
+  border: 1px solid #c2c2c2;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #e2e2e2;
 }
