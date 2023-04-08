@@ -1,0 +1,186 @@
+.. -*- mode: rst -*-
+
+.. include:: course.links
+
+.. _hw7-typechecking:
+
+HW7: Oat v2 -- Typechecking
+===========================
+
+Getting Started
+---------------
+
+To get started, accept the assignment on Github Classroom and clone your
+team's repository.
+
+The files included in the repository are briefly described
+below. Those marked with ``*`` are the only ones you should need to
+modify while completing this assignment.
+
+======================  ======================================================
+lib/util/assert.ml(i)   the assertion framework
+lib/util/platform.ml    platform-specific compilation support
+lib/util/range.ml(i)    range datatype for error messages
+
+lib/ll/ll.ml            the abstract syntax for LLVMlite
+lib/ll/llutil.ml        name generation and pretty-printing for LLVMlite
+lib/ll/lllexer.mll      lexer for LLVMlite syntax
+lib/ll/llparser.mly     parser generator for LLVMlite syntax
+lib/ll/llinterp.ml      reference interpreter for the LLVMlite semantics
+
+lib/x86/x86.ml          the X86lite language used as a target
+
+README.md               help about the main test harness
+Makefile                basic make support for invoking ocamlbuild
+
+programs/oat_v1/\*.oat  Oat v1 programs used in testing
+programs/oat_v2/\*.oat  Oat v2 programs used in testing
+
+bin/main.ml             main test harness
+bin/driver.ml           utilities for invoking the compiler
+bin/ast.ml              oat abstract syntax
+bin/astlib.ml           pretty printing
+bin/lexer.mll           oat v2 lexer
+bin/parser.mly          oat v2 parser
+
+bin/tctxt.ml            typechecking context data structure
+
+bin/typechecker.ml      ``*`` oat typechecker
+
+bin/runtime.c           oat runtime library
+
+test/testlib.ml         helper definitions to be shared across test cases
+test/studenttests.ml    where your own test cases should go
+test/gradedtests.ml     graded test cases that we provide
+======================  ======================================================
+
+Overview
+--------
+
+In this project, you will implement a typechecker for an extended version of
+Oat (Oat v2) that has boolean, int, string, array, struct and function
+pointer types as well as "possibly null" and "definitely not null" references.
+Your typechecker will accept source files of the form:
+
+.. code::
+
+   struct Color {
+     int red;
+     int green;
+     int blue;
+     (Color) -> Color f
+   }
+
+   Color rot(Color c1) {
+     var c2 = new Color{ red = c1.green; green = c1.blue; blue = c1.red; f = c1.f };
+     return c2;
+   }
+
+   global c = new Color { red = 10; green = 20; blue = 30 ; f = rot};
+
+   int program (int argc, string[] argv) {
+     return c.f(c).red;
+   }
+
+When the typechecking succeeds you will get:
+
+.. code::
+
+   $ ./oatc-typechecker <program-name>
+   ok
+
+When the typechecking fails you will get:
+
+.. code::
+
+   $ ./oatc-typechecker <program-name>
+   Fatal error: exception Oat.Typechecker.TypeError("[<line-number>, <column>] <error-message>")
+
+
+.. admonition:: Hint
+
+   For examples of Oat v2 code, see the files in ``programs/oat_v2``.
+
+Typechecking
+--------------------
+
+In this homework, you will implement a typechecker for the Oat
+language, which will put enough restrictions on its code to ensure type
+safety.
+	  
+The language description is found at :ref:`Oat Language v2<oatv2>` and the typing
+rules describing the intended behavior of the typechecker are given in the accompanying
+:download:`Oat v.2 language specification <oat.pdf>`.  Use that, and the notes in
+``typechecker.ml`` to get started.  We suggest that you tackle this part of the 
+project in this order:
+	  
+ 1. Try to read over the typing rules and get a sense of how the notion of
+    context used there matches up with the implementation in ``tctxt.ml``.
+ 2. Complete the implementations of ``subtype`` and ``typecheck_ty`` (and
+    their mutually recursive companions), to remind yourself how the
+    typechecking rules line up with the code that implements them.  It might
+    be good to write a few unit tests for these functions to confirm your
+    expectations.
+ 3. Think about the intended behavior of the typechecker for expressions and
+    work out a few of the easier cases.  We have given you helper functions
+    for typechecking the primitive operations.
+ 4. Next tackle the context-building functions, which create the correct
+    typing context for later typechecking.
+ 5. Take an initial stab at ``typecheck_fdecl``.  We suggest that you
+    introduce a helper function called ``typecheck_block``, which will be used
+    for function declarations (and elsewhere).
+ 6. Working backwards through the file, work on typechecking statements, which
+    will rely heavily on typechecking expressions.  Make sure you understand
+    how the expected return type information and the behavior type of the
+    statement are propagated through this part of the code.
+
+Testing and Debugging Strategies
+--------------------------------
+
+The test harness provided by ``main.ml`` gives several ways to assess your
+code. See the ``README.md`` file for a full description of the flags.
+
+Test Cases
+----------
+As part of this project, you must post two test cases for the typechecker on
+the course Slack site.
+
+These test cases must be small "unit tests" for a specific inference
+rule used in the type system. Here's how it works: Choose a typechecking judgment
+and write one small, self-contained "positive" test case that succeeds because
+the inference rules for that judgment permit a particular derivation. Then, write
+a second, small, self-contained "negative" test case that succeeds because the
+inference rules for that judgment do not permit a particular derivation.
+
+For example, I could pick the "subtype" inference rule and have the positive test
+case be testing that indeed, ``H |- string? <: string?`` and the negative test case
+could assert that it is not possible to derive ``H |- string? <: string``. The OCaml
+code for these two tests would be given by:
+
+.. code::
+   
+   let unit_tests = [
+   "subtype_stringQ_stringQ",
+      (fun () ->
+         if Typechecker.subtype Tctxt.empty (TNullRef RString) (TNullRef RString) then ()
+         else failwith "should not fail")
+   ; ("no_subtype_stringQ_stringQ",
+      (fun () ->
+         if Typechecker.subtype Tctxt.empty (TNullRef RString) (TRef RString) then
+            failwith "should not succeed" else ())
+   )
+   ]
+
+You might find the ``typecheck_error`` and ``typecheck_correct`` functions in the ``testlib.ml`` file
+useful for writing these unit tests. (Note that ``Testlib`` is also imported by ``studenttests.ml``
+so you can use the test infrastucture for your own examples.)
+    
+Grading
+-------
+
+**Projects that do not compile will receive no credit!**
+
+Your team's grade for this project will be based on:
+ - 34 Points: the various automated tests (most provided, some hidden until submission time).
+ - 10 Points: Other students Tests
+ - 6 Points: Posted test cases

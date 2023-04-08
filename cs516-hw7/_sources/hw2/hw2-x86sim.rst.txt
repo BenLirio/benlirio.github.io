@@ -1,0 +1,296 @@
+.. -*- mode: rst -*-
+
+.. include:: course.links
+
+.. _hw2:
+
+HW2: X86lite Simulator
+=============================
+
+Overview
+--------
+
+
+In this project you will implement a simulator for a small, idealized
+subset of the X86-64 platform that will serve as the target language
+for the compilers we build in later projects. This project will continue
+to help get you up to speed with OCaml programming -- we'll need a few
+more constructs not used in HW1.
+
+.. admonition:: Note
+
+   You should work in pairs for this project.
+
+**Getting Started**
+
+To get started, accept the assignment on Github Classroom and clone your
+team's repository.
+
+The files included in the repository are briefly described
+below. Those marked with ``*`` are the only ones you should need to
+modify while completing this assignment.
+
+========================   ======================================================================
+Makefile                   builds main.native, also supports targets 'test' and 'zip'
+
+util/assert.ml(i)          the assertion framework
+test/gradedtests.ml        graded test cases that we provide
+bin/main.ml                the main test harness
+
+x86/x86.mli                the X86lite interface
+x86/x86.ml                 the X86lite instruction set implementation
+
+bin/int64_overflow.ml(i)   library for working with int64 values
+
+\*bin/simulator.ml         the simulator implementation
+\*test/studenttests.ml     where your test cases should go
+========================   ======================================================================
+
+
+**Building the Project**
+
+It is recommended that you compile your projects from the command
+line, using ``make``. We have included a ``Makefile`` that provides
+several make targets that can help you with the homework::
+
+  make       --  builds oatc using dune
+  make test  --  runs the test suite
+  make clean --  cleans your project directory
+  make utop  --  starts a utop for the project
+  make zip   --  creates a zip file with the code you need to submit
+
+Command-line Running and Testing Projects
+-----------------------------------------
+
+After compiling the project with ``make``, you can run it from the
+command line by running ``./oatc``.  You may run the simulator's unit
+tests by running ``make test`` or ``./oatc --test``.
+
+The Simulator
+---------------------
+
+X86lite assembly code is organized into labeled blocks of
+instructions, which might be written in concrete syntax as shown
+below::
+
+        .text
+  fac:
+
+  	subq	$8, %rsp
+  	cmpq	$1, %rdi
+  	jle	exit
+  	movq	%rdi, (%rsp)
+  	decq	%rdi
+  	callq	fac
+  	imulq	(%rsp), %rax
+  	addq	$8, %rsp
+	retq
+  exit:
+	movq	$1, %rax
+	addq	$8, %rsp
+	retq
+	.globl	main
+  main:
+	movq	$5, %rdi
+	callq	fac
+	retq
+
+This code has three blocks, labeled ``fac``, ``exit``, and
+``main``. The code at labels ``fac`` and ``exit`` implements a
+recursive version of the familiar factorial function. The code at
+``main`` calls factorial with the immediate value 5.
+
+.. highlight:: ocaml
+
+In this project you will implement a simulator for the X86lite platform, but 
+rather than using the concrete syntax shown above, you will execute programs
+that have been converted to machine code and layed out in the memory of an 
+idealized X86lite machine::
+
+  [| ...
+   InsB0 (Subq,  [Imm (Lit 8L); Reg Rsp]);  InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (Cmpq,  [Imm (Lit 1L); Reg Rdi]);  InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (J Le,  [Imm (Lit 72L)]);          InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (Movq,  [Reg Rdi;      Ind2 Rsp]); InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (Decq,  [Reg Rdi]);                InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (Callq, [Imm (Lit 0L)]);           InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (Imulq, [Ind2 Rsp;     Reg Rax]);  InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (Addq,  [Imm (Lit 8L); Reg Rsp]);  InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (Retq,  []);                       InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (Movq,  [Imm (Lit 1L); Reg Rax]);  InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (Addq,  [Imm (Lit 8L); Reg Rsp]);  InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (Retq,  []);                       InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (Movq,  [Imm (Lit 5L); Reg Rdi]);  InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (Callq, [Imm (Lit 0L)]);           InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   InsB0 (Retq,  []);                       InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag; InsFrag
+   ...
+  |]
+
+This is just an OCaml array of ``sbyte``\ s, "symbolic" bytes where
+``InsB0`` represents the first byte of an instruction and seven
+subsequent ``InsFrag``\ s represent the remaining seven bytes. While in
+a real machine each fragment would encode meaningful information about
+the instructions, this approach hides the details of a specific
+encoding and aids in debugging. The actual encoding of X86
+instructions in particular is notoriously complicated, and as we
+mentioned in class, variable in length. We will assume a fixed-length,
+8-byte encoding of X86lite for our simulator, representing
+instructions in memory as ``sbyte``\ s.  Fetching and decoding an
+instruction will simply involve reading the contents of its first
+byte, ignoring the following ``InsFrag``\ s.
+
+The OCaml datatype used for instructions is defined in the provided
+``x86.ml``, and the :ref:`x86lite specification <x86lite>` gives the full
+details about the meaning of each instruction.
+
+.. admonition:: Note
+
+  Read (or at least skim) the :ref:`x86lite specification <x86lite>`
+  now.  You might want to correlate the various parts of the X86lite
+  machine with the datatypes defined in ``x86.ml``.
+
+The X86lite specification is written from the point of view of actual
+X86 hardware, except for the behavior of labels, which are "resolved"
+by another program, the assembler (and linker/loader). Your simulator
+can assume that this has already been done, so instruction operands
+will not contain labels. In the memory image for the factorial example
+above, you can see that calls using the label ``fac`` and jumps
+using ``exit`` have been replaced with literal immediate operands
+``OL`` and ``72L``.
+
+Our ML-level interpreter's representation of the X86lite machine state is given
+by the following type:
+
+.. code:: ocaml
+
+  type flags = { mutable fo : bool
+               ; mutable fs : bool
+               ; mutable fz : bool
+               }
+
+  type regs = quad array
+
+  type mem = sbyte array
+
+  type mach = { flags : flags
+              ; regs : regs
+              ; mem : mem
+              }
+
+The memory and register files are simulated by OCaml-level (mutable)
+arrays of ``sbyte``\ s and ``quad``\ s (OCaml 64-bit integers),
+respectively. The three condition flags are mutable boolean fields;
+all of the state is bundled together in a record (see IOC Chapter 8.1
+for more about OCaml's record types).
+
+The main differences between the interpreter and the environment in which real
+X86 programs are executed include:
+
+- **Memory:** Our simulator will use only 64K bytes of memory.  The
+  part of the heap simulated is the block of highest addressable
+  memory locations -- in ``simulator.ml``, this block is bounded from
+  below by ``mem_bot`` and from above by ``mem_top``.  We will not
+  model requesting memory from the operating system: you can assume
+  the entire 64K address space has been paged in before execution of
+  the program starts. We will also not model any of the restrictions
+  on alignment or code layout related to memory paging.
+- **Symbolic instruction encoding:** As described at the beginning of
+  the section, we will assume a fixed-length, 8-byte instruction
+  encoding by representing instructions symbolically in memory. The
+  behavior of programs that read or manipulate ``sbyte``\ s
+  representing instructions as data is not specified. Your simulator
+  may raise an error or assume some default behavior: we will not test
+  these cases.
+- **Operand restrictions:** The X86Lite specification mentions several
+  restrictions on the operands of various instructions. For example
+  ``leaq`` can only take an indirect memory operand. Your simulator is
+  not required to detect invalid operands, and may raise an exception
+  or choose some convenient behavior. In other words, your simulator
+  may implement a superset of the X86lite specification by executing
+  instructions with invalid operands. We will only test your simulator
+  with programs that conform to the restrictions in the specification.
+- **Termination and system calls:** Normally, a program will terminate
+  by notifying the operating system using a system call (e.g. ``exit``
+  on POSIX systems). We will not simulate system calls, so instead we
+  use a sentinel address outside of our address space, ``exit_addr``,
+  to indicate that a program has terminated. The provided``run``
+  function will call the ``step`` function until ``%rip`` contains
+  ``exit_addr``. To achieve this, you should begin execution with
+  ``exit_addr`` on the top of the stack, so that executing ``RETQ``
+  without first pushing something else on the stack will terminate the
+  program.
+
+..
+  TODO: return code not truncated to one byte
+
+Provided Code
+~~~~~~~~~~~~~
+- ``sbyte`` serialization
+- Machine state and X86 instruction datatypes
+- The ``Int64_overflow`` module
+
+Tasks
+~~~~~
+
+Complete the implementation in the ``simulator.ml`` file, some parts
+of which are given to you.  We recommend that you do things in this
+order:
+
+- First, as an exercise in condition codes, implement the
+  ``interp_cnd`` function.
+- Second, as another simple warm-up, implement the ``map_addr``
+  function, which maps X86lite addresses (represented as ``quad``
+  values) into ``Some`` OCaml array index (or ``None`` if the address
+  is not in the legal address space).
+- Third, implement the interpretation of operands (including indirect
+  addresses), since this functionality will be needed for simulating
+  instructions.
+- Finally, implement the ``step`` function, which simulates the
+  execution of a single instruction by modifying the machine state
+  passed as an argument.
+
+.. admonition:: Hints
+
+  - We have provided a module for performing 64-bit arithmetic with
+    overflow detection. You may find this useful for setting the
+    status flags.
+  - You'll probably want a function that sets the three condition
+    flags after a result has been computed.
+  - Groups of instructions share common behavior -- for example, all
+    of the arithmetic instructions are quite similar. You should
+    factor out the commonality as much as you can in order to keep
+    your code clean. Remember that code style constitutes a
+    non-trivial portion of your grade.
+  - You will probably want to develop small test cases to try out the
+    functionality of your interpreter. See ``gradedtests.ml`` for
+    some examples of how to set up tests that can look at the final
+    state of the machine.
+
+Tests
+~~~~~
+
+We will grade this homework based on a suite of tests. Some of them are
+available for you to look at in ``gradedtests.ml``, the rest of them we
+reserve for our own cases. We will also stress-test your interpreter on
+a number of "big" programs that we have developed and that you and your
+classmates will develop as part of the next homework.
+
+To help other teams debug their interpreters, you are encouraged to
+share "microbenchmark" test cases by posting them to the indicated
+thread on slack. These should be short (2-3 instruction) programs
+that test various functional aspects of the interpreter. We will not
+use these tests in our grading. You may add such test cases to the
+test suite defined in ``studenttests.ml``.
+
+Grading
+-------
+
+Submit your solution to this assignment by following the
+:ref:`submission instructions <submit>`
+
+**Projects that do not compile will receive no credit!**
+
+Your team's grade for this project will be based on:
+
+- 9 hidden test cases
+- 16 visible test cases

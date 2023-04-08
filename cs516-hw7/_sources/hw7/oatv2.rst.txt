@@ -1,0 +1,215 @@
+.. -*- mode: rst -*-
+
+.. include:: course.links
+
+.. _oatv2:
+
+Oat Language v2
+===============
+Oat v2 supports all of the features of Oat v1, but, in addition,
+support structs and function pointers, and a type system that makes a
+distinction between "possibly null" and "definitely not null" references.  It
+is the intention that this language is *type safe*, meaning that any
+well-typed program will not crash.  In particular, well-typed Oat v2 programs
+cannot exhibit null pointer dereference failures (though it may halt with an
+"array bounds check" failure).
+
+Oat supports multiple base-types of data: ``int``, ``bool``, and ``string``,
+as well as arrays of such data.  The Oat language is large enough that it is
+simpler to give the specification of its type system using inference rules
+than to use English prose.  The :download:`Oat v.2 language specification
+<oat.pdf>` contains a definition of the language syntax and a collection of
+inference rules that define Oat type checking.
+	  
+See the file ``ast.ml`` for the OCaml representation of the abstract syntax --
+the type ``typ`` of types is defined there, along with representations of
+expressions, statements, blocks, function declarations, etc.  You should
+familiarize yourself with the correspondence between the OCaml representation
+and the notation used in the specification.  The ``astlib`` module defines
+some helper functions for printing Oat programs and abstract syntax.
+	  
+
+
+.. admonition:: Note    
+
+   The abstract syntax now has support for structs, function pointers, and new
+   types.  We have already provided the parser for you.
+
+
+New Features
+------------
+
+**Structs:**
+~~~~~~~~~~~~
+
+Oat struct types are declared by using the ``struct`` keyword at the top
+level.  For example the following program declares a new struct type named
+Color with three fields.  (Note: there is no trailing semicolon on the last
+struct field.)
+	  
+.. code::
+
+   struct Color {
+     int red;
+     int green;
+     int blue
+   }
+
+   int program (int argc, string[] argv) {
+     var garr = new Color { green = 4; red = 3; blue = 5 };
+     garr.red = 17;
+     return garr.red + garr.green;
+   }
+
+Struct values can be create by using the ``new`` keyword followed by the name
+of the struct type and a record of field initializers.  The order of the
+fields in the initializers does not have to match the order of the fields as
+declared, but all of the fields must be present and have the correct types.
+	  
+Struct values are represented internally as pointers to heap-allocated blocks
+of memory.  This means that structs, like strings and arrays, are reference
+values for the purposes of compilation.
+	  
+Struct fields are also mutable.  As shown in the sample program above, you can
+update the value of a struct.
+	  
+**Function Pointers:**
+~~~~~~~~~~~~~~~~~~~~~~
+
+This version of Oat supports function pointers as first-class values.  This
+means that the name of a top-level declared function can itself be used as a
+value.  For example, the following program declares a top-level function
+``inc`` of type ``(int) -> int`` and passes it as an argument to another
+function named ``call``:
+
+.. code::
+
+   int call((int) -> int f, int arg) {
+     return f(arg);
+   }
+
+   int inc(int x) { return x + 1; }
+
+   int program(int argc, string[] argv) {
+     return call(inc, 3);
+   }
+
+
+Function types are written ``(t1, .., tn) -> tret`` and, as illustrated above,
+function identifiers act as values of the corresponding type.  Note that such
+function identifiers, *unlike global variables*, do not denote storage space,
+and so cannot be used as the left-hand side of any assignment statement.
+These function pointers are not true closures, since they cannot capture
+variables from a local scope.
+	  
+  
+**Built-in Functions:**
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The built-in functions, whose types are given below, can also be passed as
+function-pointers:
+	  
+  - | ``string_of_array : (int[]) -> string``
+    | Assumes each ``int`` of the array is the representation of an ASCII character.
+  - ``array_of_string : (string) -> int[]``
+  - ``print_string : (string) -> unit``
+  - ``print_int : (int) -> unit``
+  - ``print_bool : (bool) -> unit``
+	  
+These built-in operations, along with some internal C-functions used by the
+Oat runtime are implemented in ``runtime.c``.
+	  
+**Possibly null vs. Definitely Not Null References:**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Oat type system makes a distinction between possibly null reference types
+``r?``, which are marked with a question mark and are not statically known to
+be different from ``null``, and definitely not-null reference types.  These
+features are illustrated in the following code from the ``ifq3.oat`` file:
+	  
+.. code::
+
+   int sum(int[]? arr) {
+       var z = 0;
+       if?(int[] a = arr) {
+         for(var i = 0; i<length(a); i = i + 1;) {
+           z = z + a[i];
+         }
+       }
+       return z;
+   }
+
+   int program (int argc, string[] argv) {
+       var x = 0;
+       x = x + sum(new int[]{1,2,3});
+       x = x + sum(int[] null);
+       return x;
+   }
+
+
+Here, the ``sum`` function takes a possibly null array reference.  Possibly
+null types, like ``int[]?``, cannot directly be treated as non-null.  Instead,
+the programmer has to insert the appropriate null check using the ``if?``
+statement, which performs the null check and, if it is successful, creates an
+alias to the checked value for use as a definitely not null pointer.  The rule
+for typechecking ``if?`` works for any possibly null reference types.
+
+.. admonition:: Note
+
+   The variable introduced by ``if?`` is still mutable, so
+   the frontend will have to allocate storage space just as for any other local
+   variable introduced by ``var``.
+
+
+**Array Initializers:**
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Once we decide to have definitely not-null types, we need a convenient way to
+initialize arrays of definitely-not-null reference types (so that we can
+ensure that the entries are not null).  We thus add support for built-in
+initializers, that work as shown below:
+	  
+.. code::
+
+   var matrix = new int[][3]{i -> new int[3]{j -> i * j}}
+
+
+This code declares a 3x3 matrix represented as an array of int arrays.  The
+entry ``matrix[i][j]`` is initialized to be ``i * j``.  The initializer array
+syntax is of the general form: ``new t[e1]{id -> e2}``, where ``e1`` is an
+integer determining the size of the array, ``id`` names the index, and the
+initializer expression ``e2`` computes the initial value at each index.  This
+initializer code is semantically equivalent to allocating an array followed by
+immediatelly initializing each element:
+	  
+.. code::
+
+   var a = new int[e1];
+   for(var id = 0; id < length(a); id = id + 1;) {
+      a[x] = e2;
+   }
+
+
+Note that ``e2`` can mention the loop index id.  See the typechecking rules
+for the details about scoping and typechecking.
+	  
+
+
+Oat v2 retains the *implicitly initialized arrays* from Oat v1 (which allowed
+only ``int`` and ``bool`` such arrays) and allows possibly-null types to have
+the default initializer ``null``.  That means that the following code snippet
+is legal, and initializes a length-three array of null pointers (each of type
+``int[]?``):
+
+.. code::
+
+   var a = new int[]?[3];
+
+
+The Oat v2 typechecker will condider the following code to be ill-typed
+because the inner array type ``int[]`` is definitely-not-null and so cannot be
+default initialized to null:
+
+.. code::
+
+   var a = new int[][3];

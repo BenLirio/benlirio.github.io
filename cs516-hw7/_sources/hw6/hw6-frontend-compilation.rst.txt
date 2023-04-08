@@ -1,0 +1,204 @@
+.. -*- mode: rst -*-
+
+.. include:: course.links
+
+.. _hw6-frontend-compilation:
+
+HW6: Frontend Compilation
+=========================
+
+Getting Started
+---------------
+
+.. admonition:: Reuse HW5
+
+   To save time, you can reuse the HW5 files **bin/lexer.mll** and **bin/parser.mly** in this
+   assignment.
+   
+The files included in the repository are briefly described
+below. Those marked with ``*`` are the only ones you should need to
+modify while completing this assignment.
+
+======================  ======================================================
+lib/util/assert.ml(i)   the assertion framework
+lib/util/platform.ml    platform-specific compilation support
+lib/util/range.ml(i)    range datatype for error messages
+
+lib/ll/ll.ml            the abstract syntax for LLVMlite
+lib/ll/llutil.ml        name generation and pretty-printing for LLVMlite
+lib/ll/lllexer.mll      lexer for LLVMlite syntax
+lib/ll/llparser.mly     parser generator for LLVMlite syntax
+lib/ll/llinterp.ml      reference interpreter for the LLVMlite semantics
+
+lib/x86/x86.ml          the X86lite language used as a target
+
+README.md               help about the main test harness
+Makefile                basic make support for invoking ocamlbuild
+
+hw5programs/\*.oat      example .oat v.1 programs used in testing
+
+bin/main.ml             main test harness
+bin/driver.ml           utilities for invoking the compiler
+
+bin/ast.ml              oat abstract syntax
+bin/astlib.ml           pretty printing
+bin/backend.ml          sample solution to HW4
+bin/lexer.mll           ``*`` oat lexer (can copy from previous HW)
+bin/parser.mly          ``*`` oat parser (can copy from previous HW)
+bin/frontend.ml         ``*`` oat frontend
+
+bin/runtime.c           oat runtime library
+
+test/studenttests.ml    ``*`` where your own test cases should go
+test/gradedtests.ml     graded test cases that we provide
+bin/progasts.ml         helper ast representations for parser tests
+======================  ======================================================
+
+Overview
+--------
+
+In this project, you will implement a compiler frontend for a simple
+imperative language that has boolean, int, string, and array types as well as
+top-level, mutually-recursive functions and global variables. The lexer and parser 
+have already been implemented in hw5. In this homework, you will be implementing 
+the remaining part of the compiler frontend.Your compiler
+will accept source files that use syntax like:
+
+.. code::
+
+   int fact(int x) {
+     var acc = 1;
+     while (x > 0) {
+       acc = acc * x;
+       x = x - 1;
+     }
+     return acc;
+   }
+
+   int program(int argc, string[] argv) {
+     print_string(string_of_int(fact(5)));
+     return 0;
+   }
+
+and will produce an executable (by default named ``a.out``) that, when
+linked against ``runtime.c`` and then executed produces the resulting
+output:
+
+.. code::
+
+   ./a.out
+   120
+
+
+.. admonition:: Hint
+
+  For examples of Oat code, see the files in
+  ``/hw5programs``, especially those with sensible names.
+
+
+Frontend Compilation
+--------------------
+
+The comments ``frontend.ml`` will help you, but here is how we suggest you proceed:
+
+ 1. Read through the whole ``frontend.ml`` file and the :ref:`Oat Language v1<oatv1>` language 
+    description to get a sense of its structure.  It is arranged so that it mirrors
+    the syntax described in the :download:`Oat v.1 Language Specification <oat.pdf>`.
+
+    To a first approximation, there is one compilation function for each
+    nonterminal of the language syntax.  The inputs to these functions are the
+    static context and the piece of syntax (and its type) to be compiled. The
+    output of such a function depends on which part of the program you are
+    compiling: expressions evaluate to values, so their compilation function
+    returns the code computing an operand; statements do not evaluate to
+    values, but they do introduce new local variables, so their compilation
+    function returns a new context and an instruction stream, etc.
+	    
+ 3. Take a close look at the ``Ctxt`` to see how it represents the compilation
+    contexts.
+ 4. Begin by working on ``cmp_global_ctxt`` and ``cmp_gexp``, though initially
+    you can leave out arrays.
+ 5. Next try to get a minimal ``cmp_fdecl`` working, producing an ``Ll.fdecl``
+    with the correct params and type.
+ 6. Next handle the ``Ret`` case of ``cmp_stmt``.  Use the provided
+    ``cfg_of_stream`` function to produce a non-empty function body in
+    ``cmp_fdecl``. At this point, you should be able to compile a program like
+    ``hw5programs/easyrun1.oat``.
+ 7. Next implement boolean and integer
+    values, ``Bop``, and ``Uop`` cases of ``cmp_exp``. Again, saving arrays
+    for later.
+ 8. Add support for the ``Decl`` statement and identifier expressions. Each
+    local Oat variable will correspond to an ``alloca``\ d stack slot, which
+    should be hoisted to the entry block of the function using the ``E``
+    stream element constructor.
+ 9. Add more statements. The ``If`` and ``While`` statements are very similar
+    to what we've seen in the lecture code. You can do ``for`` in several
+    ways, but one easy way is to translate it at the Oat abstract syntax level
+    to a block of code that uses a while loop. The ``SCall`` statement isn't
+    that different from the expression form; you might want to find a way to
+    have them share code.
+ 10. Revisit the whole compiler adding support for arrays, following the same order as above.
+	    
+.. admonition:: Note
+
+   Although we have given you only the skeleton of the ``frontend.ml`` file,
+   much of the code is similar (if not identical to) that demonstrated in
+   lecture.  See the sample code there for additional guidance.
+
+.. admonition:: Note
+
+   String constants must be hoisted to the global scope so that the string
+   data can be defined as LLVM IR global values.  See the comments in
+   ``frontend.ml``
+
+
+Testing and Debugging Strategies
+--------------------------------
+
+The test harness provided by ``main.ml`` gives several ways to assess your
+code. See the ``README.md`` file for a full description of the flags.
+
+.. admonition:: Note
+
+   For this project, you will find it particularly
+   helpful to run the LLVMlite code by compiling it via clang (with the
+   ``--clang`` flag). That is because our
+   ``backend`` implementation from HW4 (which we have provided for
+   your reference) does *not* typecheck the ``.ll`` code that
+   it compiles.  Using clang will help you catch errors in the
+   generated ll output.
+
+Custom Test Case
+~~~~~~~~~~~~~~~~~
+
+As part of this project, you must post a ``.oat`` in the ``oatv1-tests`` slack thread.
+Your program should be around the size of a hard test case and it will be graded
+based on the following criteria:
+
+ 1. Does it compile and produce the correct output when run on the solution?
+ 2. Does it use three or more of the following Oat v1 features:
+      - globals values
+      - arrays
+      - mutual recursion
+      - immutable strings
+      - built-in functions
+ 3. Does it differ from existing test cases?
+ 4. Does it provide a sample test run. For example ``("hw5programs/globals1.oat", "", "42");``
+
+
+Style
+~~~~~
+
+Style will be graded on this homework. Make sure to check the :ref:`OCaml Style Guide <codestyle>`.
+
+Grading
+-------
+
+**Projects that do not compile will receive no credit!**
+
+Your team's grade for this project will be based on:
+ - 60 Points: the various automated tests that we provide.
+ - 5 Points: Previous Student Test Cases (Graded manually)
+ - 5 Points: Spring 23 Student Test Cases (Graded manually)
+ - 5 Points: For test cases submitted to slack (Graded manually)
+ - 10 Points: Style (Graded manually)

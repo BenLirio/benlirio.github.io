@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oat Language v2 &mdash; CS 516 Spring 2022</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="HW1: Hellocaml" href="../hw1/hw1-hellocaml.html" />
+    <link rel="prev" title="Oat Language v1" href="../hw5/oatv1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> CS516: Compilers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../syllabus.html">Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../schedule.html">Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../toolchain.html">Software Toolchain </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../submit.html">Project Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codestyle.html">OCaml Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw2/x86lite.html">X86lite Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw4/llvmlite.html">LLVMlite Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw5/oatv1.html">Oat Language v1</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Oat Language v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#new-features">New Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#structs"><strong>Structs:</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-pointers"><strong>Function Pointers:</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#built-in-functions"><strong>Built-in Functions:</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#possibly-null-vs-definitely-not-null-references"><strong>Possibly null vs. Definitely Not Null References:</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#array-initializers"><strong>Array Initializers:</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../hw1/hw1-hellocaml.html">HW1: Hellocaml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw2/hw2-x86sim.html">HW2: X86lite Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw3/hw3-x86asm.html">HW3: X86lite Assembler and Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw4/hw4-llvmlite.html">HW4: LLVMlite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw5/hw5-lexing-and-parsing.html">HW5: Lexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw6/hw6-frontend-compilation.html">HW6: Frontend Compilation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hw7-typechecking.html">HW7: Oat v2 – Typechecking</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CS516: Compilers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Oat Language v2</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="oat-language-v2">
+<span id="oatv2"></span><h1>Oat Language v2<a class="headerlink" href="#oat-language-v2" title="Permalink to this heading"></a></h1>
+<p>Oat v2 supports all of the features of Oat v1, but, in addition,
+support structs and function pointers, and a type system that makes a
+distinction between “possibly null” and “definitely not null” references.  It
+is the intention that this language is <em>type safe</em>, meaning that any
+well-typed program will not crash.  In particular, well-typed Oat v2 programs
+cannot exhibit null pointer dereference failures (though it may halt with an
+“array bounds check” failure).</p>
+<p>Oat supports multiple base-types of data: <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>, and <code class="docutils literal notranslate"><span class="pre">string</span></code>,
+as well as arrays of such data.  The Oat language is large enough that it is
+simpler to give the specification of its type system using inference rules
+than to use English prose.  The <a class="reference download internal" download="" href="../_downloads/7438d801c11cae9a2616bf822c786c7d/oat.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Oat</span> <span class="pre">v.2</span> <span class="pre">language</span> <span class="pre">specification</span></code></a> contains a definition of the language syntax and a collection of
+inference rules that define Oat type checking.</p>
+<p>See the file <code class="docutils literal notranslate"><span class="pre">ast.ml</span></code> for the OCaml representation of the abstract syntax –
+the type <code class="docutils literal notranslate"><span class="pre">typ</span></code> of types is defined there, along with representations of
+expressions, statements, blocks, function declarations, etc.  You should
+familiarize yourself with the correspondence between the OCaml representation
+and the notation used in the specification.  The <code class="docutils literal notranslate"><span class="pre">astlib</span></code> module defines
+some helper functions for printing Oat programs and abstract syntax.</p>
+<div class="admonition-note admonition">
+<p class="admonition-title">Note</p>
+<p>The abstract syntax now has support for structs, function pointers, and new
+types.  We have already provided the parser for you.</p>
+</div>
+<section id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Permalink to this heading"></a></h2>
+<section id="structs">
+<h3><strong>Structs:</strong><a class="headerlink" href="#structs" title="Permalink to this heading"></a></h3>
+<p>Oat struct types are declared by using the <code class="docutils literal notranslate"><span class="pre">struct</span></code> keyword at the top
+level.  For example the following program declares a new struct type named
+Color with three fields.  (Note: there is no trailing semicolon on the last
+struct field.)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct Color {
+  int red;
+  int green;
+  int blue
+}
+
+int program (int argc, string[] argv) {
+  var garr = new Color { green = 4; red = 3; blue = 5 };
+  garr.red = 17;
+  return garr.red + garr.green;
+}
+</pre></div>
+</div>
+<p>Struct values can be create by using the <code class="docutils literal notranslate"><span class="pre">new</span></code> keyword followed by the name
+of the struct type and a record of field initializers.  The order of the
+fields in the initializers does not have to match the order of the fields as
+declared, but all of the fields must be present and have the correct types.</p>
+<p>Struct values are represented internally as pointers to heap-allocated blocks
+of memory.  This means that structs, like strings and arrays, are reference
+values for the purposes of compilation.</p>
+<p>Struct fields are also mutable.  As shown in the sample program above, you can
+update the value of a struct.</p>
+</section>
+<section id="function-pointers">
+<h3><strong>Function Pointers:</strong><a class="headerlink" href="#function-pointers" title="Permalink to this heading"></a></h3>
+<p>This version of Oat supports function pointers as first-class values.  This
+means that the name of a top-level declared function can itself be used as a
+value.  For example, the following program declares a top-level function
+<code class="docutils literal notranslate"><span class="pre">inc</span></code> of type <code class="docutils literal notranslate"><span class="pre">(int)</span> <span class="pre">-&gt;</span> <span class="pre">int</span></code> and passes it as an argument to another
+function named <code class="docutils literal notranslate"><span class="pre">call</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>int call((int) -&gt; int f, int arg) {
+  return f(arg);
+}
+
+int inc(int x) { return x + 1; }
+
+int program(int argc, string[] argv) {
+  return call(inc, 3);
+}
+</pre></div>
+</div>
+<p>Function types are written <code class="docutils literal notranslate"><span class="pre">(t1,</span> <span class="pre">..,</span> <span class="pre">tn)</span> <span class="pre">-&gt;</span> <span class="pre">tret</span></code> and, as illustrated above,
+function identifiers act as values of the corresponding type.  Note that such
+function identifiers, <em>unlike global variables</em>, do not denote storage space,
+and so cannot be used as the left-hand side of any assignment statement.
+These function pointers are not true closures, since they cannot capture
+variables from a local scope.</p>
+</section>
+<section id="built-in-functions">
+<h3><strong>Built-in Functions:</strong><a class="headerlink" href="#built-in-functions" title="Permalink to this heading"></a></h3>
+<p>The built-in functions, whose types are given below, can also be passed as
+function-pointers:</p>
+<blockquote>
+<div><ul>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">string_of_array</span> <span class="pre">:</span> <span class="pre">(int[])</span> <span class="pre">-&gt;</span> <span class="pre">string</span></code></div>
+<div class="line">Assumes each <code class="docutils literal notranslate"><span class="pre">int</span></code> of the array is the representation of an ASCII character.</div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">array_of_string</span> <span class="pre">:</span> <span class="pre">(string)</span> <span class="pre">-&gt;</span> <span class="pre">int[]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">print_string</span> <span class="pre">:</span> <span class="pre">(string)</span> <span class="pre">-&gt;</span> <span class="pre">unit</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">print_int</span> <span class="pre">:</span> <span class="pre">(int)</span> <span class="pre">-&gt;</span> <span class="pre">unit</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">print_bool</span> <span class="pre">:</span> <span class="pre">(bool)</span> <span class="pre">-&gt;</span> <span class="pre">unit</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>These built-in operations, along with some internal C-functions used by the
+Oat runtime are implemented in <code class="docutils literal notranslate"><span class="pre">runtime.c</span></code>.</p>
+</section>
+<section id="possibly-null-vs-definitely-not-null-references">
+<h3><strong>Possibly null vs. Definitely Not Null References:</strong><a class="headerlink" href="#possibly-null-vs-definitely-not-null-references" title="Permalink to this heading"></a></h3>
+<p>The Oat type system makes a distinction between possibly null reference types
+<code class="docutils literal notranslate"><span class="pre">r?</span></code>, which are marked with a question mark and are not statically known to
+be different from <code class="docutils literal notranslate"><span class="pre">null</span></code>, and definitely not-null reference types.  These
+features are illustrated in the following code from the <code class="docutils literal notranslate"><span class="pre">ifq3.oat</span></code> file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>int sum(int[]? arr) {
+    var z = 0;
+    if?(int[] a = arr) {
+      for(var i = 0; i&lt;length(a); i = i + 1;) {
+        z = z + a[i];
+      }
+    }
+    return z;
+}
+
+int program (int argc, string[] argv) {
+    var x = 0;
+    x = x + sum(new int[]{1,2,3});
+    x = x + sum(int[] null);
+    return x;
+}
+</pre></div>
+</div>
+<p>Here, the <code class="docutils literal notranslate"><span class="pre">sum</span></code> function takes a possibly null array reference.  Possibly
+null types, like <code class="docutils literal notranslate"><span class="pre">int[]?</span></code>, cannot directly be treated as non-null.  Instead,
+the programmer has to insert the appropriate null check using the <code class="docutils literal notranslate"><span class="pre">if?</span></code>
+statement, which performs the null check and, if it is successful, creates an
+alias to the checked value for use as a definitely not null pointer.  The rule
+for typechecking <code class="docutils literal notranslate"><span class="pre">if?</span></code> works for any possibly null reference types.</p>
+<div class="admonition-note admonition">
+<p class="admonition-title">Note</p>
+<p>The variable introduced by <code class="docutils literal notranslate"><span class="pre">if?</span></code> is still mutable, so
+the frontend will have to allocate storage space just as for any other local
+variable introduced by <code class="docutils literal notranslate"><span class="pre">var</span></code>.</p>
+</div>
+</section>
+<section id="array-initializers">
+<h3><strong>Array Initializers:</strong><a class="headerlink" href="#array-initializers" title="Permalink to this heading"></a></h3>
+<p>Once we decide to have definitely not-null types, we need a convenient way to
+initialize arrays of definitely-not-null reference types (so that we can
+ensure that the entries are not null).  We thus add support for built-in
+initializers, that work as shown below:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>var matrix = new int[][3]{i -&gt; new int[3]{j -&gt; i * j}}
+</pre></div>
+</div>
+<p>This code declares a 3x3 matrix represented as an array of int arrays.  The
+entry <code class="docutils literal notranslate"><span class="pre">matrix[i][j]</span></code> is initialized to be <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">*</span> <span class="pre">j</span></code>.  The initializer array
+syntax is of the general form: <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">t[e1]{id</span> <span class="pre">-&gt;</span> <span class="pre">e2}</span></code>, where <code class="docutils literal notranslate"><span class="pre">e1</span></code> is an
+integer determining the size of the array, <code class="docutils literal notranslate"><span class="pre">id</span></code> names the index, and the
+initializer expression <code class="docutils literal notranslate"><span class="pre">e2</span></code> computes the initial value at each index.  This
+initializer code is semantically equivalent to allocating an array followed by
+immediatelly initializing each element:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>var a = new int[e1];
+for(var id = 0; id &lt; length(a); id = id + 1;) {
+   a[x] = e2;
+}
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">e2</span></code> can mention the loop index id.  See the typechecking rules
+for the details about scoping and typechecking.</p>
+<p>Oat v2 retains the <em>implicitly initialized arrays</em> from Oat v1 (which allowed
+only <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">bool</span></code> such arrays) and allows possibly-null types to have
+the default initializer <code class="docutils literal notranslate"><span class="pre">null</span></code>.  That means that the following code snippet
+is legal, and initializes a length-three array of null pointers (each of type
+<code class="docutils literal notranslate"><span class="pre">int[]?</span></code>):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>var a = new int[]?[3];
+</pre></div>
+</div>
+<p>The Oat v2 typechecker will condider the following code to be ill-typed
+because the inner array type <code class="docutils literal notranslate"><span class="pre">int[]</span></code> is definitely-not-null and so cannot be
+default initialized to null:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>var a = new int[][3];
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../hw5/oatv1.html" class="btn btn-neutral float-left" title="Oat Language v1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../hw1/hw1-hellocaml.html" class="btn btn-neutral float-right" title="HW1: Hellocaml" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Eric Koskinen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+.. -*- mode: rst -*-
+
+.. include:: course.links
+
+.. _hw5-lexing-and-parsing:
+
+HW5: Lexing
+=======================
+
+
+Getting Started
+---------------
+
+The files included in the repository are briefly described below.
+Those marked with ``*`` are the only ones you should need to modify
+while completing this assignment.
+
+======================  ======================================================
+lib/util/assert.ml(i)   the assertion framework
+lib/util/platform.ml    platform-specific compilation support
+lib/util/range.ml(i)    range datatype for error messages
+
+lib/ll/ll.ml            the abstract syntax for LLVMlite
+lib/ll/llutil.ml        name generation and pretty-printing for LLVMlite
+lib/ll/lllexer.mll      lexer for LLVMlite syntax
+lib/ll/llparser.mly     parser generator for LLVMlite syntax
+lib/ll/llinterp.ml      reference interpreter for the LLVMlite semantics
+
+lib/x86/x86.ml          the X86lite language used as a target
+
+README.md               help about the main test harness
+Makefile                basic make support for invoking ocamlbuild
+
+hw5programs/\*.oat      example .oat v.1 programs used in testing
+
+bin/main.ml             main test harness
+bin/driver.ml           utilities for invoking the compiler
+
+bin/ast.ml              oat abstract syntax
+bin/astlib.ml           pretty printing
+bin/backend.ml          sample solution to HW4
+bin/lexer.mll           ``*`` oat lexer
+bin/parser.mly          ``*`` oat parser
+bin/frontend.ml         oat frontend
+
+bin/runtime.c           oat runtime library
+
+test/studenttests.ml    where your own test cases should go
+test/gradedtests.ml     graded test cases that we provide
+bin/progasts.ml         helper ast representations for parser tests
+======================  ======================================================
+
+
+.. admonition:: Note
+
+  You'll need to have `menhir`_ and `clang`_ installed on your system for this
+  assignment.  If you have not already done so, follow the provided
+  :ref:`instructions <toolchain>` to install them.
+
+Overview
+--------
+
+In this project, you will implement a compiler frontend for a simple
+imperative language that has boolean, int, string, and array types as well as
+top-level, mutually-recursive functions and global variables. Specifically, in this homework, 
+you will be implementing the lexer and parser of the compiler frontend. The remaining parts of the 
+compiler frontend will be implemented in hw6. Your compiler
+will accept source files that use syntax like:
+
+.. code::
+
+   int fact(int x) {
+     var acc = 1;
+     while (x > 0) {
+       acc = acc * x;
+       x = x - 1;
+     }
+     return acc;
+   }
+
+   int program(int argc, string[] argv) {
+     print_string(string_of_int(fact(5)));
+     return 0;
+   }
+
+.. admonition:: Hint
+
+  For examples of Oat code, see the files in
+  ``/hw5programs``, especially those with sensible names.
+
+Lexing and Parsing
+--------------------------
+
+The first step in implementing the frontend of the compiler is to get the
+lexer and parser working. In this homework, you have to implement the lexer and the parser.
+We have provided you with a partial implementation
+in the ``lexer.mll`` and ``parser.mly`` files, but the provided grammar is
+both ambiguous and missing syntax for several key language constructs.
+Complete this implementation so that your frontend can parse all of the
+example ``hw5programs/*.oat`` files.
+
+The language description is found at the :ref:`Oat Language v1 <oatv1>` and the full
+grammar is given in the :download:`Oat v.1 Language Specification
+<oat.pdf>`.
+
+You need to:
+
+ - Add the appropriate token definitions to ``parser.mly`` and adjust
+   ``lexer.ml``.
+ - Complete the parser according to the full grammar.
+ - Disambiguate any parse conflicts (shift/reduce or reduce/reduce) according
+   to the precedence and associativity rules.
+
+
+Missing constructs include:
+
+ - all of the binary operations except ``+``, ``-``, ``*``, and ``==``
+ - the boolean type and values
+ - default-initialized and implicitly-initialized array expressions and array global initializers
+ - string literal expressions and global initializers
+ - ``for`` loops
+
+.. admonition:: Note
+
+   Besides the parsing tests provided in ``gradedtests.ml``, you
+   can also test just the parsing behavior of your frontend by
+   stopping compilation after parsing with the ``-S`` flag and pretty-printing the Oat code to the terminal:
+
+   .. code::
+
+      ./main.native -S --print-oat file.oat
+
+.. admonition:: Warning
+
+   In the next homework (homework 6), the rest of the compiler frontend is implemented. Because homework 6 also hinges on getting a correct parser
+   up and running, please try to do this early and seek help if you need it.
+
+.. admonition:: Note
+
+   Note that completing the parser will not require massive refactoring! The
+   tasks described above each require only relatively small changes to
+   ``lexer.mll`` and/or ``parser.mly``.  We suggest you refer to the `menhir`_
+   documentation to understand how to use Menhir's built-in associativity
+   features.
+
+
+Testing and Debugging Strategies
+--------------------------------
+
+The test harness provided by ``main.ml`` gives several ways to assess your
+code. See the ``README.md`` file for a full description of the flags.
+
+.. admonition:: Note
+
+   For this project, you will find it particularly
+   helpful to run the LLVMlite code by compiling it via clang (with the
+   ``--clang`` flag). That is because our
+   ``backend`` implementation from HW4 (which we have provided for
+   your reference) does *not* typecheck the ``.ll`` code that
+   it compiles.  Using clang will help you catch errors in the
+   generated ll output.
+
+
+Grading
+-------
+
+**Projects that do not compile will receive no credit!**
+
+Your team's grade for this project will be based on:
+ - 25 Points: the various automated tests that we provide.

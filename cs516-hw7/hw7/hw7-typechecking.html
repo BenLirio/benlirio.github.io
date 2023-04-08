@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HW7: Oat v2 – Typechecking &mdash; CS 516 Spring 2022</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="HW6: Frontend Compilation" href="../hw6/hw6-frontend-compilation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> CS516: Compilers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../syllabus.html">Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../schedule.html">Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../toolchain.html">Software Toolchain </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../submit.html">Project Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codestyle.html">OCaml Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw2/x86lite.html">X86lite Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw4/llvmlite.html">LLVMlite Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw5/oatv1.html">Oat Language v1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="oatv2.html">Oat Language v2</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../hw1/hw1-hellocaml.html">HW1: Hellocaml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw2/hw2-x86sim.html">HW2: X86lite Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw3/hw3-x86asm.html">HW3: X86lite Assembler and Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw4/hw4-llvmlite.html">HW4: LLVMlite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw5/hw5-lexing-and-parsing.html">HW5: Lexing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw6/hw6-frontend-compilation.html">HW6: Frontend Compilation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">HW7: Oat v2 – Typechecking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#typechecking">Typechecking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-and-debugging-strategies">Testing and Debugging Strategies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-cases">Test Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grading">Grading</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CS516: Compilers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">HW7: Oat v2 – Typechecking</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="hw7-oat-v2-typechecking">
+<span id="hw7-typechecking"></span><h1>HW7: Oat v2 – Typechecking<a class="headerlink" href="#hw7-oat-v2-typechecking" title="Permalink to this heading"></a></h1>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h2>
+<p>To get started, accept the assignment on Github Classroom and clone your
+team’s repository.</p>
+<p>The files included in the repository are briefly described
+below. Those marked with <code class="docutils literal notranslate"><span class="pre">*</span></code> are the only ones you should need to
+modify while completing this assignment.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 71%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>lib/util/assert.ml(i)</p></td>
+<td><p>the assertion framework</p></td>
+</tr>
+<tr class="row-even"><td><p>lib/util/platform.ml</p></td>
+<td><p>platform-specific compilation support</p></td>
+</tr>
+<tr class="row-odd"><td><p>lib/util/range.ml(i)</p></td>
+<td><p>range datatype for error messages</p></td>
+</tr>
+<tr class="row-even"><td><p>lib/ll/ll.ml</p></td>
+<td><p>the abstract syntax for LLVMlite</p></td>
+</tr>
+<tr class="row-odd"><td><p>lib/ll/llutil.ml</p></td>
+<td><p>name generation and pretty-printing for LLVMlite</p></td>
+</tr>
+<tr class="row-even"><td><p>lib/ll/lllexer.mll</p></td>
+<td><p>lexer for LLVMlite syntax</p></td>
+</tr>
+<tr class="row-odd"><td><p>lib/ll/llparser.mly</p></td>
+<td><p>parser generator for LLVMlite syntax</p></td>
+</tr>
+<tr class="row-even"><td><p>lib/ll/llinterp.ml</p></td>
+<td><p>reference interpreter for the LLVMlite semantics</p></td>
+</tr>
+<tr class="row-odd"><td><p>lib/x86/x86.ml</p></td>
+<td><p>the X86lite language used as a target</p></td>
+</tr>
+<tr class="row-even"><td><p>README.md</p></td>
+<td><p>help about the main test harness</p></td>
+</tr>
+<tr class="row-odd"><td><p>Makefile</p></td>
+<td><p>basic make support for invoking ocamlbuild</p></td>
+</tr>
+<tr class="row-even"><td><p>programs/oat_v1/*.oat</p></td>
+<td><p>Oat v1 programs used in testing</p></td>
+</tr>
+<tr class="row-odd"><td><p>programs/oat_v2/*.oat</p></td>
+<td><p>Oat v2 programs used in testing</p></td>
+</tr>
+<tr class="row-even"><td><p>bin/main.ml</p></td>
+<td><p>main test harness</p></td>
+</tr>
+<tr class="row-odd"><td><p>bin/driver.ml</p></td>
+<td><p>utilities for invoking the compiler</p></td>
+</tr>
+<tr class="row-even"><td><p>bin/ast.ml</p></td>
+<td><p>oat abstract syntax</p></td>
+</tr>
+<tr class="row-odd"><td><p>bin/astlib.ml</p></td>
+<td><p>pretty printing</p></td>
+</tr>
+<tr class="row-even"><td><p>bin/lexer.mll</p></td>
+<td><p>oat v2 lexer</p></td>
+</tr>
+<tr class="row-odd"><td><p>bin/parser.mly</p></td>
+<td><p>oat v2 parser</p></td>
+</tr>
+<tr class="row-even"><td><p>bin/tctxt.ml</p></td>
+<td><p>typechecking context data structure</p></td>
+</tr>
+<tr class="row-odd"><td><p>bin/typechecker.ml</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">*</span></code> oat typechecker</p></td>
+</tr>
+<tr class="row-even"><td><p>bin/runtime.c</p></td>
+<td><p>oat runtime library</p></td>
+</tr>
+<tr class="row-odd"><td><p>test/testlib.ml</p></td>
+<td><p>helper definitions to be shared across test cases</p></td>
+</tr>
+<tr class="row-even"><td><p>test/studenttests.ml</p></td>
+<td><p>where your own test cases should go</p></td>
+</tr>
+<tr class="row-odd"><td><p>test/gradedtests.ml</p></td>
+<td><p>graded test cases that we provide</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
+<p>In this project, you will implement a typechecker for an extended version of
+Oat (Oat v2) that has boolean, int, string, array, struct and function
+pointer types as well as “possibly null” and “definitely not null” references.
+Your typechecker will accept source files of the form:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>struct Color {
+  int red;
+  int green;
+  int blue;
+  (Color) -&gt; Color f
+}
+
+Color rot(Color c1) {
+  var c2 = new Color{ red = c1.green; green = c1.blue; blue = c1.red; f = c1.f };
+  return c2;
+}
+
+global c = new Color { red = 10; green = 20; blue = 30 ; f = rot};
+
+int program (int argc, string[] argv) {
+  return c.f(c).red;
+}
+</pre></div>
+</div>
+<p>When the typechecking succeeds you will get:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ./oatc-typechecker &lt;program-name&gt;
+ok
+</pre></div>
+</div>
+<p>When the typechecking fails you will get:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ ./oatc-typechecker &lt;program-name&gt;
+Fatal error: exception Oat.Typechecker.TypeError(&quot;[&lt;line-number&gt;, &lt;column&gt;] &lt;error-message&gt;&quot;)
+</pre></div>
+</div>
+<div class="admonition-hint admonition">
+<p class="admonition-title">Hint</p>
+<p>For examples of Oat v2 code, see the files in <code class="docutils literal notranslate"><span class="pre">programs/oat_v2</span></code>.</p>
+</div>
+</section>
+<section id="typechecking">
+<h2>Typechecking<a class="headerlink" href="#typechecking" title="Permalink to this heading"></a></h2>
+<p>In this homework, you will implement a typechecker for the Oat
+language, which will put enough restrictions on its code to ensure type
+safety.</p>
+<p>The language description is found at <a class="reference internal" href="oatv2.html#oatv2"><span class="std std-ref">Oat Language v2</span></a> and the typing
+rules describing the intended behavior of the typechecker are given in the accompanying
+<a class="reference download internal" download="" href="../_downloads/7438d801c11cae9a2616bf822c786c7d/oat.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Oat</span> <span class="pre">v.2</span> <span class="pre">language</span> <span class="pre">specification</span></code></a>.  Use that, and the notes in
+<code class="docutils literal notranslate"><span class="pre">typechecker.ml</span></code> to get started.  We suggest that you tackle this part of the
+project in this order:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Try to read over the typing rules and get a sense of how the notion of
+context used there matches up with the implementation in <code class="docutils literal notranslate"><span class="pre">tctxt.ml</span></code>.</p></li>
+<li><p>Complete the implementations of <code class="docutils literal notranslate"><span class="pre">subtype</span></code> and <code class="docutils literal notranslate"><span class="pre">typecheck_ty</span></code> (and
+their mutually recursive companions), to remind yourself how the
+typechecking rules line up with the code that implements them.  It might
+be good to write a few unit tests for these functions to confirm your
+expectations.</p></li>
+<li><p>Think about the intended behavior of the typechecker for expressions and
+work out a few of the easier cases.  We have given you helper functions
+for typechecking the primitive operations.</p></li>
+<li><p>Next tackle the context-building functions, which create the correct
+typing context for later typechecking.</p></li>
+<li><p>Take an initial stab at <code class="docutils literal notranslate"><span class="pre">typecheck_fdecl</span></code>.  We suggest that you
+introduce a helper function called <code class="docutils literal notranslate"><span class="pre">typecheck_block</span></code>, which will be used
+for function declarations (and elsewhere).</p></li>
+<li><p>Working backwards through the file, work on typechecking statements, which
+will rely heavily on typechecking expressions.  Make sure you understand
+how the expected return type information and the behavior type of the
+statement are propagated through this part of the code.</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="testing-and-debugging-strategies">
+<h2>Testing and Debugging Strategies<a class="headerlink" href="#testing-and-debugging-strategies" title="Permalink to this heading"></a></h2>
+<p>The test harness provided by <code class="docutils literal notranslate"><span class="pre">main.ml</span></code> gives several ways to assess your
+code. See the <code class="docutils literal notranslate"><span class="pre">README.md</span></code> file for a full description of the flags.</p>
+</section>
+<section id="test-cases">
+<h2>Test Cases<a class="headerlink" href="#test-cases" title="Permalink to this heading"></a></h2>
+<p>As part of this project, you must post two test cases for the typechecker on
+the course Slack site.</p>
+<p>These test cases must be small “unit tests” for a specific inference
+rule used in the type system. Here’s how it works: Choose a typechecking judgment
+and write one small, self-contained “positive” test case that succeeds because
+the inference rules for that judgment permit a particular derivation. Then, write
+a second, small, self-contained “negative” test case that succeeds because the
+inference rules for that judgment do not permit a particular derivation.</p>
+<p>For example, I could pick the “subtype” inference rule and have the positive test
+case be testing that indeed, <code class="docutils literal notranslate"><span class="pre">H</span> <span class="pre">|-</span> <span class="pre">string?</span> <span class="pre">&lt;:</span> <span class="pre">string?</span></code> and the negative test case
+could assert that it is not possible to derive <code class="docutils literal notranslate"><span class="pre">H</span> <span class="pre">|-</span> <span class="pre">string?</span> <span class="pre">&lt;:</span> <span class="pre">string</span></code>. The OCaml
+code for these two tests would be given by:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let unit_tests = [
+&quot;subtype_stringQ_stringQ&quot;,
+   (fun () -&gt;
+      if Typechecker.subtype Tctxt.empty (TNullRef RString) (TNullRef RString) then ()
+      else failwith &quot;should not fail&quot;)
+; (&quot;no_subtype_stringQ_stringQ&quot;,
+   (fun () -&gt;
+      if Typechecker.subtype Tctxt.empty (TNullRef RString) (TRef RString) then
+         failwith &quot;should not succeed&quot; else ())
+)
+]
+</pre></div>
+</div>
+<p>You might find the <code class="docutils literal notranslate"><span class="pre">typecheck_error</span></code> and <code class="docutils literal notranslate"><span class="pre">typecheck_correct</span></code> functions in the <code class="docutils literal notranslate"><span class="pre">testlib.ml</span></code> file
+useful for writing these unit tests. (Note that <code class="docutils literal notranslate"><span class="pre">Testlib</span></code> is also imported by <code class="docutils literal notranslate"><span class="pre">studenttests.ml</span></code>
+so you can use the test infrastucture for your own examples.)</p>
+</section>
+<section id="grading">
+<h2>Grading<a class="headerlink" href="#grading" title="Permalink to this heading"></a></h2>
+<p><strong>Projects that do not compile will receive no credit!</strong></p>
+<dl class="simple">
+<dt>Your team’s grade for this project will be based on:</dt><dd><ul class="simple">
+<li><p>34 Points: the various automated tests (most provided, some hidden until submission time).</p></li>
+<li><p>10 Points: Other students Tests</p></li>
+<li><p>6 Points: Posted test cases</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../hw6/hw6-frontend-compilation.html" class="btn btn-neutral float-left" title="HW6: Frontend Compilation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Eric Koskinen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

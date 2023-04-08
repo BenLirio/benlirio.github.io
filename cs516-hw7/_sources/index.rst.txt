@@ -1,0 +1,163 @@
+.. include:: course.links
+
+CS 516: Compilers - Spring 2023
+============================================================
+
+.. toctree::
+   :maxdepth: 1
+
+   syllabus
+   schedule
+   toolchain
+   submit
+   codestyle
+   hw2/x86lite
+   hw4/llvmlite
+   hw5/oatv1
+   hw7/oatv2
+
+.. admonition:: Note
+
+   **If you have recently registered for the course, please see the additional information on Canvas, and contact the course staff if you need help.**
+
+
+Course Information
+------------------
+   
+**Instructor**
+
+* `Eric Koskinen <http://www.erickoskinen.com>`_
+
+  office hours: Mondays 3:00pm-4:30pm and by appointment, <https://stevens.zoom.us/j/96905914431>
+
+**Teaching Assistants**
+
+* **Vidya Rajagopalan**
+
+  office hours: Mondays 1-3pm, Location: <https://stevens.zoom.us/j/96118015278>
+
+* **Ben Lirio**
+
+  office hours: Wednesdays 3-5pm and Thursday 4-5pm, Location: <https://stevens.zoom.us/j/96118015278>
+
+**Coordinates**
+
+* Time: Tuesdays 6:30pm-9:00pm
+* Location: |location|_  (and virtually on Zoom, see the link on |canvas|_)
+* |canvas|_
+* |piazza|_
+* |gradescope|_
+* |github|_
+  
+
+Homework Projects
+-----------------
+
+.. list-table:: 
+   :widths: 15 75 10
+   :header-rows: 1
+
+   * - Points
+     - Description
+     - Due
+   * - 75pts
+     - :doc:`HW1: HelloCaml <hw1/hw1-hellocaml>`
+     - 2/2
+   * - 25pts
+     - :doc:`HW2: X86 Simulator <hw2/hw2-x86sim>`
+     - 2/9
+   * - 75pts
+     - :doc:`HW3: X86 Assembler <hw3/hw3-x86asm>`
+     - 2/16
+   * - 100pts
+     - :doc:`HW4: LLVM Lite <hw4/hw4-llvmlite>`
+     - 3/2
+   * - 25pts
+     - :doc:`HW5: Lexing and Parsing <hw5/hw5-lexing-and-parsing>`
+     - 3/23
+   * - 85pts
+     - :doc:`HW6: Frontend Compilation <hw6/hw6-frontend-compilation>`
+     - 4/06
+   * - 50pts
+     - :doc:`HW7: Typechecking <hw7/hw7-typechecking>`
+     - 4/13
+   * - 50pts
+     - HW8: Compiling structs and function pointers
+     - 4/20
+   * - 50pts
+     - HW9: Dataflow Analysis, Alias Analysis, Dead Code
+     - 4/27
+   * - 50pts
+     - HW10: Register Allocation and Experiments
+     - 5/04
+
+
+.. toctree::
+   :maxdepth: 1
+
+   hw1/hw1-hellocaml
+
+   hw2/hw2-x86sim
+
+   hw3/hw3-x86asm
+
+   hw4/hw4-llvmlite
+
+   hw5/hw5-lexing-and-parsing
+
+   hw6/hw6-frontend-compilation
+
+   hw7/hw7-typechecking
+
+..   hw3/hw3-llvmlite
+
+..   hw4/hw4-oatv1
+
+..   hw5/hw5-oatv2
+
+..   hw6/hw6-opt
+
+    
+Textbooks and Resources
+-----------------------
+
+There is no required textbook for this course.  However, you may find the following references useful for digging deeper into course topics.
+
+**On Principles of Compiler Construction**
+
+1. `Compilers: Principles, Techniques, and Tools (2nd Edition) <https://www.amazon.com/Compilers-Principles-Techniques-Tools-2nd/dp/0321486811>`_ by Aho, Lam, Sethi, and Ullman
+2. `Advanced Compiler Design and Implementation
+   <https://www.amazon.com/Advanced-Compiler-Design-Implementation-Muchnick/dp/1558603204/>`_ by Muchnick 
+3. `Modern Compiler Implementation in ML <https://www.amazon.com/Modern-Compiler-Implement-Andrew-Appel/dp/0521607647>`_ by Appel
+
+**On Types and Type Systems**
+
+1. `Types and Programming Languages <https://www.cis.upenn.edu/~bcpierce/tapl/>`_ by Pierce
+2. `Advanced Topics in Types and Programming Languages <https://www.cis.upenn.edu/~bcpierce/attapl/>`_ by Pierce et al.
+
+**On Program Analysis**
+
+1. `Principles of Program Analysis <https://www.springer.com/gp/book/9783540654100>`_ by Nielson, Nielson, and Hankin
+
+**On OCaml**
+
+1. `Introduction to Objective Caml <_static/files/ocaml-book.pdf>`_ by Jason Hickey 
+2. `Real World OCaml <https://dev.realworldocaml.org/>`_ by Yaron Minsky, Anil Madhavapeddy, and Jason Hickey
+
+
+   
+..
+   Copyright
+   ---------
+
+   Most of the materials and assignments for this module have been
+   adapted, with permission, from the U.Penn's `CIS341
+   <https://www.seas.upenn.edu/~cis341/current/>`_ by `Steve Zdancewic
+   <https://www.cis.upenn.edu/~stevez/>`_.
+
+..
+   Indices and tables
+   ==================
+
+   * :ref:`genindex`
+   * :ref:`search`

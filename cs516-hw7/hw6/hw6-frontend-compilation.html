@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HW6: Frontend Compilation &mdash; CS 516 Spring 2022</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="HW7: Oat v2 – Typechecking" href="../hw7/hw7-typechecking.html" />
+    <link rel="prev" title="HW5: Lexing" href="../hw5/hw5-lexing-and-parsing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> CS516: Compilers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../syllabus.html">Syllabus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../schedule.html">Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../toolchain.html">Software Toolchain </a></li>
+<li class="toctree-l1"><a class="reference internal" href="../submit.html">Project Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codestyle.html">OCaml Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw2/x86lite.html">X86lite Specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw4/llvmlite.html">LLVMlite Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw5/oatv1.html">Oat Language v1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw7/oatv2.html">Oat Language v2</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../hw1/hw1-hellocaml.html">HW1: Hellocaml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw2/hw2-x86sim.html">HW2: X86lite Simulator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw3/hw3-x86asm.html">HW3: X86lite Assembler and Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw4/hw4-llvmlite.html">HW4: LLVMlite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hw5/hw5-lexing-and-parsing.html">HW5: Lexing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">HW6: Frontend Compilation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#frontend-compilation">Frontend Compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-and-debugging-strategies">Testing and Debugging Strategies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#custom-test-case">Custom Test Case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style">Style</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#grading">Grading</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hw7/hw7-typechecking.html">HW7: Oat v2 – Typechecking</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CS516: Compilers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">HW6: Frontend Compilation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="hw6-frontend-compilation">
+<span id="id1"></span><h1>HW6: Frontend Compilation<a class="headerlink" href="#hw6-frontend-compilation" title="Permalink to this heading"></a></h1>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h2>
+<div class="admonition-reuse-hw5 admonition">
+<p class="admonition-title">Reuse HW5</p>
+<p>To save time, you can reuse the HW5 files <strong>bin/lexer.mll</strong> and <strong>bin/parser.mly</strong> in this
+assignment.</p>
+</div>
+<p>The files included in the repository are briefly described
+below. Those marked with <code class="docutils literal notranslate"><span class="pre">*</span></code> are the only ones you should need to
+modify while completing this assignment.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 71%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>lib/util/assert.ml(i)</p></td>
+<td><p>the assertion framework</p></td>
+</tr>
+<tr class="row-even"><td><p>lib/util/platform.ml</p></td>
+<td><p>platform-specific compilation support</p></td>
+</tr>
+<tr class="row-odd"><td><p>lib/util/range.ml(i)</p></td>
+<td><p>range datatype for error messages</p></td>
+</tr>
+<tr class="row-even"><td><p>lib/ll/ll.ml</p></td>
+<td><p>the abstract syntax for LLVMlite</p></td>
+</tr>
+<tr class="row-odd"><td><p>lib/ll/llutil.ml</p></td>
+<td><p>name generation and pretty-printing for LLVMlite</p></td>
+</tr>
+<tr class="row-even"><td><p>lib/ll/lllexer.mll</p></td>
+<td><p>lexer for LLVMlite syntax</p></td>
+</tr>
+<tr class="row-odd"><td><p>lib/ll/llparser.mly</p></td>
+<td><p>parser generator for LLVMlite syntax</p></td>
+</tr>
+<tr class="row-even"><td><p>lib/ll/llinterp.ml</p></td>
+<td><p>reference interpreter for the LLVMlite semantics</p></td>
+</tr>
+<tr class="row-odd"><td><p>lib/x86/x86.ml</p></td>
+<td><p>the X86lite language used as a target</p></td>
+</tr>
+<tr class="row-even"><td><p>README.md</p></td>
+<td><p>help about the main test harness</p></td>
+</tr>
+<tr class="row-odd"><td><p>Makefile</p></td>
+<td><p>basic make support for invoking ocamlbuild</p></td>
+</tr>
+<tr class="row-even"><td><p>hw5programs/*.oat</p></td>
+<td><p>example .oat v.1 programs used in testing</p></td>
+</tr>
+<tr class="row-odd"><td><p>bin/main.ml</p></td>
+<td><p>main test harness</p></td>
+</tr>
+<tr class="row-even"><td><p>bin/driver.ml</p></td>
+<td><p>utilities for invoking the compiler</p></td>
+</tr>
+<tr class="row-odd"><td><p>bin/ast.ml</p></td>
+<td><p>oat abstract syntax</p></td>
+</tr>
+<tr class="row-even"><td><p>bin/astlib.ml</p></td>
+<td><p>pretty printing</p></td>
+</tr>
+<tr class="row-odd"><td><p>bin/backend.ml</p></td>
+<td><p>sample solution to HW4</p></td>
+</tr>
+<tr class="row-even"><td><p>bin/lexer.mll</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">*</span></code> oat lexer (can copy from previous HW)</p></td>
+</tr>
+<tr class="row-odd"><td><p>bin/parser.mly</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">*</span></code> oat parser (can copy from previous HW)</p></td>
+</tr>
+<tr class="row-even"><td><p>bin/frontend.ml</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">*</span></code> oat frontend</p></td>
+</tr>
+<tr class="row-odd"><td><p>bin/runtime.c</p></td>
+<td><p>oat runtime library</p></td>
+</tr>
+<tr class="row-even"><td><p>test/studenttests.ml</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">*</span></code> where your own test cases should go</p></td>
+</tr>
+<tr class="row-odd"><td><p>test/gradedtests.ml</p></td>
+<td><p>graded test cases that we provide</p></td>
+</tr>
+<tr class="row-even"><td><p>bin/progasts.ml</p></td>
+<td><p>helper ast representations for parser tests</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
+<p>In this project, you will implement a compiler frontend for a simple
+imperative language that has boolean, int, string, and array types as well as
+top-level, mutually-recursive functions and global variables. The lexer and parser
+have already been implemented in hw5. In this homework, you will be implementing
+the remaining part of the compiler frontend.Your compiler
+will accept source files that use syntax like:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>int fact(int x) {
+  var acc = 1;
+  while (x &gt; 0) {
+    acc = acc * x;
+    x = x - 1;
+  }
+  return acc;
+}
+
+int program(int argc, string[] argv) {
+  print_string(string_of_int(fact(5)));
+  return 0;
+}
+</pre></div>
+</div>
+<p>and will produce an executable (by default named <code class="docutils literal notranslate"><span class="pre">a.out</span></code>) that, when
+linked against <code class="docutils literal notranslate"><span class="pre">runtime.c</span></code> and then executed produces the resulting
+output:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./a.out
+120
+</pre></div>
+</div>
+<div class="admonition-hint admonition">
+<p class="admonition-title">Hint</p>
+<p>For examples of Oat code, see the files in
+<code class="docutils literal notranslate"><span class="pre">/hw5programs</span></code>, especially those with sensible names.</p>
+</div>
+</section>
+<section id="frontend-compilation">
+<h2>Frontend Compilation<a class="headerlink" href="#frontend-compilation" title="Permalink to this heading"></a></h2>
+<p>The comments <code class="docutils literal notranslate"><span class="pre">frontend.ml</span></code> will help you, but here is how we suggest you proceed:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>Read through the whole <code class="docutils literal notranslate"><span class="pre">frontend.ml</span></code> file and the <a class="reference internal" href="../hw5/oatv1.html#oatv1"><span class="std std-ref">Oat Language v1</span></a> language
+description to get a sense of its structure.  It is arranged so that it mirrors
+the syntax described in the <a class="reference download internal" download="" href="../_downloads/16388594a68f6d29238f6c0c09e83373/oat.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Oat</span> <span class="pre">v.1</span> <span class="pre">Language</span> <span class="pre">Specification</span></code></a>.</p>
+<p>To a first approximation, there is one compilation function for each
+nonterminal of the language syntax.  The inputs to these functions are the
+static context and the piece of syntax (and its type) to be compiled. The
+output of such a function depends on which part of the program you are
+compiling: expressions evaluate to values, so their compilation function
+returns the code computing an operand; statements do not evaluate to
+values, but they do introduce new local variables, so their compilation
+function returns a new context and an instruction stream, etc.</p>
+</li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><p>Take a close look at the <code class="docutils literal notranslate"><span class="pre">Ctxt</span></code> to see how it represents the compilation
+contexts.</p></li>
+<li><p>Begin by working on <code class="docutils literal notranslate"><span class="pre">cmp_global_ctxt</span></code> and <code class="docutils literal notranslate"><span class="pre">cmp_gexp</span></code>, though initially
+you can leave out arrays.</p></li>
+<li><p>Next try to get a minimal <code class="docutils literal notranslate"><span class="pre">cmp_fdecl</span></code> working, producing an <code class="docutils literal notranslate"><span class="pre">Ll.fdecl</span></code>
+with the correct params and type.</p></li>
+<li><p>Next handle the <code class="docutils literal notranslate"><span class="pre">Ret</span></code> case of <code class="docutils literal notranslate"><span class="pre">cmp_stmt</span></code>.  Use the provided
+<code class="docutils literal notranslate"><span class="pre">cfg_of_stream</span></code> function to produce a non-empty function body in
+<code class="docutils literal notranslate"><span class="pre">cmp_fdecl</span></code>. At this point, you should be able to compile a program like
+<code class="docutils literal notranslate"><span class="pre">hw5programs/easyrun1.oat</span></code>.</p></li>
+<li><p>Next implement boolean and integer
+values, <code class="docutils literal notranslate"><span class="pre">Bop</span></code>, and <code class="docutils literal notranslate"><span class="pre">Uop</span></code> cases of <code class="docutils literal notranslate"><span class="pre">cmp_exp</span></code>. Again, saving arrays
+for later.</p></li>
+<li><p>Add support for the <code class="docutils literal notranslate"><span class="pre">Decl</span></code> statement and identifier expressions. Each
+local Oat variable will correspond to an <code class="docutils literal notranslate"><span class="pre">alloca</span></code>d stack slot, which
+should be hoisted to the entry block of the function using the <code class="docutils literal notranslate"><span class="pre">E</span></code>
+stream element constructor.</p></li>
+<li><p>Add more statements. The <code class="docutils literal notranslate"><span class="pre">If</span></code> and <code class="docutils literal notranslate"><span class="pre">While</span></code> statements are very similar
+to what we’ve seen in the lecture code. You can do <code class="docutils literal notranslate"><span class="pre">for</span></code> in several
+ways, but one easy way is to translate it at the Oat abstract syntax level
+to a block of code that uses a while loop. The <code class="docutils literal notranslate"><span class="pre">SCall</span></code> statement isn’t
+that different from the expression form; you might want to find a way to
+have them share code.</p></li>
+<li><p>Revisit the whole compiler adding support for arrays, following the same order as above.</p></li>
+</ol>
+</div></blockquote>
+<div class="admonition-note admonition">
+<p class="admonition-title">Note</p>
+<p>Although we have given you only the skeleton of the <code class="docutils literal notranslate"><span class="pre">frontend.ml</span></code> file,
+much of the code is similar (if not identical to) that demonstrated in
+lecture.  See the sample code there for additional guidance.</p>
+</div>
+<div class="admonition-note admonition">
+<p class="admonition-title">Note</p>
+<p>String constants must be hoisted to the global scope so that the string
+data can be defined as LLVM IR global values.  See the comments in
+<code class="docutils literal notranslate"><span class="pre">frontend.ml</span></code></p>
+</div>
+</section>
+<section id="testing-and-debugging-strategies">
+<h2>Testing and Debugging Strategies<a class="headerlink" href="#testing-and-debugging-strategies" title="Permalink to this heading"></a></h2>
+<p>The test harness provided by <code class="docutils literal notranslate"><span class="pre">main.ml</span></code> gives several ways to assess your
+code. See the <code class="docutils literal notranslate"><span class="pre">README.md</span></code> file for a full description of the flags.</p>
+<div class="admonition-note admonition">
+<p class="admonition-title">Note</p>
+<p>For this project, you will find it particularly
+helpful to run the LLVMlite code by compiling it via clang (with the
+<code class="docutils literal notranslate"><span class="pre">--clang</span></code> flag). That is because our
+<code class="docutils literal notranslate"><span class="pre">backend</span></code> implementation from HW4 (which we have provided for
+your reference) does <em>not</em> typecheck the <code class="docutils literal notranslate"><span class="pre">.ll</span></code> code that
+it compiles.  Using clang will help you catch errors in the
+generated ll output.</p>
+</div>
+<section id="custom-test-case">
+<h3>Custom Test Case<a class="headerlink" href="#custom-test-case" title="Permalink to this heading"></a></h3>
+<p>As part of this project, you must post a <code class="docutils literal notranslate"><span class="pre">.oat</span></code> in the <code class="docutils literal notranslate"><span class="pre">oatv1-tests</span></code> slack thread.
+Your program should be around the size of a hard test case and it will be graded
+based on the following criteria:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Does it compile and produce the correct output when run on the solution?</p></li>
+<li><dl class="simple">
+<dt>Does it use three or more of the following Oat v1 features:</dt><dd><ul class="simple">
+<li><p>globals values</p></li>
+<li><p>arrays</p></li>
+<li><p>mutual recursion</p></li>
+<li><p>immutable strings</p></li>
+<li><p>built-in functions</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Does it differ from existing test cases?</p></li>
+<li><p>Does it provide a sample test run. For example <code class="docutils literal notranslate"><span class="pre">(&quot;hw5programs/globals1.oat&quot;,</span> <span class="pre">&quot;&quot;,</span> <span class="pre">&quot;42&quot;);</span></code></p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="style">
+<h3>Style<a class="headerlink" href="#style" title="Permalink to this heading"></a></h3>
+<p>Style will be graded on this homework. Make sure to check the <a class="reference internal" href="../codestyle.html#codestyle"><span class="std std-ref">OCaml Style Guide</span></a>.</p>
+</section>
+</section>
+<section id="grading">
+<h2>Grading<a class="headerlink" href="#grading" title="Permalink to this heading"></a></h2>
+<p><strong>Projects that do not compile will receive no credit!</strong></p>
+<dl class="simple">
+<dt>Your team’s grade for this project will be based on:</dt><dd><ul class="simple">
+<li><p>60 Points: the various automated tests that we provide.</p></li>
+<li><p>5 Points: Previous Student Test Cases (Graded manually)</p></li>
+<li><p>5 Points: Spring 23 Student Test Cases (Graded manually)</p></li>
+<li><p>5 Points: For test cases submitted to slack (Graded manually)</p></li>
+<li><p>10 Points: Style (Graded manually)</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../hw5/hw5-lexing-and-parsing.html" class="btn btn-neutral float-left" title="HW5: Lexing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../hw7/hw7-typechecking.html" class="btn btn-neutral float-right" title="HW7: Oat v2 – Typechecking" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Eric Koskinen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
