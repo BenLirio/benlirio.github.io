@@ -1,11 +1,69 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>GPT in Education</title><link>http://example.org/</link><description>Recent content on GPT in Education</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>http://example.org/docs/introduction/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/docs/introduction/</guid><description>Introduction Show. Don&amp;rsquo;t tell.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GPT in Education</title>
+    <link>http://benlirio.com/gpt-in-education/</link>
+    <description>Recent content on GPT in Education</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="http://benlirio.com/gpt-in-education/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Introduction</title>
+      <link>http://benlirio.com/gpt-in-education/docs/introduction/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://benlirio.com/gpt-in-education/docs/introduction/</guid>
+      <description>Introduction Show. Don&amp;rsquo;t tell.
 Here is a demonstration of one of the capabilities of GPT. The text box with a blue vertical line on the left is prompt, and the following section with four tabs is GPT&amp;rsquo;s response.
-Demo I am creating a website that describes the impact of ChatGPT on education. The first page is titled &amp;ldquo;introduction&amp;rdquo;, and I would like you to generate a few example introductions.</description></item><item><title/><link>http://example.org/docs/uses/collapsed/data_conversion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/docs/uses/collapsed/data_conversion/</guid><description>Data Conversion I came across this use case of ChatGPT while working on this project. I aimed to create a citation for an article in CSL-JSON format. I had a long list of authors, but the formatting needed to be fixed when I copied and pasted them. So I asked ChatGPT the following to help me with citations.
+Demo  I am creating a website that describes the impact of ChatGPT on education. The first page is titled &amp;ldquo;introduction&amp;rdquo;, and I would like you to generate a few example introductions.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://benlirio.com/gpt-in-education/docs/uses/collapsed/data_conversion/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://benlirio.com/gpt-in-education/docs/uses/collapsed/data_conversion/</guid>
+      <description>Data Conversion I came across this use case of ChatGPT while working on this project. I aimed to create a citation for an article in CSL-JSON format. I had a long list of authors, but the formatting needed to be fixed when I copied and pasted them. So I asked ChatGPT the following to help me with citations.
 Example User
-Extract and convert this text containing authors&amp;hellip;
-Enkelejda KasneciKathrin SesslerStefan KüchemannMaria BannertDaryna DementievaFrank FischerUrs GasserGeorg GrohStephan GünnemannEyke HüllermeierStepha KruscheGitta KutyniokTilman MichaeliClaudia NerdelJürgen PfefferOleksandra PoquetMichael SailerAlbrecht SchmidtTina SeidelMatthias StadlerJochen WellerJochen KuhnGjergji KasneciFloridi&amp;amp;Chiriatti, 2020Devlin et al.</description></item><item><title>Foreign Language</title><link>http://example.org/docs/uses/collapsed/foreign_language/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/docs/uses/collapsed/foreign_language/</guid><description>Foreign Language Discord Channel: OpenAI Thread: prompt-library Subthread: This prompt is better than DuoLingo Author: itsgeorgep Example User
-I am going to define variables like in javascript, and you will remember to use that formatting for the rest of this conversation.
+ Extract and convert this text containing authors&amp;hellip;
+ Enkelejda KasneciKathrin SesslerStefan KüchemannMaria BannertDaryna DementievaFrank FischerUrs GasserGeorg GrohStephan GünnemannEyke HüllermeierStepha KruscheGitta KutyniokTilman MichaeliClaudia NerdelJürgen PfefferOleksandra PoquetMichael SailerAlbrecht SchmidtTina SeidelMatthias StadlerJochen WellerJochen KuhnGjergji KasneciFloridi&amp;amp;Chiriatti, 2020Devlin et al.</description>
+    </item>
+    
+    <item>
+      <title>Foreign Language</title>
+      <link>http://benlirio.com/gpt-in-education/docs/uses/collapsed/foreign_language/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://benlirio.com/gpt-in-education/docs/uses/collapsed/foreign_language/</guid>
+      <description>Foreign Language  Discord Channel: OpenAI Thread: prompt-library Subthread: This prompt is better than DuoLingo Author: itsgeorgep  Example User
+ I am going to define variables like in javascript, and you will remember to use that formatting for the rest of this conversation.
 native language = English target language = tagalog level = intermediate
-What are the most common grammar mistakes a(n) ${native language} speaker with ${my level} level makes when speaking ${target language}?</description></item><item><title>Quiz Creation</title><link>http://example.org/docs/uses/collapsed/quiz_creation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/docs/uses/collapsed/quiz_creation/</guid><description>Quiz creation Discord Channel: OpenAI Thread: prompt-library Subthread: Create test, quiz, or answer key using quizGPT Author: 조민석#0798 I tested it out on a chapter from this Botney Textbook.
+What are the most common grammar mistakes a(n) ${native language} speaker with ${my level} level makes when speaking ${target language}?</description>
+    </item>
+    
+    <item>
+      <title>Quiz Creation</title>
+      <link>http://benlirio.com/gpt-in-education/docs/uses/collapsed/quiz_creation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://benlirio.com/gpt-in-education/docs/uses/collapsed/quiz_creation/</guid>
+      <description>Quiz creation  Discord Channel: OpenAI Thread: prompt-library Subthread: Create test, quiz, or answer key using quizGPT Author: 조민석#0798  I tested it out on a chapter from this Botney Textbook.
 User
-As quizGPT, you are a highly skilled and experienced tutor and teacher with an extensive knowledge of how to create amazing quizzes, tests, and more. When this prompt is used, you will ask the user for their education level to ensure that the quiz or test is tailored to their proficiency.</description></item><item><title>Tutoring</title><link>http://example.org/docs/uses/collapsed/tutoring/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/docs/uses/collapsed/tutoring/</guid><description>Tutoring Discord Channel: OpenAI Thread: prompt-library Subthread: Intelligent Tutoring Tool Author: @LinearSync [Base prompt] @TrueDeath [Edited prompt] This prompt makes ChatGPT act as a tutor for a specific subject. I think it does an excellent job explaining the high-level ideas that would appear in the course outline. However, it often fails to give enjoyable, down-to-earth examples that make the information stick. In addition, it does not pull in outside resources like videos or articles for me to reference.</description></item></channel></rss>
+ As quizGPT, you are a highly skilled and experienced tutor and teacher with an extensive knowledge of how to create amazing quizzes, tests, and more. When this prompt is used, you will ask the user for their education level to ensure that the quiz or test is tailored to their proficiency.</description>
+    </item>
+    
+    <item>
+      <title>Tutoring</title>
+      <link>http://benlirio.com/gpt-in-education/docs/uses/collapsed/tutoring/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://benlirio.com/gpt-in-education/docs/uses/collapsed/tutoring/</guid>
+      <description>Tutoring  Discord Channel: OpenAI Thread: prompt-library Subthread: Intelligent Tutoring Tool Author: @LinearSync [Base prompt] @TrueDeath [Edited prompt]  This prompt makes ChatGPT act as a tutor for a specific subject. I think it does an excellent job explaining the high-level ideas that would appear in the course outline. However, it often fails to give enjoyable, down-to-earth examples that make the information stick. In addition, it does not pull in outside resources like videos or articles for me to reference.</description>
+    </item>
+    
+  </channel>
+</rss>

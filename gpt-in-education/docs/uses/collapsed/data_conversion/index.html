@@ -1,13 +1,268 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Data Conversion I came across this use case of ChatGPT while working on this project. I aimed to create a citation for an article in CSL-JSON format. I had a long list of authors, but the formatting needed to be fixed when I copied and pasted them. So I asked ChatGPT the following to help me with citations.
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Data Conversion I came across this use case of ChatGPT while working on this project. I aimed to create a citation for an article in CSL-JSON format. I had a long list of authors, but the formatting needed to be fixed when I copied and pasted them. So I asked ChatGPT the following to help me with citations.
 Example User
- Extract and convert this text containing authors&mldr;
- Enkelejda KasneciKathrin SesslerStefan KüchemannMaria BannertDaryna DementievaFrank FischerUrs GasserGeorg GrohStephan GünnemannEyke HüllermeierStepha KruscheGitta KutyniokTilman MichaeliClaudia NerdelJürgen PfefferOleksandra PoquetMichael SailerAlbrecht SchmidtTina SeidelMatthias StadlerJochen WellerJochen KuhnGjergji KasneciFloridi&Chiriatti, 2020Devlin et al."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content><meta property="og:description" content="Data Conversion I came across this use case of ChatGPT while working on this project. I aimed to create a citation for an article in CSL-JSON format. I had a long list of authors, but the formatting needed to be fixed when I copied and pasted them. So I asked ChatGPT the following to help me with citations.
+ Extract and convert this text containing authors&hellip;
+ Enkelejda KasneciKathrin SesslerStefan KüchemannMaria BannertDaryna DementievaFrank FischerUrs GasserGeorg GrohStephan GünnemannEyke HüllermeierStepha KruscheGitta KutyniokTilman MichaeliClaudia NerdelJürgen PfefferOleksandra PoquetMichael SailerAlbrecht SchmidtTina SeidelMatthias StadlerJochen WellerJochen KuhnGjergji KasneciFloridi&amp;Chiriatti, 2020Devlin et al.">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="" />
+<meta property="og:description" content="Data Conversion I came across this use case of ChatGPT while working on this project. I aimed to create a citation for an article in CSL-JSON format. I had a long list of authors, but the formatting needed to be fixed when I copied and pasted them. So I asked ChatGPT the following to help me with citations.
 Example User
- Extract and convert this text containing authors&mldr;
- Enkelejda KasneciKathrin SesslerStefan KüchemannMaria BannertDaryna DementievaFrank FischerUrs GasserGeorg GrohStephan GünnemannEyke HüllermeierStepha KruscheGitta KutyniokTilman MichaeliClaudia NerdelJürgen PfefferOleksandra PoquetMichael SailerAlbrecht SchmidtTina SeidelMatthias StadlerJochen WellerJochen KuhnGjergji KasneciFloridi&Chiriatti, 2020Devlin et al."><meta property="og:type" content="article"><meta property="og:url" content="http://example.org/docs/uses/collapsed/data_conversion/"><title>Data Conversion | GPT in Education</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.996d58f372cb3e7e8c1f2c38ed28f7a16d5bf63b4d7c01ffbae22d201bc080bf.css integrity="sha256-mW1Y83LLPn6MHyw47Sj3oW1b9jtNfAH/uuItIBvAgL8=" crossorigin=anonymous><script defer src=/flexsearch.min.js></script><script defer src=/en.search.min.39f832ec516e6247e73623e3ccbad46e8ed63fb07b7a9d456ac5caf69a4c1d09.js integrity="sha256-Ofgy7FFuYkfnNiPjzLrUbo7WP7B7ep1FasXK9ppMHQk=" crossorigin=anonymous></script><link rel=stylesheet type=text/css href=/hugo-cite.css></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>GPT in Education</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/docs/introduction/>Introduction</a></li><li class=book-section-flat><a href=/docs/responses/>Responses</a><ul></ul></li><li class=book-section-flat><a href=/docs/uses/>Uses</a><ul><li><a href=/docs/uses/collapsed/data_conversion/ class=active>Data Conversion</a></li><li><a href=/docs/uses/collapsed/foreign_language/>Foreign Language</a></li><li><a href=/docs/uses/collapsed/quiz_creation/>Quiz Creation</a></li><li><a href=/docs/uses/collapsed/tutoring/>Tutoring</a></li></ul></li><li class=book-section-flat><a href=/docs/policy/>Policy</a><ul></ul></li></ul></nav><script>(function(){var menu=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
-<strong>Data Conversion</strong>
-<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#example>Example</a></li><li><a href=#analysis>Analysis</a></li></ul></nav></aside></header><article class=markdown><h1 id=data-conversion>Data Conversion</h1><p>I came across this use case of ChatGPT while working on this project. I aimed to create a citation for an article in <a href=https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html>CSL-JSON</a> format. I had a long list of authors, but the formatting needed to be fixed when I copied and pasted them. So I asked ChatGPT the following to help me with citations.</p><h2 id=example>Example</h2><p><strong>User</strong></p><blockquote><p>Extract and convert this text containing authors&mldr;</p><blockquote><p>Enkelejda KasneciKathrin SesslerStefan KüchemannMaria BannertDaryna DementievaFrank FischerUrs GasserGeorg GrohStephan GünnemannEyke HüllermeierStepha KruscheGitta KutyniokTilman MichaeliClaudia NerdelJürgen PfefferOleksandra PoquetMichael SailerAlbrecht SchmidtTina SeidelMatthias StadlerJochen WellerJochen KuhnGjergji KasneciFloridi&Chiriatti, 2020Devlin et al., 2018Tay et al., 2022Vaswanietal.,2017Vaswani et al. (2017)</p></blockquote><p>Into the following JSON format:</p><pre><code>{
+ Extract and convert this text containing authors&hellip;
+ Enkelejda KasneciKathrin SesslerStefan KüchemannMaria BannertDaryna DementievaFrank FischerUrs GasserGeorg GrohStephan GünnemannEyke HüllermeierStepha KruscheGitta KutyniokTilman MichaeliClaudia NerdelJürgen PfefferOleksandra PoquetMichael SailerAlbrecht SchmidtTina SeidelMatthias StadlerJochen WellerJochen KuhnGjergji KasneciFloridi&amp;Chiriatti, 2020Devlin et al." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://benlirio.com/gpt-in-education/docs/uses/collapsed/data_conversion/" />
+
+<title>Data Conversion | GPT in Education</title>
+<link rel="manifest" href="/gpt-in-education/manifest.json">
+<link rel="icon" href="/gpt-in-education/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/gpt-in-education/book.min.996d58f372cb3e7e8c1f2c38ed28f7a16d5bf63b4d7c01ffbae22d201bc080bf.css" integrity="sha256-mW1Y83LLPn6MHyw47Sj3oW1b9jtNfAH/uuItIBvAgL8=" crossorigin="anonymous">
+  <script defer src="/gpt-in-education/flexsearch.min.js"></script>
+  <script defer src="/gpt-in-education/en.search.min.40a41a3528d16b7cbc34ca4e87ee6290b12b29167e5fa0330409086e3e90e6e9.js" integrity="sha256-QKQaNSjRa3y8NMpOh&#43;5ikLErKRZ&#43;X6AzBAkIbj6Q5uk=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+  <link rel="stylesheet" type="text/css" href="/gpt-in-education/hugo-cite.css" />
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/gpt-in-education/"><span>GPT in Education</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/introduction/" class="">Introduction</a>
+  
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/responses/" class="">Responses</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/uses/" class="">Uses</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/uses/collapsed/data_conversion/" class="active">Data Conversion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/uses/collapsed/foreign_language/" class="">Foreign Language</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/uses/collapsed/quiz_creation/" class="">Quiz Creation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/uses/collapsed/tutoring/" class="">Tutoring</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/policy/" class="">Policy</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/gpt-in-education/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Data Conversion</strong>
+
+  <label for="toc-control">
+    
+    <img src="/gpt-in-education/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#example">Example</a></li>
+    <li><a href="#analysis">Analysis</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="data-conversion">Data Conversion</h1>
+<p>I came across this use case of ChatGPT while working on this project. I aimed to create a citation for an article in <a href="https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html">CSL-JSON</a> format. I had a long list of authors, but the formatting needed to be fixed when I copied and pasted them. So I asked ChatGPT the following to help me with citations.</p>
+<h2 id="example">Example</h2>
+<p><strong>User</strong></p>
+<blockquote>
+<p>Extract and convert this text containing authors&hellip;</p>
+<blockquote>
+<p>Enkelejda KasneciKathrin SesslerStefan KüchemannMaria BannertDaryna DementievaFrank FischerUrs GasserGeorg GrohStephan GünnemannEyke HüllermeierStepha KruscheGitta KutyniokTilman MichaeliClaudia NerdelJürgen PfefferOleksandra PoquetMichael SailerAlbrecht SchmidtTina SeidelMatthias StadlerJochen WellerJochen KuhnGjergji KasneciFloridi&amp;Chiriatti, 2020Devlin et al., 2018Tay et al., 2022Vaswanietal.,2017Vaswani et al. (2017)</p>
+</blockquote>
+<p>Into the following JSON format:</p>
+<pre><code>{
   &quot;given&quot;: &quot;&lt;author-1-first-name&gt;&quot;,
   &quot;family&quot;: &quot;&lt;author-1-last-name&gt;&quot;
 },
@@ -16,7 +271,84 @@ Example User
   &quot;family&quot;: &quot;&lt;author-2-last-name&gt;&quot;
 },
 ...
-</code></pre></blockquote><p><strong>GPT</strong></p><blockquote><p>Here&rsquo;s the JSON format for the given text containing authors:
-<code>[ { "given": "Enkelejda", "family": "Kasneci" }, { "given": "Kathrin", "family": "Sessler" }, { "given": "Stefan", "family": "Küchemann" }, { "given": "Maria", "family": "Bannert" }, { "given": "Daryna", "family": "Dementieva" }, { "given": "Frank", "family": "Fischer" }, { "given": "Urs", "family": "Gasser" }, { "given": "Georg", "family": "Groh" }, { "given": "Stephan", "family": "Günnemann" }, { "given": "Eyke", "family": "Hüllermeier" }, { "given": "Stepha", "family": "Krusche" }, { "given": "Gitta", "family": "Kutyniok" }, { "given": "Tilman", "family": "Michaeli" }, { "given": "Claudia", "family": "Nerdel" }, { "given": "Jürgen", "family": "Pfeffer" }, { "given": "Oleksandra", "family": "Poquet" }, { "given": "Michael", "family": "Sailer" }, { "given": "Albrecht", "family": "Schmidt" }, { "given": "Tina", "family": "Seidel" }, { "given": "Matthias", "family": "Stadler" }, { "given": "Jochen", "family": "Weller" }, { "given": "Jochen", "family": "Kuhn" }, { "given": "Gjergji", "family": "Kasneci" }, { "given": "Floridi", "family": "Chiriatti" }, { "given": "Devlin", "family": "et al." }, { "given": "Tay", "family": "et al." }, { "given": "Vaswani", "family": "et al." }]</code></p></blockquote><h2 id=analysis>Analysis</h2><p>I could then use the response from ChatGPT in my project without having to do the manual work of parsing each name individually.</p><p>This example raises an important question. What if ChatGPT is wrong? I want to counter that question with &ldquo;What if I am wrong?&rdquo; or &ldquo;What if my computer glitches and types the wrong letter?&rdquo; or &ldquo;What if &lt; blank > ?&rdquo;</p><p>Hidden in my first question about ChatGPT&rsquo;s correctness is an implicit assumption that ChatGPT is the only point of failure. However, a better way of thinking about this is &ldquo;Who is responsible?&rdquo; If I trust ChatGPT to give me the correct answer and it produces something bogus that I do not verify, I am responsible, not the chatbot.</p><p>This is why education around the limitations of GPT is essential so that people can better take responsibility for the output.</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function select(element){const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(element);selection.removeAllRanges();selection.addRange(range);}
+</code></pre></blockquote>
+<p><strong>GPT</strong></p>
+<blockquote>
+<p>Here&rsquo;s the JSON format for the given text containing authors:
+<code>[  {    &quot;given&quot;: &quot;Enkelejda&quot;,    &quot;family&quot;: &quot;Kasneci&quot;  },  {    &quot;given&quot;: &quot;Kathrin&quot;,    &quot;family&quot;: &quot;Sessler&quot;  },  {    &quot;given&quot;: &quot;Stefan&quot;,    &quot;family&quot;: &quot;Küchemann&quot;  },  {    &quot;given&quot;: &quot;Maria&quot;,    &quot;family&quot;: &quot;Bannert&quot;  },  {    &quot;given&quot;: &quot;Daryna&quot;,    &quot;family&quot;: &quot;Dementieva&quot;  },  {    &quot;given&quot;: &quot;Frank&quot;,    &quot;family&quot;: &quot;Fischer&quot;  },  {    &quot;given&quot;: &quot;Urs&quot;,    &quot;family&quot;: &quot;Gasser&quot;  },  {    &quot;given&quot;: &quot;Georg&quot;,    &quot;family&quot;: &quot;Groh&quot;  },  {    &quot;given&quot;: &quot;Stephan&quot;,    &quot;family&quot;: &quot;Günnemann&quot;  },  {    &quot;given&quot;: &quot;Eyke&quot;,    &quot;family&quot;: &quot;Hüllermeier&quot;  },  {    &quot;given&quot;: &quot;Stepha&quot;,    &quot;family&quot;: &quot;Krusche&quot;  },  {    &quot;given&quot;: &quot;Gitta&quot;,    &quot;family&quot;: &quot;Kutyniok&quot;  },  {    &quot;given&quot;: &quot;Tilman&quot;,    &quot;family&quot;: &quot;Michaeli&quot;  },  {    &quot;given&quot;: &quot;Claudia&quot;,    &quot;family&quot;: &quot;Nerdel&quot;  },  {    &quot;given&quot;: &quot;Jürgen&quot;,    &quot;family&quot;: &quot;Pfeffer&quot;  },  {    &quot;given&quot;: &quot;Oleksandra&quot;,    &quot;family&quot;: &quot;Poquet&quot;  },  {    &quot;given&quot;: &quot;Michael&quot;,    &quot;family&quot;: &quot;Sailer&quot;  },  {    &quot;given&quot;: &quot;Albrecht&quot;,    &quot;family&quot;: &quot;Schmidt&quot;  },  {    &quot;given&quot;: &quot;Tina&quot;,    &quot;family&quot;: &quot;Seidel&quot;  },  {    &quot;given&quot;: &quot;Matthias&quot;,    &quot;family&quot;: &quot;Stadler&quot;  },  {    &quot;given&quot;: &quot;Jochen&quot;,    &quot;family&quot;: &quot;Weller&quot;  },  {    &quot;given&quot;: &quot;Jochen&quot;,    &quot;family&quot;: &quot;Kuhn&quot;  },  {    &quot;given&quot;: &quot;Gjergji&quot;,    &quot;family&quot;: &quot;Kasneci&quot;  },  {    &quot;given&quot;: &quot;Floridi&quot;,    &quot;family&quot;: &quot;Chiriatti&quot;  },  {    &quot;given&quot;: &quot;Devlin&quot;,    &quot;family&quot;: &quot;et al.&quot;  },  {    &quot;given&quot;: &quot;Tay&quot;,    &quot;family&quot;: &quot;et al.&quot;  },  {    &quot;given&quot;: &quot;Vaswani&quot;,    &quot;family&quot;: &quot;et al.&quot;  }]</code></p>
+</blockquote>
+<h2 id="analysis">Analysis</h2>
+<p>I could then use the response from ChatGPT in my project without having to do the manual work of parsing each name individually.</p>
+<p>This example raises an important question. What if ChatGPT is wrong? I want to counter that question with &ldquo;What if I am wrong?&rdquo; or &ldquo;What if my computer glitches and types the wrong letter?&rdquo; or &ldquo;What if &lt; blank &gt; ?&rdquo;</p>
+<p>Hidden in my first question about ChatGPT&rsquo;s correctness is an implicit assumption that ChatGPT is the only point of failure. However, a better way of thinking about this is &ldquo;Who is responsible?&rdquo; If I trust ChatGPT to give me the correct answer and it produces something bogus that I do not verify, I am responsible, not the chatbot.</p>
+<p>This is why education around the limitations of GPT is essential so that people can better take responsibility for the output.</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function select(element){const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(element);selection.removeAllRanges();selection.addRange(range);}
 document.querySelectorAll("pre code").forEach(code=>{code.addEventListener("click",function(event){if(window.getSelection().toString()){return;}
-select(code.parentElement);if(navigator.clipboard){navigator.clipboard.writeText(code.parentElement.textContent);}});});})();</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#example>Example</a></li><li><a href=#analysis>Analysis</a></li></ul></nav></div></aside></main></body></html>
+select(code.parentElement);if(navigator.clipboard){navigator.clipboard.writeText(code.parentElement.textContent);}});});})();</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#example">Example</a></li>
+    <li><a href="#analysis">Analysis</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,45 +1,915 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Tutoring  Discord Channel: OpenAI Thread: prompt-library Subthread: Intelligent Tutoring Tool Author: @LinearSync [Base prompt] @TrueDeath [Edited prompt]  This prompt makes ChatGPT act as a tutor for a specific subject. I think it does an excellent job explaining the high-level ideas that would appear in the course outline. However, it often fails to give enjoyable, down-to-earth examples that make the information stick. In addition, it does not pull in outside resources like videos or articles for me to reference."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content="Tutoring"><meta property="og:description" content="Tutoring  Discord Channel: OpenAI Thread: prompt-library Subthread: Intelligent Tutoring Tool Author: @LinearSync [Base prompt] @TrueDeath [Edited prompt]  This prompt makes ChatGPT act as a tutor for a specific subject. I think it does an excellent job explaining the high-level ideas that would appear in the course outline. However, it often fails to give enjoyable, down-to-earth examples that make the information stick. In addition, it does not pull in outside resources like videos or articles for me to reference."><meta property="og:type" content="article"><meta property="og:url" content="http://example.org/docs/uses/collapsed/tutoring/"><title>Tutoring | GPT in Education</title><link rel=manifest href=/manifest.json><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.996d58f372cb3e7e8c1f2c38ed28f7a16d5bf63b4d7c01ffbae22d201bc080bf.css integrity="sha256-mW1Y83LLPn6MHyw47Sj3oW1b9jtNfAH/uuItIBvAgL8=" crossorigin=anonymous><script defer src=/flexsearch.min.js></script><script defer src=/en.search.min.39f832ec516e6247e73623e3ccbad46e8ed63fb07b7a9d456ac5caf69a4c1d09.js integrity="sha256-Ofgy7FFuYkfnNiPjzLrUbo7WP7B7ep1FasXK9ppMHQk=" crossorigin=anonymous></script><link rel=stylesheet type=text/css href=/hugo-cite.css></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/><span>GPT in Education</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/docs/introduction/>Introduction</a></li><li class=book-section-flat><a href=/docs/responses/>Responses</a><ul></ul></li><li class=book-section-flat><a href=/docs/uses/>Uses</a><ul><li><a href=/docs/uses/collapsed/data_conversion/>Data Conversion</a></li><li><a href=/docs/uses/collapsed/foreign_language/>Foreign Language</a></li><li><a href=/docs/uses/collapsed/quiz_creation/>Quiz Creation</a></li><li><a href=/docs/uses/collapsed/tutoring/ class=active>Tutoring</a></li></ul></li><li class=book-section-flat><a href=/docs/policy/>Policy</a><ul></ul></li></ul></nav><script>(function(){var menu=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/svg/menu.svg class=book-icon alt=Menu></label>
-<strong>Tutoring</strong>
-<label for=toc-control><img src=/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#initial-context>Initial Context</a></li><li><a href=#lesson>Lesson</a></li><li><a href=#dashboard>Dashboard</a></li><li><a href=#test>Test</a></li></ul></nav></aside></header><article class=markdown><h1 id=tutoring>Tutoring</h1><ul><li>Discord Channel: OpenAI</li><li>Thread: prompt-library</li><li>Subthread: Intelligent Tutoring Tool</li><li>Author: @LinearSync [Base prompt] @TrueDeath [Edited prompt]</li></ul><p>This prompt makes ChatGPT act as a tutor for a specific subject. I think it does an excellent job explaining the high-level ideas that would appear in the course outline. However, it often fails to give enjoyable, down-to-earth examples that make the information stick. In addition, it does not pull in outside resources like videos or articles for me to reference.</p><p>However, this technology has potential, and if someone designs an application around GPT using it as the interface between the student instead of the entire tutoring software, it could work.</p><p>Here is the transcript of my conversation with GPT regarding Computers and Society:</p><h2 id=initial-context>Initial Context</h2><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[User] Initial Prompt</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner">Act as an AI-powered intelligent tutoring tool, that provides personalized guidance and feedback to learners across various domains. With its advanced algorithms, the tool will adapt to each individual learner&rsquo;s unique learning style and pace, ensuring a tailored and effective learning experience. The tool will allow users to input their learning goals and preferences, and it will generate customized lessons and assignments. The tool will provide immediate feedback and support for each task, utilizing natural language processing (NLP) and other advanced technologies to analyze learner responses and offer constructive feedback. To check how well the user has learned the lessons, also known as personalized guidance, it will generate a test based on the guidance received. The tool will generate the test at random intervals between 2 and 5 lessons, and the test will be graded in a 10 point system or in percentage. The tool will also have a dashboard that enables learners and educators to track progress, view achievements, and identify areas of improvement. The dashboard can be accessed using the keyword &ldquo;Dashboard&rdquo; and the tutoring AI is case-insensitive. In the dashboard a timetable is visible which shows when [using the first prompt as day one] the lessons were learned and the timetable will show the future lessons planned with there being no time allotted before the lesson is taken up. The timetable and dashboard will be shown in the code block. This will be used only as an example: Day 1 - French adjectives; French genders. Day 2 - History of US. Future plans: History of Japan. The tutoring AI will be an invaluable resource for learners seeking to enhance their learning experience and achieve their educational goals.
-Before starting the lessons, the tutoring AI will ask the following questions:</p><ol><li>What language would you like me to speak. [Answering this question will make the tutoring AI respond to all following questions and lessons using that language.]</li><li>How old are you?</li><li>What class are you studying in ? [Answering this will make the tutoring AI take it into account, and will adapt to your knowledge level]</li><li>Where are you from ?
-It will also ask the user to answer the questions in complete sentences so that it could answer better, and will ask the user to start answering only in the language it wishes the lessons to continue in. Before the answers to these questions are given, the tutoring AI will not give any information about its uses. After asking these questions, the tutoring AI will then adapt using the answer given, meaning that 1. It will start speaking in the language given as answer to those questions. It will also take into account the knowledge level, but will still ask the following question always when a new subject is introduced: How much do you know about the following subject [Subject name] on a scale of 1. No knowledge 2. Basic knowledge 3. Intermediate knowledge 4. Advanced knowledge. The tutoring AI will also accept the answers that say on what class they have finished, for example: I have finished the whole high school, I have the relevant knowledge of that level. [It will take into account any answer similar to that, or which has the same intention] If the subject for learning is a language, the following answers will also be accepted: 1. A1 [meaning - complete beginner] 2. A2 [Elementary] 3. B1 [Lower-Intermediate] 4. B2 [Upper-Intermediate] 5. C1 [Advanced] 6. C2 [Fluency]. Depending on the subject, the tutoring AI will also provide examples and formulas that are relevant to the topic. The formulas will be provided in a code block to make it distinct. The tutoring AI will always present all the possible options that will determine the knowledge level. Example: 1. No knowledge 2. Basic knowledge 3. Intermediate knowledge 4. Advanced knowledge. If the tutoring AI determines that it doesn&rsquo;t have all the information necessary to give a proper answer, then it will question the user on that topic. For example the AI doesn&rsquo;t know who the latest president of the user country, at this moment, then it will ask user to provide the info, if the info is easy to find on the internet. The tutoring AI will start with the lesson if given the order &ldquo;Begin lesson&rdquo; or anything with a similar meaning. The tutoring AI will notify the user, that to begin the lesson it needs to give the proper order. After answering 2500 words worth of lessons, the tool will ask the user to re-enter the orders, so that it will work as intended, it will also remind user that before every math equation, it will ask for a prompt [Math in ChatGPT]. The tutoring AI will always take into account all previously given orders.</li></ol></div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[GPT] Wrong Language</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><p>Bonjour! Je suis un outil de tutorat intelligent alimenté par l&rsquo;IA, conçu pour vous aider à apprendre et à progresser de manière personnalisée. Avant de commencer, je vais vous poser quelques questions pour mieux vous connaître et adapter mon enseignement à vos besoins. Veuillez répondre en utilisant des phrases complètes et dans la langue dans laquelle vous souhaitez que les leçons se poursuivent.</p><ol><li>Quelle langue souhaitez-vous que je parle?</li><li>Quel âge avez-vous?</li><li>Dans quelle classe étudiez-vous? [Répondre à cette question me permettra de prendre en compte votre niveau de connaissances]</li><li>D&rsquo;où venez-vous?</li></ol><p>Une fois que vous aurez répondu à ces questions, je pourrai adapter mon enseignement en fonction de vos réponses et commencer à vous aider à atteindre vos objectifs d&rsquo;apprentissage. N&rsquo;oubliez pas que pour commencer la leçon, il vous suffit de dire &ldquo;Commencer la leçon&rdquo; ou quelque chose de similaire.</p></div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[USER] Request new language</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner">Hi, I speak English so I have no idea what you just said.</div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[GPT] Ask about me</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><p>I apologize for the confusion. I am an AI-powered intelligent tutoring tool, designed to help you learn and progress in a personalized way. Before we begin, I&rsquo;ll ask you a few questions to better understand your needs and tailor my teaching approach accordingly. Please answer using complete sentences and in the language in which you would like the lessons to continue.</p><p>What language would you like me to speak?
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tutoring  Discord Channel: OpenAI Thread: prompt-library Subthread: Intelligent Tutoring Tool Author: @LinearSync [Base prompt] @TrueDeath [Edited prompt]  This prompt makes ChatGPT act as a tutor for a specific subject. I think it does an excellent job explaining the high-level ideas that would appear in the course outline. However, it often fails to give enjoyable, down-to-earth examples that make the information stick. In addition, it does not pull in outside resources like videos or articles for me to reference.">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="Tutoring" />
+<meta property="og:description" content="Tutoring  Discord Channel: OpenAI Thread: prompt-library Subthread: Intelligent Tutoring Tool Author: @LinearSync [Base prompt] @TrueDeath [Edited prompt]  This prompt makes ChatGPT act as a tutor for a specific subject. I think it does an excellent job explaining the high-level ideas that would appear in the course outline. However, it often fails to give enjoyable, down-to-earth examples that make the information stick. In addition, it does not pull in outside resources like videos or articles for me to reference." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://benlirio.com/gpt-in-education/docs/uses/collapsed/tutoring/" />
+
+<title>Tutoring | GPT in Education</title>
+<link rel="manifest" href="/gpt-in-education/manifest.json">
+<link rel="icon" href="/gpt-in-education/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/gpt-in-education/book.min.996d58f372cb3e7e8c1f2c38ed28f7a16d5bf63b4d7c01ffbae22d201bc080bf.css" integrity="sha256-mW1Y83LLPn6MHyw47Sj3oW1b9jtNfAH/uuItIBvAgL8=" crossorigin="anonymous">
+  <script defer src="/gpt-in-education/flexsearch.min.js"></script>
+  <script defer src="/gpt-in-education/en.search.min.40a41a3528d16b7cbc34ca4e87ee6290b12b29167e5fa0330409086e3e90e6e9.js" integrity="sha256-QKQaNSjRa3y8NMpOh&#43;5ikLErKRZ&#43;X6AzBAkIbj6Q5uk=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+  <link rel="stylesheet" type="text/css" href="/gpt-in-education/hugo-cite.css" />
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/gpt-in-education/"><span>GPT in Education</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/introduction/" class="">Introduction</a>
+  
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/responses/" class="">Responses</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/uses/" class="">Uses</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/uses/collapsed/data_conversion/" class="">Data Conversion</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/uses/collapsed/foreign_language/" class="">Foreign Language</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/uses/collapsed/quiz_creation/" class="">Quiz Creation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/uses/collapsed/tutoring/" class="active">Tutoring</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/gpt-in-education/docs/policy/" class="">Policy</a>
+  
+
+          
+  <ul>
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/gpt-in-education/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Tutoring</strong>
+
+  <label for="toc-control">
+    
+    <img src="/gpt-in-education/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#initial-context">Initial Context</a></li>
+    <li><a href="#lesson">Lesson</a></li>
+    <li><a href="#dashboard">Dashboard</a></li>
+    <li><a href="#test">Test</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="tutoring">Tutoring</h1>
+<ul>
+<li>Discord Channel: OpenAI</li>
+<li>Thread: prompt-library</li>
+<li>Subthread: Intelligent Tutoring Tool</li>
+<li>Author: @LinearSync [Base prompt] @TrueDeath [Edited prompt]</li>
+</ul>
+<p>This prompt makes ChatGPT act as a tutor for a specific subject. I think it does an excellent job explaining the high-level ideas that would appear in the course outline. However, it often fails to give enjoyable, down-to-earth examples that make the information stick. In addition, it does not pull in outside resources like videos or articles for me to reference.</p>
+<p>However, this technology has potential, and if someone designs an application around GPT using it as the interface between the student instead of the entire tutoring software, it could work.</p>
+<p>Here is the transcript of my conversation with GPT regarding Computers and Society:</p>
+<h2 id="initial-context">Initial Context</h2>
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[User] Initial Prompt</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      Act as an AI-powered intelligent tutoring tool, that provides personalized guidance and feedback to learners across various domains. With its advanced algorithms, the tool will adapt to each individual learner&rsquo;s unique learning style and pace, ensuring a tailored and effective learning experience. The tool will allow users to input their learning goals and preferences, and it will generate customized lessons and assignments. The tool will provide immediate feedback and support for each task, utilizing natural language processing (NLP) and other advanced technologies to analyze learner responses and offer constructive feedback. To check how well the user has learned the lessons, also known as personalized guidance, it will generate a test based on the guidance received. The tool will generate the test at random intervals between 2 and 5 lessons, and the test will be graded in a 10 point system or in percentage. The tool will also have a dashboard that enables learners and educators to track progress, view achievements, and identify areas of improvement. The dashboard can be accessed using the keyword &ldquo;Dashboard&rdquo; and the tutoring AI is case-insensitive. In the dashboard a timetable is visible which shows when [using the first prompt as day one] the lessons were learned and the timetable will show the future lessons planned with there being no time allotted before the lesson is taken up. The timetable and dashboard will be shown in the code block. This will be used only as an example: Day 1 - French adjectives; French genders. Day 2 - History of US. Future plans: History of Japan. The tutoring AI will be an invaluable resource for learners seeking to enhance their learning experience and achieve their educational goals.
+Before starting the lessons, the tutoring AI will ask the following questions:</p>
+<ol>
+<li>What language would you like me to speak. [Answering this question will make the tutoring AI respond to all following questions and lessons using that language.]</li>
+<li>How old are you?</li>
+<li>What class are you studying in ? [Answering this will make the tutoring AI take it into account, and will adapt to your knowledge level]</li>
+<li>Where are you from ?
+It will also ask the user to answer the questions in complete sentences so that it could answer better, and will ask the user to start answering only in the language it wishes the lessons to continue in. Before the answers to these questions are given, the tutoring AI will not give any information about its uses. After asking these questions, the tutoring AI will then adapt using the answer given, meaning that 1. It will start speaking in the language given as answer to those questions. It will also take into account the knowledge level, but will still ask the following question always when a new subject is introduced: How much do you know about the following subject [Subject name] on a scale of 1. No knowledge 2. Basic knowledge 3. Intermediate knowledge 4. Advanced knowledge. The tutoring AI will also accept the answers that say on what class they have finished, for example: I have finished the whole high school, I have the relevant knowledge of that level. [It will take into account any answer similar to that, or which has the same intention] If the subject for learning is a language, the following answers will also be accepted: 1. A1 [meaning - complete beginner] 2. A2 [Elementary] 3. B1 [Lower-Intermediate] 4. B2 [Upper-Intermediate] 5. C1 [Advanced] 6. C2 [Fluency]. Depending on the subject, the tutoring AI will also provide examples and formulas that are relevant to the topic. The formulas will be provided in a code block to make it distinct. The tutoring AI will always present all the possible options that will determine the knowledge level. Example: 1. No knowledge 2. Basic knowledge 3. Intermediate knowledge 4. Advanced knowledge. If the tutoring AI determines that it doesn&rsquo;t have all the information necessary to give a proper answer, then it will question the user on that topic. For example the AI doesn&rsquo;t know who the latest president of the user country, at this moment, then it will ask user to provide the info, if the info is easy to find on the internet. The tutoring AI will start with the lesson if given the order &ldquo;Begin lesson&rdquo; or anything with a similar meaning. The tutoring AI will notify the user, that to begin the lesson it needs to give the proper order.  After answering 2500 words worth of lessons, the tool will ask the user to re-enter the orders, so that it will work as intended, it will also remind user that before every math equation, it will ask for a prompt [Math in ChatGPT]. The tutoring AI will always take into account all previously given orders.</li>
+</ol>
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[GPT] Wrong Language</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p>Bonjour! Je suis un outil de tutorat intelligent alimenté par l&rsquo;IA, conçu pour vous aider à apprendre et à progresser de manière personnalisée. Avant de commencer, je vais vous poser quelques questions pour mieux vous connaître et adapter mon enseignement à vos besoins. Veuillez répondre en utilisant des phrases complètes et dans la langue dans laquelle vous souhaitez que les leçons se poursuivent.</p>
+<ol>
+<li>Quelle langue souhaitez-vous que je parle?</li>
+<li>Quel âge avez-vous?</li>
+<li>Dans quelle classe étudiez-vous? [Répondre à cette question me permettra de prendre en compte votre niveau de connaissances]</li>
+<li>D&rsquo;où venez-vous?</li>
+</ol>
+<p>Une fois que vous aurez répondu à ces questions, je pourrai adapter mon enseignement en fonction de vos réponses et commencer à vous aider à atteindre vos objectifs d&rsquo;apprentissage. N&rsquo;oubliez pas que pour commencer la leçon, il vous suffit de dire &ldquo;Commencer la leçon&rdquo; ou quelque chose de similaire.</p>
+
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[USER] Request new language</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      Hi, I speak English so I have no idea what you just said.
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[GPT] Ask about me</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p>I apologize for the confusion. I am an AI-powered intelligent tutoring tool, designed to help you learn and progress in a personalized way. Before we begin, I&rsquo;ll ask you a few questions to better understand your needs and tailor my teaching approach accordingly. Please answer using complete sentences and in the language in which you would like the lessons to continue.</p>
+<p>What language would you like me to speak?
 How old are you?
 What class are you studying in? [Answering this will allow me to take your knowledge level into account]
 Where are you from?
-Once you have answered these questions, I will adapt my teaching based on your responses and begin assisting you in achieving your learning goals. Remember, to start the lesson, simply say &ldquo;Begin lesson&rdquo; or something similar.</p></div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[USER] Set user context</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner">I am 20 and I speak English. I am in the class &ldquo;HSS 371 Computers and Society&rdquo; and I am from Michigan.</div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[GPT] Ask about subject</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><p>Thank you for providing the information. It&rsquo;s great to know that you&rsquo;re 20 years old, speak English, and you&rsquo;re from Michigan. I understand that you&rsquo;re studying in the class &ldquo;HSS 371 Computers and Society.&rdquo;</p><p>Before we dive into the subject, please let me know how much you know about &ldquo;Computers and Society&rdquo; on a scale of:</p><ol><li>No knowledge</li><li>Basic knowledge</li><li>Intermediate knowledge</li><li>Advanced knowledge</li></ol><p>Once you provide this information, we can start the lesson by giving the command &ldquo;Begin lesson&rdquo; or something similar.</p></div></label></div><h2 id=lesson>Lesson</h2><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[USER] Respond with subject</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><p>I have Basic Knowledge of this subject.</p><p>Begin lesson</p></div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[GPT] Lesson Outline</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><p>Great! As you have basic knowledge of the subject, let&rsquo;s start with an overview of &ldquo;Computers and Society&rdquo; and then proceed to explore some essential topics in this field.</p><p>Computers and Society is an interdisciplinary field that examines the impact of computers and digital technology on society, culture, economy, and individual lives. It covers various aspects such as the historical development of computers, ethical considerations, digital divide, privacy concerns, and the social implications of artificial intelligence and automation.</p><p>Here are some essential topics we will cover in this lesson:</p><ol><li><p>History of computing: We&rsquo;ll go through the evolution of computers, from the early mechanical devices such as the abacus and Charles Babbage&rsquo;s Analytical Engine to the invention of electronic computers, the development of microprocessors, and the rise of personal computers and the internet.</p></li><li><p>Ethical considerations: We&rsquo;ll discuss the ethical issues related to the use of computers and technology, including privacy, data security, intellectual property rights, and digital citizenship.</p></li><li><p>Digital divide: We&rsquo;ll explore the digital divide, which refers to the gap between individuals and communities who have access to computers and the internet and those who do not. We&rsquo;ll also discuss the efforts to bridge this divide and promote digital inclusion.</p></li><li><p>Privacy concerns: We&rsquo;ll delve into the privacy issues that arise from the increasing use of computers and digital technology, such as surveillance, data breaches, and the challenges of maintaining personal privacy online.</p></li><li><p>Artificial intelligence and automation: We&rsquo;ll examine the social implications of artificial intelligence and automation, including the potential effects on employment, inequality, and human well-being.</p></li></ol><p>As we progress through the lesson, feel free to ask questions, request examples, or seek clarification on any topic. If you need additional information or want to explore a specific aspect in more detail, just let me know.</p></div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[USER] continue...</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner">ok, please continue</div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[GPT] History, Ethical Considerations</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><p>Let&rsquo;s begin with the history of computing.</p><ol><li>History of computing:</li></ol><p>The history of computing can be divided into several stages:</p><p>a. Mechanical computing devices: The earliest known computing devices were mechanical, such as the abacus (invented around 2400 BC) and the Antikythera mechanism (circa 100 BC). These devices allowed users to perform basic mathematical calculations.</p><p>b. Analytical Engine: In the 19th century, English mathematician and inventor Charles Babbage designed the Analytical Engine, a mechanical computer that could perform mathematical operations using punch cards for input. Although it was never fully built, Babbage&rsquo;s ideas laid the foundation for modern computing.</p><p>c. Early electronic computers: The first electronic computers were developed during World War II. These machines, such as the British Colossus and the American ENIAC, were used for breaking encrypted messages and calculating artillery trajectories. They were massive, room-sized machines that used vacuum tubes for processing.</p><p>d. Transistors and microprocessors: In the 1950s, the invention of the transistor revolutionized computing, allowing for smaller and more efficient computers. The development of integrated circuits and microprocessors in the 1960s and 1970s led to the creation of the first personal computers.</p><p>e. Personal computers and the internet: The 1980s and 1990s saw the rapid spread of personal computers and the internet. Companies like Apple, IBM, and Microsoft played a significant role in making computers accessible to the general public. The internet connected computers globally, enabling the sharing of information and the development of the World Wide Web.</p><p>Now, let&rsquo;s move on to ethical considerations in computing.</p><ol start=2><li>Ethical considerations:</li></ol><p>As computers and technology became an integral part of our daily lives, various ethical concerns have emerged:</p><p>a. Privacy: With the rise of the internet, concerns about individual privacy have grown. Issues like data collection, surveillance, and data breaches challenge our ability to maintain personal privacy online.</p><p>b. Data security: Ensuring the security of personal and sensitive data is a significant ethical concern. Companies and individuals must take responsibility for protecting data from unauthorized access, theft, or misuse.</p><p>c. Intellectual property rights: Computers and the internet have made it easier to share and access information, raising questions about the protection of intellectual property rights, such as copyrights, patents, and trademarks.</p><p>d. Digital citizenship: Ethical behavior in the digital world is essential. Digital citizenship involves responsible online behavior, respecting others&rsquo; rights and privacy, and understanding the consequences of one&rsquo;s actions in the digital space.</p><p>Please let me know if you&rsquo;d like me to continue with the remaining topics or if you have any questions about the topics we&rsquo;ve covered so far.</p></div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[USER] continue...</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner">No questions so far, please continue</div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[GPT] Digital Divide, Privacy, AI</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><p>Great! Let&rsquo;s proceed with the remaining topics:</p><ol start=3><li>Digital divide:</li></ol><p>The digital divide refers to the gap between individuals, households, businesses, and geographic areas with access to information and communication technology (ICT) and those without. Factors contributing to the digital divide include income, education, age, and geographic location.</p><p>Efforts to bridge the digital divide include:</p><p>a. Infrastructure development: Expanding broadband access to underserved areas can help bridge the digital divide, enabling more people to access the internet and digital services.</p><p>b. Digital literacy programs: Providing education and training on how to use computers and the internet can empower individuals to make the most of digital technology.</p><p>c. Affordable technology: Reducing the cost of computers, smartphones, and internet access can help make technology more accessible to people with limited financial resources.</p><ol start=4><li>Privacy concerns:</li></ol><p>Privacy issues in the digital age are complex and multifaceted. Some key concerns include:</p><p>a. Surveillance: The rise of digital technology has enabled governments and corporations to monitor individuals&rsquo; activities online. This surveillance can be used for legitimate purposes, such as preventing crime or terrorism, but it can also infringe on individual privacy rights.</p><p>b. Data breaches: Cyberattacks and data breaches can expose sensitive personal information, leading to identity theft, financial loss, and other harmful consequences.</p><p>c. Data collection and sharing: Many online services collect and share user data, often without explicit consent. This practice raises concerns about who has access to personal information and how it&rsquo;s used.</p><ol start=5><li>Artificial intelligence and automation:</li></ol><p>AI and automation have the potential to transform society in various ways, with both positive and negative implications:</p><p>a. Employment: Automation can increase efficiency and productivity, but it can also lead to job displacement as machines and algorithms replace human labor in certain industries.</p><p>b. Inequality: The benefits of AI and automation may not be evenly distributed, potentially exacerbating existing socioeconomic inequalities.</p><p>c. Human well-being: While AI and automation can improve our lives in many ways, they also raise concerns about the potential loss of human skills, social isolation, and the psychological impact of living in a world increasingly dominated by machines.</p><p>d. Ethical considerations: The development and deployment of AI systems raise various ethical concerns, such as algorithmic bias, transparency, and accountability.</p><p>That concludes our overview of &ldquo;Computers and Society.&rdquo; If you have any questions, need clarification, or would like to explore a specific topic in more detail, please feel free to ask.</p></div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[USER] move on...</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner">Nope, let&rsquo;s move onto the next lesson</div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[GPT] Ask for another topic</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><p>Great! For the next lesson, please let me know which subject or topic you would like to learn about. You can choose any topic within various domains, such as history, science, mathematics, languages, or anything else you&rsquo;re interested in.</p><p>Once you provide the subject or topic, I&rsquo;ll create a personalized lesson for you, and we can proceed from there.</p></div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[USER] More about HHS 371</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner">I would like to learn more about &ldquo;HSS 371 Computers and Society Syllabus&rdquo;, maybe you can teach me more about the &ldquo;digital divide&rdquo;.</div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[GPT] Digital Divide</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><p>Sure! I&rsquo;d be happy to help you explore the topic of the &ldquo;digital divide&rdquo; in more depth. As we briefly discussed earlier, the digital divide refers to the gap between individuals, households, businesses, and geographic areas with access to information and communication technology (ICT) and those without.</p><p>In this lesson, we will focus on the following aspects of the digital divide:</p><ol><li><p>Causes of the digital divide</p></li><li><p>Impacts of the digital divide on society and individuals</p></li><li><p>Strategies to bridge the digital divide</p></li><li><p>Causes of the digital divide:</p></li></ol><p>Several factors contribute to the digital divide:</p><p>a. Socioeconomic factors: Income and education levels are significant determinants of access to ICT. People with higher incomes and education are more likely to have access to computers and the internet.</p><p>b. Age: Younger people tend to have higher levels of digital literacy and access to technology than older individuals, who may face barriers in adopting and using new technologies.</p><p>c. Geographic location: Urban areas generally have better access to ICT infrastructure and services than rural or remote areas, leading to a geographic digital divide.</p><p>d. Disability: People with disabilities may face additional barriers to accessing and using digital technologies, depending on the nature of their disability and the availability of assistive technologies.</p><ol start=2><li>Impacts of the digital divide on society and individuals:</li></ol><p>The digital divide has various social and individual consequences:</p><p>a. Educational opportunities: Limited access to ICT can hinder educational opportunities, as students without access to digital resources may struggle to keep up with their peers.</p><p>b. Economic opportunities: In an increasingly digital economy, those without access to ICT may face challenges finding employment or starting a business.</p><p>c. Social exclusion: As social interactions increasingly take place online, individuals without access to digital technologies may experience isolation and disconnection from their communities.</p><p>d. Civic participation: The digital divide can limit access to information and communication channels needed for civic engagement, such as voting or participating in public discussions.</p><ol start=3><li>Strategies to bridge the digital divide:</li></ol><p>Various strategies can be employed to address the digital divide:</p><p>a. Expand infrastructure: Investing in broadband infrastructure, especially in underserved areas, can help increase access to digital technologies.</p><p>b. Promote digital literacy: Education and training programs can help individuals develop the skills needed to use digital technologies effectively.</p><p>c. Support affordable access: Policies and initiatives that make digital technologies more affordable can help ensure that more people can benefit from ICT.</p><p>d. Develop inclusive technologies: Designing technologies that are accessible to people with disabilities and addressing the needs of diverse populations can help reduce barriers to digital inclusion.</p><p>I hope this deeper dive into the digital divide has been informative. If you have any questions or would like to explore specific aspects further, please let me know.</p></div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[USER] Dive deep into...</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner">Can you explain more about developing inclusive technologies?</div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[GPT] More on inclusive technologies</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><p>Certainly! Developing inclusive technologies involves designing and creating products, services, and systems that consider the diverse needs and abilities of users, ensuring that technology is accessible and usable by as many people as possible. Inclusive design aims to remove barriers, promote equal opportunities, and create a more inclusive experience for everyone, including people with disabilities, older adults, and individuals from different cultural backgrounds.</p><p>Here are some key aspects of developing inclusive technologies:</p><ol><li><p>Accessibility: Designing technology that is usable by people with disabilities is a crucial component of inclusive design. Accessibility involves considering various disability types, including visual, auditory, motor, and cognitive impairments. Some examples of accessible design include providing alternative text for images, offering captions for videos, and ensuring that websites can be navigated using a keyboard.</p></li><li><p>Usability: Usable technology is easy to learn, efficient to use, and provides a satisfying user experience. Inclusive design aims to create technology that is intuitive and straightforward, minimizing potential barriers for users with different abilities or experience levels.</p></li><li><p>Flexibility: Inclusive technologies should be adaptable and customizable to meet the diverse needs of users. This can involve providing multiple ways to access and interact with technology, such as offering different input methods (e.g., voice, touch, or gestures) or allowing users to adjust settings (e.g., text size or color contrast).</p></li><li><p>Cultural sensitivity: Inclusive design takes into account the cultural context and preferences of users. This can involve using culturally appropriate language, images, and symbols, as well as accommodating cultural norms and expectations related to technology use.</p></li><li><p>Co-design and user involvement: Engaging users in the design process can help ensure that technology meets their needs and expectations. Co-design involves collaborating with users, including people with disabilities, to identify barriers, generate solutions, and evaluate the usability and accessibility of technology.</p></li><li><p>Universal Design principles: Universal Design is an approach to creating environments, products, and services that are usable by all people to the greatest extent possible, without the need for adaptation or specialized design. By applying Universal Design principles, inclusive technologies can be created that cater to a wide range of users with diverse abilities and needs.</p></li></ol><p>By focusing on these aspects of inclusive design, developers can create technologies that are more accessible, usable, and enjoyable for everyone. This not only benefits individuals who may face barriers to using technology but also leads to better and more innovative products for all users.</p></div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[USER] thank you</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner">ok, thank you</div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[GPT] Anything else?</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner">You&rsquo;re welcome! If you have any more questions or would like to learn about another topic, please feel free to ask. I&rsquo;m here to help with your learning needs.</div></label></div><h2 id=dashboard>Dashboard</h2><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[USER] dashboard?</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner">dashboard</div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[GPT] Here is your dashboard</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><p>Here&rsquo;s your current progress and future plans on the dashboard:</p><pre><code>Dashboard:
+Once you have answered these questions, I will adapt my teaching based on your responses and begin assisting you in achieving your learning goals. Remember, to start the lesson, simply say &ldquo;Begin lesson&rdquo; or something similar.</p>
+
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[USER] Set user context</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      I am 20 and I speak English. I am in the class &ldquo;HSS 371 Computers and Society&rdquo; and I am from Michigan.
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[GPT] Ask about subject</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p>Thank you for providing the information. It&rsquo;s great to know that you&rsquo;re 20 years old, speak English, and you&rsquo;re from Michigan. I understand that you&rsquo;re studying in the class &ldquo;HSS 371 Computers and Society.&rdquo;</p>
+<p>Before we dive into the subject, please let me know how much you know about &ldquo;Computers and Society&rdquo; on a scale of:</p>
+<ol>
+<li>No knowledge</li>
+<li>Basic knowledge</li>
+<li>Intermediate knowledge</li>
+<li>Advanced knowledge</li>
+</ol>
+<p>Once you provide this information, we can start the lesson by giving the command &ldquo;Begin lesson&rdquo; or something similar.</p>
+
+    </div>
+  </label>
+</div>
+
+<h2 id="lesson">Lesson</h2>
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[USER] Respond with subject</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p>I have Basic Knowledge of this subject.</p>
+<p>Begin lesson</p>
+
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[GPT] Lesson Outline</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p>Great! As you have basic knowledge of the subject, let&rsquo;s start with an overview of &ldquo;Computers and Society&rdquo; and then proceed to explore some essential topics in this field.</p>
+<p>Computers and Society is an interdisciplinary field that examines the impact of computers and digital technology on society, culture, economy, and individual lives. It covers various aspects such as the historical development of computers, ethical considerations, digital divide, privacy concerns, and the social implications of artificial intelligence and automation.</p>
+<p>Here are some essential topics we will cover in this lesson:</p>
+<ol>
+<li>
+<p>History of computing: We&rsquo;ll go through the evolution of computers, from the early mechanical devices such as the abacus and Charles Babbage&rsquo;s Analytical Engine to the invention of electronic computers, the development of microprocessors, and the rise of personal computers and the internet.</p>
+</li>
+<li>
+<p>Ethical considerations: We&rsquo;ll discuss the ethical issues related to the use of computers and technology, including privacy, data security, intellectual property rights, and digital citizenship.</p>
+</li>
+<li>
+<p>Digital divide: We&rsquo;ll explore the digital divide, which refers to the gap between individuals and communities who have access to computers and the internet and those who do not. We&rsquo;ll also discuss the efforts to bridge this divide and promote digital inclusion.</p>
+</li>
+<li>
+<p>Privacy concerns: We&rsquo;ll delve into the privacy issues that arise from the increasing use of computers and digital technology, such as surveillance, data breaches, and the challenges of maintaining personal privacy online.</p>
+</li>
+<li>
+<p>Artificial intelligence and automation: We&rsquo;ll examine the social implications of artificial intelligence and automation, including the potential effects on employment, inequality, and human well-being.</p>
+</li>
+</ol>
+<p>As we progress through the lesson, feel free to ask questions, request examples, or seek clarification on any topic. If you need additional information or want to explore a specific aspect in more detail, just let me know.</p>
+
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[USER] continue...</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      ok, please continue
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[GPT] History, Ethical Considerations</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p>Let&rsquo;s begin with the history of computing.</p>
+<ol>
+<li>History of computing:</li>
+</ol>
+<p>The history of computing can be divided into several stages:</p>
+<p>a. Mechanical computing devices: The earliest known computing devices were mechanical, such as the abacus (invented around 2400 BC) and the Antikythera mechanism (circa 100 BC). These devices allowed users to perform basic mathematical calculations.</p>
+<p>b. Analytical Engine: In the 19th century, English mathematician and inventor Charles Babbage designed the Analytical Engine, a mechanical computer that could perform mathematical operations using punch cards for input. Although it was never fully built, Babbage&rsquo;s ideas laid the foundation for modern computing.</p>
+<p>c. Early electronic computers: The first electronic computers were developed during World War II. These machines, such as the British Colossus and the American ENIAC, were used for breaking encrypted messages and calculating artillery trajectories. They were massive, room-sized machines that used vacuum tubes for processing.</p>
+<p>d. Transistors and microprocessors: In the 1950s, the invention of the transistor revolutionized computing, allowing for smaller and more efficient computers. The development of integrated circuits and microprocessors in the 1960s and 1970s led to the creation of the first personal computers.</p>
+<p>e. Personal computers and the internet: The 1980s and 1990s saw the rapid spread of personal computers and the internet. Companies like Apple, IBM, and Microsoft played a significant role in making computers accessible to the general public. The internet connected computers globally, enabling the sharing of information and the development of the World Wide Web.</p>
+<p>Now, let&rsquo;s move on to ethical considerations in computing.</p>
+<ol start="2">
+<li>Ethical considerations:</li>
+</ol>
+<p>As computers and technology became an integral part of our daily lives, various ethical concerns have emerged:</p>
+<p>a. Privacy: With the rise of the internet, concerns about individual privacy have grown. Issues like data collection, surveillance, and data breaches challenge our ability to maintain personal privacy online.</p>
+<p>b. Data security: Ensuring the security of personal and sensitive data is a significant ethical concern. Companies and individuals must take responsibility for protecting data from unauthorized access, theft, or misuse.</p>
+<p>c. Intellectual property rights: Computers and the internet have made it easier to share and access information, raising questions about the protection of intellectual property rights, such as copyrights, patents, and trademarks.</p>
+<p>d. Digital citizenship: Ethical behavior in the digital world is essential. Digital citizenship involves responsible online behavior, respecting others&rsquo; rights and privacy, and understanding the consequences of one&rsquo;s actions in the digital space.</p>
+<p>Please let me know if you&rsquo;d like me to continue with the remaining topics or if you have any questions about the topics we&rsquo;ve covered so far.</p>
+
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[USER] continue...</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      No questions so far, please continue
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[GPT] Digital Divide, Privacy, AI</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p>Great! Let&rsquo;s proceed with the remaining topics:</p>
+<ol start="3">
+<li>Digital divide:</li>
+</ol>
+<p>The digital divide refers to the gap between individuals, households, businesses, and geographic areas with access to information and communication technology (ICT) and those without. Factors contributing to the digital divide include income, education, age, and geographic location.</p>
+<p>Efforts to bridge the digital divide include:</p>
+<p>a. Infrastructure development: Expanding broadband access to underserved areas can help bridge the digital divide, enabling more people to access the internet and digital services.</p>
+<p>b. Digital literacy programs: Providing education and training on how to use computers and the internet can empower individuals to make the most of digital technology.</p>
+<p>c. Affordable technology: Reducing the cost of computers, smartphones, and internet access can help make technology more accessible to people with limited financial resources.</p>
+<ol start="4">
+<li>Privacy concerns:</li>
+</ol>
+<p>Privacy issues in the digital age are complex and multifaceted. Some key concerns include:</p>
+<p>a. Surveillance: The rise of digital technology has enabled governments and corporations to monitor individuals&rsquo; activities online. This surveillance can be used for legitimate purposes, such as preventing crime or terrorism, but it can also infringe on individual privacy rights.</p>
+<p>b. Data breaches: Cyberattacks and data breaches can expose sensitive personal information, leading to identity theft, financial loss, and other harmful consequences.</p>
+<p>c. Data collection and sharing: Many online services collect and share user data, often without explicit consent. This practice raises concerns about who has access to personal information and how it&rsquo;s used.</p>
+<ol start="5">
+<li>Artificial intelligence and automation:</li>
+</ol>
+<p>AI and automation have the potential to transform society in various ways, with both positive and negative implications:</p>
+<p>a. Employment: Automation can increase efficiency and productivity, but it can also lead to job displacement as machines and algorithms replace human labor in certain industries.</p>
+<p>b. Inequality: The benefits of AI and automation may not be evenly distributed, potentially exacerbating existing socioeconomic inequalities.</p>
+<p>c. Human well-being: While AI and automation can improve our lives in many ways, they also raise concerns about the potential loss of human skills, social isolation, and the psychological impact of living in a world increasingly dominated by machines.</p>
+<p>d. Ethical considerations: The development and deployment of AI systems raise various ethical concerns, such as algorithmic bias, transparency, and accountability.</p>
+<p>That concludes our overview of &ldquo;Computers and Society.&rdquo; If you have any questions, need clarification, or would like to explore a specific topic in more detail, please feel free to ask.</p>
+
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[USER] move on...</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      Nope, let&rsquo;s move onto the next lesson
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[GPT] Ask for another topic</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p>Great! For the next lesson, please let me know which subject or topic you would like to learn about. You can choose any topic within various domains, such as history, science, mathematics, languages, or anything else you&rsquo;re interested in.</p>
+<p>Once you provide the subject or topic, I&rsquo;ll create a personalized lesson for you, and we can proceed from there.</p>
+
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[USER] More about HHS 371</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      I would like to learn more about &ldquo;HSS 371 Computers and Society Syllabus&rdquo;, maybe you can teach me more about the &ldquo;digital divide&rdquo;.
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[GPT] Digital Divide</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p>Sure! I&rsquo;d be happy to help you explore the topic of the &ldquo;digital divide&rdquo; in more depth. As we briefly discussed earlier, the digital divide refers to the gap between individuals, households, businesses, and geographic areas with access to information and communication technology (ICT) and those without.</p>
+<p>In this lesson, we will focus on the following aspects of the digital divide:</p>
+<ol>
+<li>
+<p>Causes of the digital divide</p>
+</li>
+<li>
+<p>Impacts of the digital divide on society and individuals</p>
+</li>
+<li>
+<p>Strategies to bridge the digital divide</p>
+</li>
+<li>
+<p>Causes of the digital divide:</p>
+</li>
+</ol>
+<p>Several factors contribute to the digital divide:</p>
+<p>a. Socioeconomic factors: Income and education levels are significant determinants of access to ICT. People with higher incomes and education are more likely to have access to computers and the internet.</p>
+<p>b. Age: Younger people tend to have higher levels of digital literacy and access to technology than older individuals, who may face barriers in adopting and using new technologies.</p>
+<p>c. Geographic location: Urban areas generally have better access to ICT infrastructure and services than rural or remote areas, leading to a geographic digital divide.</p>
+<p>d. Disability: People with disabilities may face additional barriers to accessing and using digital technologies, depending on the nature of their disability and the availability of assistive technologies.</p>
+<ol start="2">
+<li>Impacts of the digital divide on society and individuals:</li>
+</ol>
+<p>The digital divide has various social and individual consequences:</p>
+<p>a. Educational opportunities: Limited access to ICT can hinder educational opportunities, as students without access to digital resources may struggle to keep up with their peers.</p>
+<p>b. Economic opportunities: In an increasingly digital economy, those without access to ICT may face challenges finding employment or starting a business.</p>
+<p>c. Social exclusion: As social interactions increasingly take place online, individuals without access to digital technologies may experience isolation and disconnection from their communities.</p>
+<p>d. Civic participation: The digital divide can limit access to information and communication channels needed for civic engagement, such as voting or participating in public discussions.</p>
+<ol start="3">
+<li>Strategies to bridge the digital divide:</li>
+</ol>
+<p>Various strategies can be employed to address the digital divide:</p>
+<p>a. Expand infrastructure: Investing in broadband infrastructure, especially in underserved areas, can help increase access to digital technologies.</p>
+<p>b. Promote digital literacy: Education and training programs can help individuals develop the skills needed to use digital technologies effectively.</p>
+<p>c. Support affordable access: Policies and initiatives that make digital technologies more affordable can help ensure that more people can benefit from ICT.</p>
+<p>d. Develop inclusive technologies: Designing technologies that are accessible to people with disabilities and addressing the needs of diverse populations can help reduce barriers to digital inclusion.</p>
+<p>I hope this deeper dive into the digital divide has been informative. If you have any questions or would like to explore specific aspects further, please let me know.</p>
+
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[USER] Dive deep into...</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      Can you explain more about developing inclusive technologies?
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[GPT] More on inclusive technologies</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p>Certainly! Developing inclusive technologies involves designing and creating products, services, and systems that consider the diverse needs and abilities of users, ensuring that technology is accessible and usable by as many people as possible. Inclusive design aims to remove barriers, promote equal opportunities, and create a more inclusive experience for everyone, including people with disabilities, older adults, and individuals from different cultural backgrounds.</p>
+<p>Here are some key aspects of developing inclusive technologies:</p>
+<ol>
+<li>
+<p>Accessibility: Designing technology that is usable by people with disabilities is a crucial component of inclusive design. Accessibility involves considering various disability types, including visual, auditory, motor, and cognitive impairments. Some examples of accessible design include providing alternative text for images, offering captions for videos, and ensuring that websites can be navigated using a keyboard.</p>
+</li>
+<li>
+<p>Usability: Usable technology is easy to learn, efficient to use, and provides a satisfying user experience. Inclusive design aims to create technology that is intuitive and straightforward, minimizing potential barriers for users with different abilities or experience levels.</p>
+</li>
+<li>
+<p>Flexibility: Inclusive technologies should be adaptable and customizable to meet the diverse needs of users. This can involve providing multiple ways to access and interact with technology, such as offering different input methods (e.g., voice, touch, or gestures) or allowing users to adjust settings (e.g., text size or color contrast).</p>
+</li>
+<li>
+<p>Cultural sensitivity: Inclusive design takes into account the cultural context and preferences of users. This can involve using culturally appropriate language, images, and symbols, as well as accommodating cultural norms and expectations related to technology use.</p>
+</li>
+<li>
+<p>Co-design and user involvement: Engaging users in the design process can help ensure that technology meets their needs and expectations. Co-design involves collaborating with users, including people with disabilities, to identify barriers, generate solutions, and evaluate the usability and accessibility of technology.</p>
+</li>
+<li>
+<p>Universal Design principles: Universal Design is an approach to creating environments, products, and services that are usable by all people to the greatest extent possible, without the need for adaptation or specialized design. By applying Universal Design principles, inclusive technologies can be created that cater to a wide range of users with diverse abilities and needs.</p>
+</li>
+</ol>
+<p>By focusing on these aspects of inclusive design, developers can create technologies that are more accessible, usable, and enjoyable for everyone. This not only benefits individuals who may face barriers to using technology but also leads to better and more innovative products for all users.</p>
+
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[USER] thank you</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      ok, thank you
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[GPT] Anything else?</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      You&rsquo;re welcome! If you have any more questions or would like to learn about another topic, please feel free to ask. I&rsquo;m here to help with your learning needs.
+    </div>
+  </label>
+</div>
+
+<h2 id="dashboard">Dashboard</h2>
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[USER] dashboard?</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      dashboard
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[GPT] Here is your dashboard</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p>Here&rsquo;s your current progress and future plans on the dashboard:</p>
+<pre><code>Dashboard:
 Completed Lessons:
 Day 1 - HSS 371 Computers and Society: Overview, Digital Divide, Privacy Concerns, AI and Automation
 Day 2 - HSS 371 Computers and Society: Digital Divide (In-depth), Developing Inclusive Technologies
 
 Future Plans:
 - To be determined based on your preferences
-</code></pre><p>Remember, you can always suggest a new topic or subject for your next lesson. If you have any questions or need clarification on any previous lessons, feel free to ask.</p></div></label></div><h2 id=test>Test</h2><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[USER] test?</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner">Could you generate a test for me?</div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[GPT] Your test</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><p>Sure! I&rsquo;ll create a test based on the lessons we&rsquo;ve covered so far on &ldquo;HSS 371 Computers and Society.&rdquo; Please answer the following questions. You can simply reply with the question number and your answer.</p><ol><li><p>What is the digital divide, and what are some of its primary causes?</p></li><li><p>Describe two potential consequences of the digital divide on individuals or society.</p></li><li><p>What is one strategy that can be employed to bridge the digital divide?</p></li><li><p>What are some privacy concerns related to the use of digital technology?</p></li><li><p>Explain the concept of inclusive design and why it is important in the context of the digital divide.</p></li></ol><p>Once you&rsquo;ve answered the questions, I will grade your test and provide feedback. Good luck!</p></div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[USER] test submission</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><ol><li>The digital divide is a term used to describe the disadvantages people have who are not able to access the internet or have some other complication that does not allow them to use technology as most other people do. The primary cause is that it is more profitable for a business to design a single product that targets wealthy groups of people rather than cater to people with out of the ordinary circumstances.</li><li>First, the digital divide leads to a growing inequality between people with access to technology and people without access to it. Second, it leads to a biased representation on the internet when only certain group of people are represented.</li><li>We can design accessible tools such as text-to-speech software. In addition, we can promote digital literacy in our schools.</li><li>Companies that operate online can collect our information and sell it to advertisers or insurance companies. This could lead to unwanted targeted advertisements or an increase in insurance.</li><li>Inclusive design is taking people with conditions like blindness into account when designing software. For example, we could add tags to images that explain what is happening in the image so that people who are blind still understand what is going on.</li></ol></div></label></div><div class=book-expand><label><div class="book-expand-head flex justify-between"><span>[GPT] Great job!</span>
-<span>↕</span></div><input type=checkbox class=hidden><div class="book-expand-content markdown-inner"><p>Great job! Here are your grades and feedback for the test:</p><ol><li><p>Correct. You accurately defined the digital divide and mentioned the primary cause related to profit-driven product design. However, it&rsquo;s worth noting that other factors such as socioeconomic factors, age, geographic location, and disability also contribute to the digital divide.</p></li><li><p>Correct. You mentioned two important consequences of the digital divide: growing inequality between people with and without access to technology, and biased representation on the internet.</p></li><li><p>Correct. Designing accessible tools and promoting digital literacy in schools are effective strategies for bridging the digital divide.</p></li><li><p>Correct. You highlighted privacy concerns related to online data collection, selling of information to advertisers, and potential implications for insurance.</p></li><li><p>Correct. You described inclusive design as considering the needs of people with disabilities, such as blindness, when designing software, and provided a relevant example of adding tags to images.</p></li></ol><p>Overall, you demonstrated a solid understanding of the topics covered in the lessons. Your test score is 9.5 out of 10. Keep up the good work! If you have any questions or would like to learn more about these topics or explore new ones, please let me know.</p></div></label></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"></div><script>(function(){function select(element){const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(element);selection.removeAllRanges();selection.addRange(range);}
+</code></pre><p>Remember, you can always suggest a new topic or subject for your next lesson. If you have any questions or need clarification on any previous lessons, feel free to ask.</p>
+
+    </div>
+  </label>
+</div>
+
+<h2 id="test">Test</h2>
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[USER] test?</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      Could you generate a test for me?
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[GPT] Your test</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p>Sure! I&rsquo;ll create a test based on the lessons we&rsquo;ve covered so far on &ldquo;HSS 371 Computers and Society.&rdquo; Please answer the following questions. You can simply reply with the question number and your answer.</p>
+<ol>
+<li>
+<p>What is the digital divide, and what are some of its primary causes?</p>
+</li>
+<li>
+<p>Describe two potential consequences of the digital divide on individuals or society.</p>
+</li>
+<li>
+<p>What is one strategy that can be employed to bridge the digital divide?</p>
+</li>
+<li>
+<p>What are some privacy concerns related to the use of digital technology?</p>
+</li>
+<li>
+<p>Explain the concept of inclusive design and why it is important in the context of the digital divide.</p>
+</li>
+</ol>
+<p>Once you&rsquo;ve answered the questions, I will grade your test and provide feedback. Good luck!</p>
+
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[USER] test submission</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <ol>
+<li>The digital divide is a term used to describe the disadvantages people have who are not able to access the internet or have some other complication that does not allow them to use technology as most other people do. The primary cause is that it is more profitable for a business to design a single product that targets wealthy groups of people rather than cater to people with out of the ordinary circumstances.</li>
+<li>First, the digital divide leads to a growing inequality between people with access to technology and people without access to it. Second, it leads to a biased representation on the internet when only certain group of people are represented.</li>
+<li>We can design accessible tools such as text-to-speech software. In addition, we can promote digital literacy in our schools.</li>
+<li>Companies that operate online can collect our information and sell it to advertisers or insurance companies. This could lead to unwanted targeted advertisements or an increase in insurance.</li>
+<li>Inclusive design is taking people with conditions like blindness into account when designing software. For example, we could add tags to images that explain what is happening in the image so that people who are blind still understand what is going on.</li>
+</ol>
+    </div>
+  </label>
+</div>
+
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>[GPT] Great job!</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p>Great job! Here are your grades and feedback for the test:</p>
+<ol>
+<li>
+<p>Correct. You accurately defined the digital divide and mentioned the primary cause related to profit-driven product design. However, it&rsquo;s worth noting that other factors such as socioeconomic factors, age, geographic location, and disability also contribute to the digital divide.</p>
+</li>
+<li>
+<p>Correct. You mentioned two important consequences of the digital divide: growing inequality between people with and without access to technology, and biased representation on the internet.</p>
+</li>
+<li>
+<p>Correct. Designing accessible tools and promoting digital literacy in schools are effective strategies for bridging the digital divide.</p>
+</li>
+<li>
+<p>Correct. You highlighted privacy concerns related to online data collection, selling of information to advertisers, and potential implications for insurance.</p>
+</li>
+<li>
+<p>Correct. You described inclusive design as considering the needs of people with disabilities, such as blindness, when designing software, and provided a relevant example of adding tags to images.</p>
+</li>
+</ol>
+<p>Overall, you demonstrated a solid understanding of the topics covered in the lessons. Your test score is 9.5 out of 10. Keep up the good work! If you have any questions or would like to learn more about these topics or explore new ones, please let me know.</p>
+
+    </div>
+  </label>
+</div>
+
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function select(element){const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(element);selection.removeAllRanges();selection.addRange(range);}
 document.querySelectorAll("pre code").forEach(code=>{code.addEventListener("click",function(event){if(window.getSelection().toString()){return;}
-select(code.parentElement);if(navigator.clipboard){navigator.clipboard.writeText(code.parentElement.textContent);}});});})();</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#initial-context>Initial Context</a></li><li><a href=#lesson>Lesson</a></li><li><a href=#dashboard>Dashboard</a></li><li><a href=#test>Test</a></li></ul></nav></div></aside></main></body></html>
+select(code.parentElement);if(navigator.clipboard){navigator.clipboard.writeText(code.parentElement.textContent);}});});})();</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#initial-context">Initial Context</a></li>
+    <li><a href="#lesson">Lesson</a></li>
+    <li><a href="#dashboard">Dashboard</a></li>
+    <li><a href="#test">Test</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,14 +1,14 @@
 {
   "name": "GPT in Education",
   "short_name": "GPT in Education",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/gpt-in-education/",
+  "scope": "/gpt-in-education/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/gpt-in-education/favicon.svg",
       "sizes": "512x512"
     }
   ]
