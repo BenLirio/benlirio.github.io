@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8fa8cc"/>
+      <stop offset="1" stop-color="#3f5a8a"/>
+    </linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0.12"/>
+    </linearGradient>
+    <clipPath id="r"><rect width="64" height="64" rx="14"/></clipPath>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <g clip-path="url(#r)">
+    <path d="M0 0h64v30c-20 6-44 6-64 0z" fill="url(#gloss)"/>
+  </g>
+  <text x="32" y="47" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="bold" font-size="42" fill="#1e2f4d" opacity="0.5">b</text>
+  <text x="32" y="46" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="bold" font-size="42" fill="#fff">b</text>
+  <rect x="0.5" y="0.5" width="63" height="63" rx="13.5" fill="none" stroke="#243652" stroke-opacity="0.7"/>
+</svg>

@@ -1,0 +1,170 @@
+[
+  {
+    "name": "This website",
+    "date": "Fall 2026",
+    "status": "ongoing",
+    "blurb": "The page you are looking at. iOS 6 on purpose.",
+    "source": "https://github.com/BenLirio/benlirio.github.io",
+    "icon": "icon-512.png"
+  },
+  {
+    "name": "AI Spaceship Generator",
+    "date": "Fall 2025",
+    "status": "mostly works",
+    "demo": "https://benlirio.com/space-ship-client/",
+    "source": "https://github.com/BenLirio/space-ship-generator",
+    "icon": "icons/space-ship-generator.png"
+  },
+  {
+    "name": "AI Conway's Game of Life",
+    "date": "Summer 2025",
+    "status": "mostly works",
+    "demo": "https://benlirio.com/the-one-prompt/",
+    "source": "https://github.com/BenLirio/the-one-prompt",
+    "icon": "icons/ai-conways-game-of-life.png"
+  },
+  {
+    "name": "Word Guess",
+    "date": "Spring 2025",
+    "status": "works",
+    "demo": "https://word-guess.com",
+    "source": {
+      "server": "https://github.com/BenLirio/word-guess-server",
+      "client": "https://github.com/BenLirio/word-guess-client"
+    },
+    "icon": "icons/word-guess.png"
+  },
+  {
+    "name": "Word Battle",
+    "date": "Winter 2025",
+    "status": "works",
+    "demo": "https://word-battle.com",
+    "source": {
+      "server": "https://github.com/BenLirio/word-battle-server",
+      "client": "https://github.com/BenLirio/word-battle"
+    },
+    "icon": "icons/word-battle.png"
+  },
+  {
+    "name": "GPT in Education",
+    "date": "Spring 2023",
+    "status": "done",
+    "demo": "/gpt-in-education/",
+    "demoLabel": "read",
+    "source": "https://github.com/BenLirio/gpt-in-education",
+    "icon": "icons/gpt-in-education.png"
+  },
+  {
+    "name": "Fluid Simulation",
+    "date": "Spring 2023",
+    "status": "rough",
+    "demo": "/jos-stam-real-time-fluid-dynamics-for-games/",
+    "source": "https://github.com/BenLirio/jos-stam-real-time-fluid-dynamics-for-games",
+    "icon": "icons/jos-stam-real-time-fluid-dynamics-for-games.png"
+  },
+  {
+    "name": "Conway's Game of Life 3D",
+    "date": "Spring 2023",
+    "status": "barely works",
+    "demo": "/conways-game-of-life-3d-v1/",
+    "source": "https://github.com/BenLirio/conways-game-of-life-3d",
+    "icon": "icons/conways-game-of-life-3d-v1.png"
+  },
+  {
+    "name": "Conway's Game of Life",
+    "date": "Spring 2023",
+    "status": "mostly works",
+    "demo": "/conways-game-of-life/",
+    "source": "https://github.com/BenLirio/conways-game-of-life",
+    "icon": "icons/conways-game-of-life.png"
+  },
+  {
+    "name": "Boiling Boulders",
+    "date": "Spring 2023",
+    "status": "works",
+    "blurb": "Advent of Code 2022, day 18.",
+    "demo": "/advent-of-code-day-18-boiling-boulders/",
+    "source": "https://github.com/BenLirio/advent-of-code-day-18-boiling-boulders",
+    "icon": "icons/advent-of-code-day-18-boiling-boulders.png"
+  },
+  {
+    "name": "Bloch Sphere",
+    "date": "Spring 2023",
+    "status": "rough",
+    "blurb": "Plot a qubit state on the Bloch sphere.",
+    "demo": "/bloch-sphere/",
+    "source": "https://github.com/BenLirio/bloch-sphere",
+    "icon": "icons/bloch-sphere.png"
+  },
+  {
+    "name": "Viz",
+    "date": "Spring 2023",
+    "status": "rough",
+    "blurb": "Data to image or gif.",
+    "source": "https://github.com/BenLirio/viz"
+  },
+  {
+    "name": "Laplacian Graph Drawing",
+    "date": "Spring 2023",
+    "status": "barely works",
+    "demo": "/laplacian-graph-drawing/",
+    "source": "https://github.com/BenLirio/laplacian-graph-drawing",
+    "icon": "icons/laplacian-graph-drawing.png"
+  },
+  {
+    "name": "Regolith Reservoir",
+    "date": "Fall 2022",
+    "status": "rough",
+    "blurb": "Advent of Code 2022, day 14.",
+    "demo": "/regolith-reservoir/",
+    "source": "https://github.com/BenLirio/aoc-d14-2022",
+    "icon": "icons/regolith-reservoir.png"
+  },
+  {
+    "name": "Convex Hull",
+    "date": "Fall 2022",
+    "status": "mostly works",
+    "demo": "/convex-hull/",
+    "source": "https://github.com/BenLirio/convex-hull",
+    "icon": "icons/convex-hull.png"
+  },
+  {
+    "name": "Batcher Odd-Even Merge Sort",
+    "date": "Fall 2022",
+    "status": "rough",
+    "demo": "/batcher-odd-even-merge-sort/",
+    "source": "https://github.com/BenLirio/batcher-odd-even-merge-sort",
+    "icon": "icons/batcher-odd-even-merge-sort.png"
+  },
+  {
+    "name": "Sort 8",
+    "date": "Fall 2022",
+    "status": "barely works",
+    "demo": "/sort-8/",
+    "source": "https://github.com/BenLirio/sort-8",
+    "icon": "icons/sort-8.png"
+  },
+  {
+    "name": "Permutations of Cube",
+    "date": "Spring 2022",
+    "status": "rough",
+    "demo": "/permutations-of-cube/",
+    "source": "https://github.com/BenLirio/permutations-of-cube",
+    "icon": "icons/permutations-of-cube.png"
+  },
+  {
+    "name": "Leveled Homomorphic Encryption",
+    "date": "Spring 2022",
+    "status": "mostly works",
+    "demo": "https://youtu.be/5fEtv2SdH8E",
+    "demoLabel": "video",
+    "source": "https://github.com/BenLirio/CS579/tree/master/final",
+    "icon": "icons/leveled-homomorphic-encryption.png"
+  },
+  {
+    "name": "RSA on a CUDA GPU",
+    "date": "Spring 2022",
+    "status": "barely works",
+    "source": "https://github.com/BenLirio/rsa"
+  }
+]
