@@ -26,6 +26,9 @@
 
 [hidden] { display: none !important; }
 
+/* the email address is stored backwards; this shows it forwards (see build.mjs) */
+.rev { unicode-bidi: bidi-override; direction: rtl; }
+
 html { -webkit-text-size-adjust: 100%; }
 
 body {

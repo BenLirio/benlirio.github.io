@@ -8,7 +8,7 @@ The home page is the phone: a lock screen (the intro paragraph is the notificati
 
 | Path | What |
 | --- | --- |
-| `site.json` | Name, email, intro paragraph, the pre/post-AI note and cutoff year. |
+| `site.json` | Name, intro paragraph, the pre/post-AI note and cutoff year, and the email address **written backwards** (`emailReversed`) so it never appears in plain text on the site or in the repo. |
 | `projects.json` | The project list. **One entry per project, only `name` is required.** |
 | `posts/*.md` | Writing. Markdown with a small front matter block. |
 | `projects/*.md` | Optional per-project writeup. Almost none exist; that is fine. |

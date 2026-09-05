@@ -158,9 +158,14 @@ function homeIcon(p) {
   return `<li><a class="app-icon" href="${attr(p.demo)}"${demoData(p)}>${iconHtml(p, 'home')}<span class="app-label">${esc(p.name)}</span></a></li>`;
 }
 
-function sysIcon({ app, href, label, cls }) {
-  return `<li><a class="app-icon" href="${attr(href)}"${app ? ` data-app="${app}"` : ''}><span class="icon icon-home icon-sys ${cls}"></span><span class="app-label">${esc(label)}</span></a></li>`;
+function sysIcon({ app, href, label, cls, email }) {
+  return `<li><a class="app-icon" href="${attr(href)}"${app ? ` data-app="${app}"` : ''}${email ? ` data-e="${attr(email)}"` : ''}><span class="icon icon-home icon-sys ${cls}"></span><span class="app-label">${esc(label)}</span></a></li>`;
 }
+
+// The email address is written backwards in the HTML (site.json stores it that way) and shown
+// the right way round by CSS; the script in head() turns it into a real mailto: link on load.
+const emailHtml = (cls = '') => site.emailReversed ? `<a class="${cls}" href="#contact" data-e="${attr(site.emailReversed)}"><span class="rev">${esc(site.emailReversed)}</span></a>` : '';
+const EMAIL_SCRIPT = `<script>addEventListener('DOMContentLoaded',function(){for(var a of document.querySelectorAll('a[data-e]')){var e=Array.from(a.dataset.e).reverse().join('');a.href='mailto:'+e;var s=a.querySelector('.rev');if(s){s.textContent=e;s.classList.remove('rev');}}});</script>`;
 
 function head({ title, description, url, extraHead = '' }) {
   const full = title === site.title ? site.title : `${title} – ${site.title}`;
@@ -182,6 +187,7 @@ function head({ title, description, url, extraHead = '' }) {
   <link rel="apple-touch-icon" href="/icon-512.png">
   <link rel="alternate" type="application/atom+xml" title="${attr(site.title)} – writing" href="/feed.xml">
   <link rel="stylesheet" href="/style.css">
+  ${EMAIL_SCRIPT}
 ${extraHead}</head>`;
 }
 
@@ -196,7 +202,7 @@ function navbar({ title, back, right, cls = '', titleId = '', backId = '' }) {
 }
 
 function footer() {
-  const bits = [`<a href="mailto:${attr(site.email)}">${esc(site.email)}</a>`];
+  const bits = [emailHtml()].filter(Boolean);
   if (site.github) bits.push(`<a href="${attr(site.github)}">github</a>`);
   bits.push('<a href="/feed.xml">rss</a>');
   return `<footer class="site-footer"><p>${bits.join('<span class="sep"> · </span>')}</p></footer>`;
@@ -231,7 +237,7 @@ ${p.html}
     sysIcon({ app: 'about', href: '#about', label: 'About', cls: 'icon-about' }),
     sysIcon({ app: 'projects', href: '#projects', label: 'Projects', cls: 'icon-projects' }),
     sysIcon({ app: 'writing', href: '#writing', label: 'Writing', cls: 'icon-writing' }),
-    sysIcon({ href: `mailto:${site.email}`, label: 'Mail', cls: 'icon-mail' }),
+    site.emailReversed ? sysIcon({ href: '#contact', label: 'Mail', cls: 'icon-mail', email: site.emailReversed }) : '',
   ].join('');
 
   return `${head({ title: site.title, description: site.description, url: '/' })}
@@ -259,7 +265,7 @@ ${pages.map((pg) => `        <section class="page">${pg.title ? `<h2 class="page
       <div class="scroll">
         <div class="group intro-cell"><p>${inline(site.intro)}</p></div>
         <ul class="group">
-          <li class="row"><a class="row-link" href="mailto:${attr(site.email)}">${esc(site.email)}</a></li>
+          ${site.emailReversed ? `<li class="row">${emailHtml('row-link')}</li>` : ''}
           ${site.github ? `<li class="row"><a class="row-link" href="${attr(site.github)}">GitHub</a></li>` : ''}
           <li class="row"><a class="row-link" href="/feed.xml">RSS feed</a></li>
         </ul>
@@ -296,7 +302,7 @@ ${group(site.preAiTitle || 'By hand', pre, 'glossy', site.eraNote ? `\n        <
         <div class="lock-note-body">
           <div class="lock-note-title">${esc(site.title)}</div>
           <p>${inline(site.intro)}</p>
-          <p class="lock-note-email"><a href="mailto:${attr(site.email)}">${esc(site.email)}</a></p>
+          ${site.emailReversed ? `<p class="lock-note-email">${emailHtml()}</p>` : ''}
         </div>
       </div>
       <div class="unlock"><div class="unlock-track" id="unlock-track"><div class="knob" id="knob" role="button" aria-label="Unlock"></div><span class="unlock-text" id="unlock-text">slide to unlock</span></div></div>
@@ -304,7 +310,7 @@ ${group(site.preAiTitle || 'By hand', pre, 'glossy', site.eraNote ? `\n        <
   </div>
   <div class="bezel-bottom"><button class="home-btn" id="homebtn" type="button" aria-label="Home"><span></span></button></div>
 </div>
-<p class="stage-foot"><a href="mailto:${attr(site.email)}">${esc(site.email)}</a> · ${site.github ? `<a href="${attr(site.github)}">github</a> · ` : ''}<a href="/writing/">writing</a> · <a href="/feed.xml">rss</a></p>
+<p class="stage-foot">${[emailHtml(), site.github ? `<a href="${attr(site.github)}">github</a>` : '', '<a href="/writing/">writing</a>', '<a href="/feed.xml">rss</a>'].filter(Boolean).join(' · ')}</p>
 </div>
 <noscript><style>.lock, .stage-foot { display: none; } .home { position: static; } .app[hidden] { display: flex !important; position: static; } .screen { height: auto; }</style><p style="color:#ccc;text-align:center;font-size:14px">This page is a small iPhone that needs JavaScript. Without it: <a href="/writing/" style="color:#fff">writing</a>, and the projects are listed below.</p></noscript>
 <script src="/phone.js" defer></script>
