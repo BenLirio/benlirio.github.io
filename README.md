@@ -15,7 +15,7 @@ The home page is the iPod: a lock screen (the intro paragraph is the notificatio
 | `icons/*.png` | Square icons, made from screenshots of the demos by `tools/icons.mjs`. |
 | `build.mjs` | Renders everything. Uses only Node's standard library. |
 | `phone.js` | The iPod's behavior: lock screen, paging, opening apps, routing, the hardware buttons. No dependencies. |
-| `style.css`, `favicon.svg` | Hand-written. |
+| `style.css`, `favicon.svg`, `wallpaper.svg` | Hand-written. The wallpaper is a drawing of the iOS 6 default, rippling water. |
 | `index.html`, `writing/`, `feed.xml` | **Generated.** Edit the sources, then rebuild. |
 
 Everything else at the top level (`convex-hull/`, `conways-game-of-life/`, `gpt-in-education/`, `compilers/`, …) is a demo deployed into this domain from another repo. Leave those directories, `CNAME` and `.nojekyll` alone.
