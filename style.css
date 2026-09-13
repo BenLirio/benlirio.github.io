@@ -1,4 +1,4 @@
-/* benlirio.com — a simulated iPhone 5 running iOS 6 (2012).
+/* benlirio.com — a simulated iPod touch (6th generation) running iOS 6.
    Hand-written; nothing here is a downloaded theme.
    Part 1: shared iOS 6 pieces (grouped lists, icons, notes paper), also used by the plain
    /writing/ pages. Part 2: the phone itself. */
@@ -438,86 +438,171 @@ body.phone-body {
 .stage-foot a { color: #9aa0aa; text-decoration: none; }
 .stage-foot a:hover { text-decoration: underline; }
 
-/* the slab: iPhone 5, black */
+/* the slab: an iPod touch (6th generation). 123.4 x 58.6 mm at 6.41 px/mm; the 4" screen is 320 x 568.
+   Six anodized colors; Space Gray has a black glass face, the others white. */
 .phone {
+  --body: #4fa2e4;
+  --face: #f4f4f5;
+  --face-edge: #d3d4d7;
+  --btn: #f7f7f8;
+  --btn-edge: #c2c3c6;
+  --btn-mark: #9a9ba0;
+  --body-hi: color-mix(in srgb, var(--body) 62%, #fff);
+  --body-lo: color-mix(in srgb, var(--body) 72%, #000);
   position: relative;
-  width: 364px;
-  height: 776px;
-  padding: 104px 22px;
-  background: linear-gradient(to bottom, #111214, #0a0a0c 30%, #0a0a0c 70%, #111214);
-  border-radius: 54px;
+  width: 376px;
+  height: 792px;
+  padding: 112px 28px;
+  background:
+    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 3px),
+    linear-gradient(to right, var(--body-hi) 0%, var(--body) 18%, var(--body) 82%, var(--body-lo) 100%);
+  border-radius: 56px;
   box-shadow:
-    0 0 0 1px #2c2e33,
-    0 0 0 3px #101114,
-    0 0 0 4px #3a3c42,
-    0 40px 80px rgba(0, 0, 0, 0.7),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    0 0 0 1px var(--body-lo),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    0 24px 50px rgba(0, 0, 0, 0.55),
+    0 10px 24px -8px color-mix(in srgb, var(--body) 55%, transparent);
   user-select: none;
   -webkit-user-select: none;
 }
+.phone[data-color="space-gray"] { --body: #55575c; --face: #08090b; --face-edge: #1c1d21; --btn: #141518; --btn-edge: #2a2c31; --btn-mark: rgba(255, 255, 255, 0.4); }
+.phone[data-color="silver"] { --body: #d9dbdf; }
+.phone[data-color="gold"] { --body: #dcc39c; }
+.phone[data-color="pink"] { --body: #f28aa3; }
+.phone[data-color="blue"] { --body: #4fa2e4; }
+.phone[data-color="red"] { --body: #d6323c; }
 
-.bezel-top, .bezel-bottom { position: absolute; left: 0; right: 0; height: 104px; }
+/* the glass face sits just inside the aluminum edge */
+.phone::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 51px;
+  background: linear-gradient(to bottom, var(--face), color-mix(in srgb, var(--face) 92%, #000));
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+/* a window reflection across the glass */
+.phone::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 51px;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 28%, rgba(255, 255, 255, 0) 42%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.bezel-top, .bezel-bottom { position: absolute; left: 0; right: 0; height: 112px; z-index: 1; }
 .bezel-top { top: 0; }
 .bezel-bottom { bottom: 0; }
 
+/* FaceTime camera; an iPod touch has no earpiece */
 .camera {
   position: absolute;
-  top: 34px;
+  top: 44px;
   left: 50%;
-  width: 10px;
-  height: 10px;
-  margin-left: -5px;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
   border-radius: 50%;
-  background: radial-gradient(circle at 40% 35%, #34486d, #0a1020 65%);
-  box-shadow: 0 0 0 1.5px #1c1d21, inset 0 0 2px #000;
+  background: radial-gradient(circle at 40% 35%, #2f4f80, #050a16 65%);
+  box-shadow: 0 0 0 1.5px var(--face-edge), inset 0 0 2px #000;
 }
+.speaker { display: none; }
 
-.speaker {
+/* the physical buttons on the edges: sleep/wake on top right, volume on the left */
+.side-btn {
   position: absolute;
-  top: 58px;
-  left: 50%;
-  width: 58px;
-  height: 8px;
-  margin-left: -29px;
-  border-radius: 4px;
-  background: linear-gradient(to bottom, #050505, #1e1f22);
-  box-shadow: inset 0 1px 2px #000, 0 0 0 1px #1c1d21, 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: 0;
+  border: 0;
+  background: linear-gradient(to right, var(--body-hi), var(--body) 45%, var(--body-lo));
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px var(--body-lo);
+  cursor: pointer;
+  z-index: 0;
 }
+.side-btn:focus-visible { outline: 2px solid #6e85a4; outline-offset: 3px; }
+.btn-sleep { top: -4px; right: 44px; width: 40px; height: 5px; background: linear-gradient(to bottom, var(--body-hi), var(--body) 45%, var(--body-lo)); }
+.btn-sleep:active { top: -3px; }
+.btn-vol { left: -4px; width: 5px; height: 30px; }
+.btn-vol-up { top: 152px; }
+.btn-vol-down { top: 194px; }
+.btn-vol:active { left: -3px; }
 
 .home-btn {
   position: absolute;
-  bottom: 22px;
+  bottom: 24px;
   left: 50%;
-  width: 60px;
-  height: 60px;
-  margin-left: -30px;
+  width: 64px;
+  height: 64px;
+  margin-left: -32px;
   padding: 0;
   border-radius: 50%;
-  border: 1px solid #2a2c31;
-  background: radial-gradient(circle at 50% 25%, #202226, #050506 75%);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), inset 0 -3px 5px rgba(0, 0, 0, 0.9), 0 0 0 1px #000;
+  border: 1px solid var(--btn-edge);
+  background: radial-gradient(circle at 50% 30%, var(--btn), color-mix(in srgb, var(--btn) 88%, #000) 80%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5), inset 0 -3px 5px rgba(0, 0, 0, 0.18), 0 1px 0 rgba(255, 255, 255, 0.35);
   cursor: pointer;
 }
+.phone[data-color="space-gray"] .home-btn { box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), inset 0 -3px 5px rgba(0, 0, 0, 0.9), 0 0 0 1px #000; }
 .home-btn span {
   display: block;
   width: 20px;
   height: 20px;
   margin: 0 auto;
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  border: 2px solid var(--btn-mark);
   border-radius: 5px;
 }
-.home-btn:active { background: #000; }
+.home-btn:active { background: color-mix(in srgb, var(--btn) 80%, #000); }
 .home-btn:focus-visible { outline: 2px solid #6e85a4; outline-offset: 2px; }
 
 .screen {
   position: relative;
+  z-index: 2;
   width: 320px;
   height: 568px;
   overflow: hidden;
   background: #000;
+  box-shadow: 0 0 0 1px var(--face-edge);
   user-select: text;
   -webkit-user-select: text;
 }
+
+/* the sleep/wake button turns the screen off */
+.blank { position: absolute; inset: 0; z-index: 60; background: #000; }
+
+/* the volume HUD, drawn by the volume buttons */
+.volume-hud {
+  position: absolute;
+  z-index: 55;
+  left: 50%;
+  top: 50%;
+  width: 160px;
+  height: 160px;
+  margin: -80px 0 0 -80px;
+  border-radius: 12px;
+  background: rgba(20, 20, 24, 0.82);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 4px 16px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+  pointer-events: none;
+}
+.volume-hud.on { opacity: 1; transition: none; }
+.volume-hud::before {
+  content: "";
+  width: 56px;
+  height: 46px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 46'%3E%3Cpath d='M4 16h10l12-10v34L14 30H4z' fill='%23fff'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='M34 15a11 11 0 0 1 0 16'/%3E%3Cpath d='M40 9a19 19 0 0 1 0 28'/%3E%3Cpath d='M46 3a27 27 0 0 1 0 40'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+}
+.volume-bars { display: flex; gap: 2px; }
+.volume-bars i { width: 6px; height: 9px; background: rgba(255, 255, 255, 0.22); border-radius: 1px; }
+.volume-bars i.on { background: #fff; }
 
 /* status bar */
 .statusbar {
@@ -534,12 +619,19 @@ body.phone-body {
   font-weight: bold;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6);
 }
-.signal { display: flex; align-items: center; gap: 4px; }
-.signal i { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #fff; margin-right: 1px; box-shadow: 0 0 1px rgba(0, 0, 0, 0.6); }
-.signal i + i { margin-left: 1px; }
-.signal i.off { background: #4a4a4a; }
-.signal span { margin-left: 2px; }
+.signal { display: flex; align-items: center; gap: 5px; }
+.wifi {
+  display: inline-block;
+  width: 15px;
+  height: 11px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 11'%3E%3Cg fill='none' stroke='%23fff' stroke-width='1.7' stroke-linecap='round'%3E%3Cpath d='M1.2 3.4a9.2 9.2 0 0 1 12.6 0'/%3E%3Cpath d='M3.6 5.9a5.8 5.8 0 0 1 7.8 0'/%3E%3C/g%3E%3Ccircle cx='7.5' cy='9' r='1.5' fill='%23fff'/%3E%3C/svg%3E") center / contain no-repeat;
+  filter: drop-shadow(0 -1px 0 rgba(0, 0, 0, 0.6));
+}
 .clock { flex: 1; text-align: center; }
+
+/* iOS 6 tints the status bar to match the open app's bar; the home and lock screens keep it black */
+.screen[data-bar="blue"] .statusbar { background: linear-gradient(to bottom, #a4b3c9 0%, #7f93b1 50%, #6e85a4 51%, #5c7398 100%); border-bottom: 1px solid #3a4c68; }
+.screen[data-bar="notes"] .statusbar { background: linear-gradient(to bottom, #b58a5e 0%, #966a42 50%, #86592f 51%, #74492a 100%); border-bottom: 1px solid #4a2d15; }
 .battery {
   position: relative;
   width: 24px;
@@ -559,7 +651,7 @@ body.phone-body {
   padding-top: 20px;
   display: flex;
   flex-direction: column;
-  background-color: var(--linen);
+  background-color: color-mix(in srgb, var(--body, #55575c) 18%, var(--linen));
   background-image:
     var(--linen-img),
     repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.12) 0 1px, transparent 1px 3px),
@@ -847,11 +939,12 @@ body.phone-body {
     padding: 0 0 56px;
     border-radius: 0;
     box-shadow: none;
-    background: #000;
+    background: var(--face);
   }
+  .phone::before, .phone::after, .side-btn { display: none; }
   .bezel-top { display: none; }
   .bezel-bottom { height: 56px; }
-  .screen { width: 100%; height: 100%; }
+  .screen { width: 100%; height: 100%; box-shadow: none; }
   .home-btn { bottom: 6px; width: 44px; height: 44px; margin-left: -22px; }
   .home-btn span { width: 15px; height: 15px; border-radius: 4px; }
   .grid { gap: 10px 0; }
@@ -860,6 +953,6 @@ body.phone-body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home, .app, .lock, .view { transition: none; }
+  .home, .app, .lock, .view, .volume-hud { transition: none; }
   .unlock-text { animation: none; }
 }

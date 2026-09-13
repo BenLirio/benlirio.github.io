@@ -14,14 +14,17 @@
   const lock = $('#lock');
   const frameApp = $('#app-frame');
   const frame = $('#frame');
-  const PHONE_H = 776;
+  const blank = $('#blank');
+  const PHONE_H = 792;
 
   // ---------- fit the phone to the window (desktop only) ----------
   const small = () => matchMedia('(max-width: 600px)').matches;
   const zoom = () => (small() ? 1 : parseFloat(phone.style.zoom) || 1);
   function fit() {
     if (small()) { phone.style.zoom = ''; return; }
-    phone.style.zoom = clamp((innerHeight - 40) / PHONE_H, 0.55, 1.5).toFixed(3);
+    const foot = $('.stage-foot');
+    const spare = 40 + (foot ? foot.offsetHeight + 14 : 0); // stage padding plus the links under the phone
+    phone.style.zoom = clamp((innerHeight - spare) / PHONE_H, 0.55, 1.5).toFixed(3);
   }
   fit();
   addEventListener('resize', fit);
@@ -79,6 +82,34 @@
   try { skipLock = skipLock || sessionStorage.getItem('unlocked') === '1'; } catch {}
   if (skipLock) { unlocked = true; lock.hidden = true; }
 
+  // the sleep/wake button: press once and the screen goes dark and locks; press again (or home) to wake
+  function relock() {
+    unlocked = false;
+    try { sessionStorage.removeItem('unlocked'); } catch {}
+    lock.style.transition = 'none';
+    lock.classList.remove('unlocked');
+    lock.hidden = false;
+    knob.style.transform = ''; unlockText.style.opacity = '';
+    requestAnimationFrame(() => { lock.style.transition = ''; });
+  }
+  function sleep() { relock(); blank.hidden = false; }
+  function wake() { blank.hidden = true; lock.focus({ preventScroll: true }); }
+  const asleep = () => !blank.hidden;
+  $('#sleepbtn')?.addEventListener('click', () => { if (asleep()) wake(); else sleep(); });
+
+  // the volume buttons only draw the iOS 6 volume HUD; there is nothing to hear
+  let volume = 10; let hudTimer = 0;
+  const hud = $('#volume-hud'); const bars = $$('#volume-bars i');
+  $$('[data-volume]').forEach((b) => b.addEventListener('click', () => {
+    if (asleep()) return;
+    volume = clamp(volume + Number(b.dataset.volume), 0, bars.length);
+    bars.forEach((i, j) => i.classList.toggle('on', j < volume));
+    hud.classList.add('on');
+    clearTimeout(hudTimer);
+    hudTimer = setTimeout(() => hud.classList.remove('on'), 900);
+  }));
+  bars.forEach((i, j) => i.classList.toggle('on', j < volume));
+
   // ---------- home screen paging ----------
   const pageCount = $$('.page', pages).length;
   const pageIndex = () => clamp(Math.round(pages.scrollLeft / pages.clientWidth), 0, pageCount - 1);
@@ -124,6 +155,8 @@
 
   addEventListener('keydown', (e) => {
     if (e.target.closest?.('input, textarea, iframe')) return;
+    if (asleep()) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); wake(); } return; }
+    if (!lock.hidden && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); unlockNow(); return; }
     if (e.key === 'Escape') { goHome(); return; }
     if (current || !lock.hidden) return;
     if (e.key === 'ArrowRight') goPage(pageIndex() + 1);
@@ -157,6 +190,7 @@
     requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('opening')));
     current = el;
     el.setAttribute('aria-hidden', 'false');
+    screen.dataset.bar = el.dataset.bar || 'blue';
   }
 
   function closeApp(el, instant) {
@@ -168,7 +202,7 @@
       el.classList.add('closing');
       closeTimer = setTimeout(() => { el.hidden = true; el.classList.remove('closing'); }, 330);
     }
-    if (current === el) current = null;
+    if (current === el) { current = null; delete screen.dataset.bar; }
   }
 
   function goHome(push = true) {
@@ -178,7 +212,7 @@
     if (push) history.pushState(null, '', location.pathname + location.search);
   }
 
-  $('#homebtn').addEventListener('click', () => { if (!lock.hidden) { unlockNow(); return; } goHome(); });
+  $('#homebtn').addEventListener('click', () => { if (asleep()) { wake(); return; } if (!lock.hidden) { unlockNow(); return; } goHome(); });
 
   // demos run in an iframe inside the screen
   function openDemo(a, from) {

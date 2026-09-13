@@ -20,14 +20,19 @@
 </head>
 <body class="phone-body">
 <div class="stage">
-<div class="phone" id="phone">
-  <div class="bezel-top"><span class="camera"></span><span class="speaker"></span></div>
+<div class="phone" id="phone" data-color="blue">
+  <button class="side-btn btn-sleep" id="sleepbtn" type="button" aria-label="Sleep/Wake"></button>
+  <button class="side-btn btn-vol btn-vol-up" type="button" data-volume="1" aria-label="Volume up"></button>
+  <button class="side-btn btn-vol btn-vol-down" type="button" data-volume="-1" aria-label="Volume down"></button>
+  <div class="bezel-top"><span class="camera"></span></div>
   <div class="screen" id="screen">
     <div class="statusbar" aria-hidden="true">
-      <span class="signal"><i></i><i></i><i></i><i></i><i class="off"></i><span>Ben</span></span>
+      <span class="signal"><span>iPod</span><i class="wifi"></i></span>
       <span class="clock" data-clock="status">9:41 AM</span>
       <span class="battery"><span></span></span>
     </div>
+    <div class="volume-hud" id="volume-hud" aria-hidden="true"><span class="volume-bars" id="volume-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+    <div class="blank" id="blank" hidden></div>
 
     <div class="home" id="home">
       <div class="pages" id="pages" tabindex="0" aria-label="Home screen">
@@ -38,7 +43,7 @@
       <div class="dock"><ul class="grid"><li><a class="app-icon" href="#about" data-app="about"><span class="icon icon-home icon-sys icon-about"></span><span class="app-label">About</span></a></li><li><a class="app-icon" href="#projects" data-app="projects"><span class="icon icon-home icon-sys icon-projects"></span><span class="app-label">Projects</span></a></li><li><a class="app-icon" href="#writing" data-app="writing"><span class="icon icon-home icon-sys icon-writing"></span><span class="app-label">Writing</span></a></li><li><a class="app-icon" href="#contact" data-e="moc.liamg@oiriljneb"><span class="icon icon-home icon-sys icon-mail"></span><span class="app-label">Mail</span></a></li></ul></div>
     </div>
 
-    <section class="app app-about" id="app-about" data-app="about" aria-hidden="true" hidden>
+    <section class="app app-about" id="app-about" data-app="about" data-bar="blue" aria-hidden="true" hidden>
       <header class="navbar ">
   <div class="navbar-inner">
     <span class="nav-spacer"></span>
@@ -56,7 +61,7 @@
       </div>
     </section>
 
-    <section class="app app-projects" id="app-projects" data-app="projects" aria-hidden="true" hidden>
+    <section class="app app-projects" id="app-projects" data-app="projects" data-bar="blue" aria-hidden="true" hidden>
       <header class="navbar ">
   <div class="navbar-inner">
     <span class="nav-spacer"></span>
@@ -101,7 +106,7 @@
       </div>
     </section>
 
-    <section class="app app-writing" id="app-writing" data-app="writing" aria-hidden="true" hidden>
+    <section class="app app-writing" id="app-writing" data-app="writing" data-bar="notes" aria-hidden="true" hidden>
       <header class="navbar notes-bar">
   <div class="navbar-inner">
     <a class="nav-btn nav-back" href="#writing" id="writing-back" hidden>Writing</a>
@@ -130,7 +135,7 @@
       </article>
     </section>
 
-    <section class="app app-frame" id="app-frame" data-app="frame" aria-hidden="true" hidden>
+    <section class="app app-frame" id="app-frame" data-app="frame" data-bar="blue" aria-hidden="true" hidden>
       <header class="navbar ">
   <div class="navbar-inner">
     <span class="nav-spacer"></span>
@@ -158,7 +163,7 @@
 </div>
 <p class="stage-foot"><a class="" href="#contact" data-e="moc.liamg@oiriljneb"><span class="rev">moc.liamg@oiriljneb</span></a> · <a href="https://github.com/BenLirio">github</a> · <a href="/writing/">writing</a> · <a href="/feed.xml">rss</a></p>
 </div>
-<noscript><style>.lock, .stage-foot { display: none; } .home { position: static; } .app[hidden] { display: flex !important; position: static; } .screen { height: auto; }</style><p style="color:#ccc;text-align:center;font-size:14px">This page is a small iPhone that needs JavaScript. Without it: <a href="/writing/" style="color:#fff">writing</a>, and the projects are listed below.</p></noscript>
+<noscript><style>.lock, .stage-foot, .blank, .volume-hud { display: none; } .home { position: static; } .app[hidden] { display: flex !important; position: static; } .screen { height: auto; }</style><p style="color:#ccc;text-align:center;font-size:14px">This page is a small iPod touch that needs JavaScript. Without it: <a href="/writing/" style="color:#fff">writing</a>, and the projects are listed below.</p></noscript>
 <script src="/phone.js" defer></script>
 </body>
 </html>

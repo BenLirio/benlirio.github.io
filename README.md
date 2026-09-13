@@ -1,20 +1,20 @@
 # benlirio.com
 
-A shelf for the things I make, presented as a simulated iPhone 5 running iOS 6. Static HTML on GitHub Pages, no framework.
+A shelf for the things I make, presented as a simulated iPod touch (6th generation) running iOS 6. Static HTML on GitHub Pages, no framework.
 
-The home page is the phone: a lock screen (the intro paragraph is the notification; slide, click or press Enter to unlock), a paged home screen of the demos (swipe, drag, arrow keys or the mouse wheel), a dock with About / Projects / Writing / Mail, and apps that zoom open from their icon. Demos run in an iframe inside the screen; the home button (or Escape) closes them. Every state has a URL: `#about`, `#projects`, `#writing`, `#writing/<post-slug>`, `#demo/<project-slug>`. On a real phone the screen fills the viewport and the bezel disappears.
+The home page is the iPod: a lock screen (the intro paragraph is the notification; slide, click or press Enter to unlock), a paged home screen of the demos (swipe, drag, arrow keys or the mouse wheel), a dock with About / Projects / Writing / Mail, and apps that zoom open from their icon. Demos run in an iframe inside the screen; the home button (or Escape) closes them. The sleep/wake button on the top edge turns the screen off and locks it; the volume buttons on the left edge only draw the volume HUD. Every state has a URL: `#about`, `#projects`, `#writing`, `#writing/<post-slug>`, `#demo/<project-slug>`. On a real phone the screen fills the viewport and the bezel disappears.
 
 ## Layout
 
 | Path | What |
 | --- | --- |
-| `site.json` | Name, intro paragraph, the pre/post-AI note and cutoff year, and the email address **written backwards** (`emailReversed`) so it never appears in plain text on the site or in the repo. |
+| `site.json` | Name, intro paragraph, the pre/post-AI note and cutoff year, the email address **written backwards** (`emailReversed`) so it never appears in plain text on the site or in the repo, and `device.color` (one of `space-gray`, `silver`, `gold`, `pink`, `blue`, `red`; Space Gray has the black face, the rest are white). An optional `carrier` replaces the "iPod" in the status bar. |
 | `projects.json` | The project list. **One entry per project, only `name` is required.** |
 | `posts/*.md` | Writing. Markdown with a small front matter block. |
 | `projects/*.md` | Optional per-project writeup. Almost none exist; that is fine. |
 | `icons/*.png` | Square icons, made from screenshots of the demos by `tools/icons.mjs`. |
 | `build.mjs` | Renders everything. Uses only Node's standard library. |
-| `phone.js` | The phone's behavior: lock screen, paging, opening apps, routing. No dependencies. |
+| `phone.js` | The iPod's behavior: lock screen, paging, opening apps, routing, the hardware buttons. No dependencies. |
 | `style.css`, `favicon.svg` | Hand-written. |
 | `index.html`, `writing/`, `feed.xml` | **Generated.** Edit the sources, then rebuild. |
 

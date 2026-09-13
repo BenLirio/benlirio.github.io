@@ -243,14 +243,19 @@ ${p.html}
   return `${head({ title: site.title, description: site.description, url: '/' })}
 <body class="phone-body">
 <div class="stage">
-<div class="phone" id="phone">
-  <div class="bezel-top"><span class="camera"></span><span class="speaker"></span></div>
+<div class="phone" id="phone" data-color="${attr(site.device?.color || 'blue')}">
+  <button class="side-btn btn-sleep" id="sleepbtn" type="button" aria-label="Sleep/Wake"></button>
+  <button class="side-btn btn-vol btn-vol-up" type="button" data-volume="1" aria-label="Volume up"></button>
+  <button class="side-btn btn-vol btn-vol-down" type="button" data-volume="-1" aria-label="Volume down"></button>
+  <div class="bezel-top"><span class="camera"></span></div>
   <div class="screen" id="screen">
     <div class="statusbar" aria-hidden="true">
-      <span class="signal"><i></i><i></i><i></i><i></i><i class="off"></i><span>${esc(site.carrier || site.title.split(' ')[0])}</span></span>
+      <span class="signal"><span>${esc(site.carrier || 'iPod')}</span><i class="wifi"></i></span>
       <span class="clock" data-clock="status">9:41 AM</span>
       <span class="battery"><span></span></span>
     </div>
+    <div class="volume-hud" id="volume-hud" aria-hidden="true"><span class="volume-bars" id="volume-bars">${'<i></i>'.repeat(16)}</span></div>
+    <div class="blank" id="blank" hidden></div>
 
     <div class="home" id="home">
       <div class="pages" id="pages" tabindex="0" aria-label="Home screen">
@@ -260,7 +265,7 @@ ${pages.map((pg) => `        <section class="page">${pg.title ? `<h2 class="page
       <div class="dock"><ul class="grid">${dock}</ul></div>
     </div>
 
-    <section class="app app-about" id="app-about" data-app="about" aria-hidden="true" hidden>
+    <section class="app app-about" id="app-about" data-app="about" data-bar="blue" aria-hidden="true" hidden>
       ${navbar({ title: 'About' })}
       <div class="scroll">
         <div class="group intro-cell"><p>${inline(site.intro)}</p></div>
@@ -272,7 +277,7 @@ ${pages.map((pg) => `        <section class="page">${pg.title ? `<h2 class="page
       </div>
     </section>
 
-    <section class="app app-projects" id="app-projects" data-app="projects" aria-hidden="true" hidden>
+    <section class="app app-projects" id="app-projects" data-app="projects" data-bar="blue" aria-hidden="true" hidden>
       ${navbar({ title: 'Projects' })}
       <div class="scroll">
 ${group(site.postAiTitle || 'With AI', post, 'flat')}
@@ -280,7 +285,7 @@ ${group(site.preAiTitle || 'By hand', pre, 'glossy', site.eraNote ? `\n        <
       </div>
     </section>
 
-    <section class="app app-writing" id="app-writing" data-app="writing" aria-hidden="true" hidden>
+    <section class="app app-writing" id="app-writing" data-app="writing" data-bar="notes" aria-hidden="true" hidden>
       ${navbar({ title: 'Writing', cls: 'notes-bar', titleId: 'writing-title', backId: 'writing-back', back: { href: '#writing', label: 'Writing', hidden: true } })}
       <div class="scroll paper view" id="writing-list">
         <ul class="post-list">
@@ -290,7 +295,7 @@ ${group(site.preAiTitle || 'By hand', pre, 'glossy', site.eraNote ? `\n        <
       ${postViews}
     </section>
 
-    <section class="app app-frame" id="app-frame" data-app="frame" aria-hidden="true" hidden>
+    <section class="app app-frame" id="app-frame" data-app="frame" data-bar="blue" aria-hidden="true" hidden>
       ${navbar({ title: '', titleId: 'frame-title', right: { href: '#', label: 'Open ↗', id: 'frame-open', blank: true } })}
       <iframe id="frame" src="about:blank" title="Demo" allow="fullscreen"></iframe>
     </section>
@@ -312,7 +317,7 @@ ${group(site.preAiTitle || 'By hand', pre, 'glossy', site.eraNote ? `\n        <
 </div>
 <p class="stage-foot">${[emailHtml(), site.github ? `<a href="${attr(site.github)}">github</a>` : '', '<a href="/writing/">writing</a>', '<a href="/feed.xml">rss</a>'].filter(Boolean).join(' · ')}</p>
 </div>
-<noscript><style>.lock, .stage-foot { display: none; } .home { position: static; } .app[hidden] { display: flex !important; position: static; } .screen { height: auto; }</style><p style="color:#ccc;text-align:center;font-size:14px">This page is a small iPhone that needs JavaScript. Without it: <a href="/writing/" style="color:#fff">writing</a>, and the projects are listed below.</p></noscript>
+<noscript><style>.lock, .stage-foot, .blank, .volume-hud { display: none; } .home { position: static; } .app[hidden] { display: flex !important; position: static; } .screen { height: auto; }</style><p style="color:#ccc;text-align:center;font-size:14px">This page is a small iPod touch that needs JavaScript. Without it: <a href="/writing/" style="color:#fff">writing</a>, and the projects are listed below.</p></noscript>
 <script src="/phone.js" defer></script>
 </body>
 </html>
