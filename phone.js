@@ -41,56 +41,57 @@
   tick(); setInterval(tick, 10000);
 
   // ---------- lock screen ----------
-  const knob = $('#knob'); const track = $('#unlock-track'); const unlockText = $('#unlock-text');
+  // iOS 9: swipe right anywhere and the whole lock screen slides away; the home screen zooms in behind it.
+  const lockBody = $('#lock-body');
   let unlocked = false;
   function unlockNow() {
     if (unlocked) return; unlocked = true;
+    lockBody.style.transition = ''; lockBody.style.transform = ''; lockBody.style.opacity = '';
     lock.classList.add('unlocked');
+    home.classList.remove('arriving');
     try { sessionStorage.setItem('unlocked', '1'); } catch {}
-    setTimeout(() => { lock.hidden = true; }, reduceMotion ? 0 : 460);
+    setTimeout(() => { lock.hidden = true; }, reduceMotion ? 0 : 380);
   }
-  if (knob) {
+  {
     let drag = null;
-    const maxX = () => track.clientWidth - knob.offsetWidth - 6;
-    knob.addEventListener('pointerdown', (e) => {
-      drag = { x: e.clientX, moved: false };
-      try { knob.setPointerCapture(e.pointerId); } catch {}
-      knob.style.transition = 'none';
+    const SLIDE = 120; // px of travel that counts as a slide
+    lock.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('a')) return;
+      drag = { x: e.clientX, y: e.clientY, moved: false, id: e.pointerId };
+      lockBody.style.transition = 'none';
     });
-    knob.addEventListener('pointermove', (e) => {
+    lock.addEventListener('pointermove', (e) => {
       if (!drag) return;
-      const dx = clamp((e.clientX - drag.x) / zoom(), 0, maxX());
-      if (dx > 3) drag.moved = true;
-      knob.style.transform = `translateX(${dx}px)`;
-      unlockText.style.opacity = String(clamp(1 - dx / maxX() * 1.6, 0, 1));
-      if (dx >= maxX() * 0.92) { drag = null; unlockNow(); }
+      const dx = (e.clientX - drag.x) / zoom(); const dy = (e.clientY - drag.y) / zoom();
+      if (!drag.moved && Math.abs(dx) > 4 && Math.abs(dx) > Math.abs(dy)) { drag.moved = true; try { lock.setPointerCapture(drag.id); } catch {} }
+      if (!drag.moved) return;
+      const x = Math.max(0, dx);
+      lockBody.style.transform = `translateX(${x}px)`;
+      lockBody.style.opacity = String(clamp(1 - x / (SLIDE * 1.8), 0, 1));
+      if (x >= SLIDE) { drag = null; unlockNow(); }
     });
-    const release = () => {
+    const release = (e) => {
       if (!drag) return;
       const wasTap = !drag.moved; drag = null;
-      knob.style.transition = 'transform .25s ease-out';
-      knob.style.transform = '';
-      unlockText.style.opacity = '';
-      if (wasTap) unlockNow(); // a click is fine on a desktop
+      lockBody.style.transition = ''; lockBody.style.transform = ''; lockBody.style.opacity = '';
+      if (wasTap && !e.target.closest('a')) unlockNow(); // a click is fine on a desktop
     };
-    knob.addEventListener('pointerup', release);
-    knob.addEventListener('pointercancel', release);
-    track.addEventListener('click', (e) => { if (e.target !== knob) unlockNow(); });
-    lock.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); unlockNow(); } });
+    lock.addEventListener('pointerup', release);
+    lock.addEventListener('pointercancel', release);
   }
   let skipLock = !!location.hash;
   try { skipLock = skipLock || sessionStorage.getItem('unlocked') === '1'; } catch {}
-  if (skipLock) { unlocked = true; lock.hidden = true; }
+  if (skipLock) { unlocked = true; lock.hidden = true; } else home.classList.add('arriving');
 
   // the sleep/wake button: press once and the screen goes dark and locks; press again (or home) to wake
   function relock() {
     unlocked = false;
     try { sessionStorage.removeItem('unlocked'); } catch {}
-    lock.style.transition = 'none';
+    lockBody.style.transition = 'none';
     lock.classList.remove('unlocked');
     lock.hidden = false;
-    knob.style.transform = ''; unlockText.style.opacity = '';
-    requestAnimationFrame(() => { lock.style.transition = ''; });
+    home.classList.add('arriving');
+    requestAnimationFrame(() => { lockBody.style.transition = ''; });
   }
   function sleep() { relock(); blank.hidden = false; }
   function wake() { blank.hidden = true; lock.focus({ preventScroll: true }); }

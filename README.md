@@ -1,8 +1,8 @@
 # benlirio.com
 
-A shelf for the things I make, presented as a simulated iPod touch (6th generation) running iOS 6. Static HTML on GitHub Pages, no framework.
+A shelf for the things I make, presented as a simulated iPod touch (6th generation) running iOS 9, the software it had in 2015. Static HTML on GitHub Pages, no framework.
 
-The home page is the iPod: a lock screen (the intro paragraph is the notification; slide, click or press Enter to unlock), a paged home screen of the demos (swipe, drag, arrow keys or the mouse wheel), a dock with About / Projects / Writing / Mail, and apps that zoom open from their icon. Demos run in an iframe inside the screen; the home button (or Escape) closes them. The sleep/wake button on the top edge turns the screen off and locks it; the volume buttons on the left edge only draw the volume HUD. Every state has a URL: `#about`, `#projects`, `#writing`, `#writing/<post-slug>`, `#demo/<project-slug>`. On a real phone the screen fills the viewport and the bezel disappears.
+The home page is the iPod: a lock screen (the intro paragraph is the notification; slide anywhere, click or press Enter to unlock), a paged home screen of the demos (swipe, drag, arrow keys or the mouse wheel), a dock with About / Projects / Writing / Mail, and apps that zoom open from their icon. Demos run in an iframe inside the screen; the home button (or Escape) closes them. The sleep/wake button on the top edge turns the screen off and locks it; the volume buttons on the left edge only draw the volume HUD. Every state has a URL: `#about`, `#projects`, `#writing`, `#writing/<post-slug>`, `#demo/<project-slug>`. On a real phone the screen fills the viewport and the bezel disappears.
 
 ## Layout
 
@@ -15,7 +15,7 @@ The home page is the iPod: a lock screen (the intro paragraph is the notificatio
 | `icons/*.png` | Square icons, made from screenshots of the demos by `tools/icons.mjs`. |
 | `build.mjs` | Renders everything. Uses only Node's standard library. |
 | `phone.js` | The iPod's behavior: lock screen, paging, opening apps, routing, the hardware buttons. No dependencies. |
-| `style.css`, `favicon.svg`, `wallpaper.svg` | Hand-written. The wallpaper is a drawing of the iOS 6 default, rippling water. |
+| `style.css`, `favicon.svg`, `wallpaper.svg` | Hand-written. The wallpaper is a drawing after the iOS 9 default, blue flowing into violet. |
 | `index.html`, `writing/`, `feed.xml` | **Generated.** Edit the sources, then rebuild. |
 
 Everything else at the top level (`convex-hull/`, `conways-game-of-life/`, `gpt-in-education/`, `compilers/`, …) is a demo deployed into this domain from another repo. Leave those directories, `CNAME` and `.nojekyll` alone.

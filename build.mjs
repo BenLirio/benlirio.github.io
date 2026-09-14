@@ -147,7 +147,7 @@ function rowHtml(p) {
   const sub = [bits.join('<span class="sep"> · </span>'), p.blurb ? `<span class="blurb">${esc(p.blurb)}</span>` : ''].filter(Boolean).join('<br>');
   const icon = p.demo ? `<a class="icon-link" href="${attr(p.demo)}"${demoData(p)} tabindex="-1" aria-hidden="true">${iconHtml(p, 'small')}</a>` : iconHtml(p, 'small');
   const chevron = p.writeup ? `<a class="chevron" href="/projects/${attr(p.slug)}/" data-demo="${attr(p.name)}" data-slug="${attr(p.slug)}-writeup" aria-label="Read about ${attr(p.name)}"></a>` : '';
-  return `<li class="row${p.writeup ? ' has-more' : ''}">${icon}<span class="cell-text"><span class="cell-title">${esc(p.name)}</span>${sub ? `<span class="cell-sub">${sub}</span>` : ''}</span>${p.status ? `<span class="cell-detail">${esc(p.status)}</span>` : ''}${chevron}</li>`;
+  return `<li class="row${p.writeup ? ' has-more' : ''}${p.demo || p.icon ? '' : ' row-plain'}">${icon}<span class="cell-text"><span class="cell-title">${esc(p.name)}</span>${sub ? `<span class="cell-sub">${sub}</span>` : ''}</span>${p.status ? `<span class="cell-detail">${esc(p.status)}</span>` : ''}${chevron}</li>`;
 }
 
 // A demo link that the phone opens inside its screen. YouTube links get the embeddable URL.
@@ -159,7 +159,7 @@ function homeIcon(p) {
 }
 
 function sysIcon({ app, href, label, cls, email }) {
-  return `<li><a class="app-icon" href="${attr(href)}"${app ? ` data-app="${app}"` : ''}${email ? ` data-e="${attr(email)}"` : ''}><span class="icon icon-home icon-sys ${cls}"></span><span class="app-label">${esc(label)}</span></a></li>`;
+  return `<li><a class="app-icon" href="${attr(href)}"${app ? ` data-app="${app}"` : ''}${email ? ` data-e="${attr(email)}"` : ''} title="${attr(label)}" aria-label="${attr(label)}"><span class="icon icon-home icon-sys ${cls}"></span><span class="app-label">${esc(label)}</span></a></li>`;
 }
 
 // The email address is written backwards in the HTML (site.json stores it that way) and shown
@@ -220,15 +220,21 @@ function indexPage() {
   }
   const post = projects.filter((p) => p.era === 'post');
   const pre = projects.filter((p) => p.era === 'pre');
-  const group = (title, list, cls, note = '') => list.length ? `
-      <div class="era era-${cls}">${note}
-        <h2 class="group-header">${esc(title)}</h2>
-        <ul class="group ${cls}">
+  const group = (title, list, cls, note = '') => list.length ? (cls === 'flat' ? `
+      <div class="era era-flat">
+        <h2 class="list-header">${esc(title)}</h2>
+        <ul class="list">
 ${list.map(rowHtml).join('\n')}
         </ul>
-      </div>` : '';
-  const postList = posts.map((p) => `<li><a href="/writing/${attr(p.slug)}/" data-post="${attr(p.slug)}">${esc(p.title)}</a>${p.date ? `<span class="post-date">${esc(longDate(p.date))}</span>` : ''}</li>`).join('\n          ');
-  const postViews = posts.map((p) => `<article class="scroll paper post view" id="post-${attr(p.slug)}" data-title="${attr(p.title)}" hidden>
+      </div>` : `
+      <div class="era era-glossy retro">${note}
+        <h2 class="group-header">${esc(title)}</h2>
+        <ul class="group">
+${list.map(rowHtml).join('\n')}
+        </ul>
+      </div>`) : '';
+  const postList = posts.map((p) => `<li class="row row-plain"><a class="cell-text" href="/writing/${attr(p.slug)}/" data-post="${attr(p.slug)}"><span class="cell-title">${esc(p.title)}</span>${p.date ? `<span class="cell-sub">${esc(longDate(p.date))}</span>` : ''}</a><span class="chevron"></span></li>`).join('\n          ');
+  const postViews = posts.map((p) => `<article class="scroll post view" id="post-${attr(p.slug)}" data-title="${attr(p.title)}" hidden>
         <h1>${esc(p.title)}</h1>
         ${p.date ? `<p class="post-date"><time datetime="${attr(p.date)}">${esc(longDate(p.date))}</time></p>` : ''}
 ${p.html}
@@ -261,23 +267,23 @@ ${p.html}
       <div class="pages" id="pages" tabindex="0" aria-label="Home screen">
 ${pages.map((pg) => `        <section class="page">${pg.title ? `<h2 class="page-title">${esc(pg.title)}</h2>` : ''}<ul class="grid">${pg.apps.map(homeIcon).join('')}</ul></section>`).join('\n')}
       </div>
-      <div class="dots" id="dots" aria-hidden="true"><span class="dot dot-search"></span>${pages.map((_, i) => `<span class="dot${i === 0 ? ' on' : ''}"></span>`).join('')}</div>
+      <div class="dots" id="dots" aria-hidden="true">${pages.map((_, i) => `<span class="dot${i === 0 ? ' on' : ''}"></span>`).join('')}</div>
       <div class="dock"><ul class="grid">${dock}</ul></div>
     </div>
 
-    <section class="app app-about" id="app-about" data-app="about" data-bar="blue" aria-hidden="true" hidden>
+    <section class="app app-about" id="app-about" data-app="about" data-bar="light" aria-hidden="true" hidden>
       ${navbar({ title: 'About' })}
       <div class="scroll">
-        <div class="group intro-cell"><p>${inline(site.intro)}</p></div>
-        <ul class="group">
-          ${site.emailReversed ? `<li class="row">${emailHtml('row-link')}</li>` : ''}
-          ${site.github ? `<li class="row"><a class="row-link" href="${attr(site.github)}">GitHub</a></li>` : ''}
-          <li class="row"><a class="row-link" href="/feed.xml">RSS feed</a></li>
+        <div class="intro"><p>${inline(site.intro)}</p></div>
+        <ul class="list">
+          ${site.emailReversed ? `<li class="row row-plain">${emailHtml('row-link')}</li>` : ''}
+          ${site.github ? `<li class="row row-plain"><a class="row-link" href="${attr(site.github)}">GitHub</a></li>` : ''}
+          <li class="row row-plain"><a class="row-link" href="/feed.xml">RSS feed</a></li>
         </ul>
       </div>
     </section>
 
-    <section class="app app-projects" id="app-projects" data-app="projects" data-bar="blue" aria-hidden="true" hidden>
+    <section class="app app-projects" id="app-projects" data-app="projects" data-bar="light" aria-hidden="true" hidden>
       ${navbar({ title: 'Projects' })}
       <div class="scroll">
 ${group(site.postAiTitle || 'With AI', post, 'flat')}
@@ -285,32 +291,37 @@ ${group(site.preAiTitle || 'By hand', pre, 'glossy', site.eraNote ? `\n        <
       </div>
     </section>
 
-    <section class="app app-writing" id="app-writing" data-app="writing" data-bar="notes" aria-hidden="true" hidden>
+    <section class="app app-writing" id="app-writing" data-app="writing" data-bar="light" aria-hidden="true" hidden>
       ${navbar({ title: 'Writing', cls: 'notes-bar', titleId: 'writing-title', backId: 'writing-back', back: { href: '#writing', label: 'Writing', hidden: true } })}
-      <div class="scroll paper view" id="writing-list">
-        <ul class="post-list">
+      <div class="scroll view" id="writing-list">
+        <ul class="list post-list">
           ${postList}
         </ul>
       </div>
       ${postViews}
     </section>
 
-    <section class="app app-frame" id="app-frame" data-app="frame" data-bar="blue" aria-hidden="true" hidden>
-      ${navbar({ title: '', titleId: 'frame-title', right: { href: '#', label: 'Open ↗', id: 'frame-open', blank: true } })}
+    <section class="app app-frame" id="app-frame" data-app="frame" data-bar="light" aria-hidden="true" hidden>
+      ${navbar({ title: '', titleId: 'frame-title', right: { href: '#', label: 'Open', id: 'frame-open', blank: true } })}
       <iframe id="frame" src="about:blank" title="Demo" allow="fullscreen"></iframe>
     </section>
 
     <div class="lock" id="lock" tabindex="0" aria-label="Lock screen. Press Enter to unlock.">
-      <div class="lock-time"><div class="lock-clock" data-clock="lock">9:41</div><div class="lock-date" data-date>Friday, September 4</div></div>
-      <div class="lock-note">
-        <span class="icon icon-sys icon-about"></span>
-        <div class="lock-note-body">
-          <div class="lock-note-title">${esc(site.title)}</div>
-          <p>${inline(site.intro)}</p>
-          ${site.emailReversed ? `<p class="lock-note-email">${emailHtml()}</p>` : ''}
-        </div>
+      <div class="lock-body" id="lock-body">
+        <div class="lock-time"><div class="lock-clock" data-clock="lock">9:41</div><div class="lock-date" data-date>Friday, September 4</div></div>
+        <ul class="lock-notes">
+          <li class="lock-note">
+            <span class="icon icon-sys icon-about"></span>
+            <div class="lock-note-body">
+              <div class="lock-note-head"><span>${esc(site.title)}</span><time>now</time></div>
+              <p>${inline(site.intro)}</p>
+              ${site.emailReversed ? `<p class="lock-note-email">${emailHtml()}</p>` : ''}
+            </div>
+          </li>
+        </ul>
+        <div class="unlock" id="unlock"><span class="unlock-chevron"></span><span class="unlock-text" id="unlock-text">slide to unlock</span></div>
+        <span class="lock-camera" aria-hidden="true"></span>
       </div>
-      <div class="unlock"><div class="unlock-track" id="unlock-track"><div class="knob" id="knob" role="button" aria-label="Unlock"></div><span class="unlock-text" id="unlock-text">slide to unlock</span></div></div>
     </div>
   </div>
   <div class="bezel-bottom"><button class="home-btn" id="homebtn" type="button" aria-label="Home"><span></span></button></div>
@@ -327,13 +338,11 @@ ${group(site.preAiTitle || 'By hand', pre, 'glossy', site.eraNote ? `\n        <
 function writingIndexPage() {
   return `${head({ title: 'Writing', description: `Posts by ${site.title}.`, url: '/writing/' })}
 <body class="notes-page">
-${navbar({ title: 'Writing', back: { href: '/', label: site.title } })}
+${navbar({ title: 'Writing', cls: 'notes-bar', back: { href: '/', label: site.title } })}
 <main>
-  <div class="paper">
-    <ul class="post-list">
-${posts.map((p) => `      <li><a href="/writing/${attr(p.slug)}/">${esc(p.title)}</a>${p.date ? `<span class="post-date">${esc(longDate(p.date))}</span>` : ''}</li>`).join('\n')}
-    </ul>
-  </div>
+  <ul class="list post-list">
+${posts.map((p) => `    <li class="row row-plain"><a class="cell-text" href="/writing/${attr(p.slug)}/"><span class="cell-title">${esc(p.title)}</span>${p.date ? `<span class="cell-sub">${esc(longDate(p.date))}</span>` : ''}</a><span class="chevron"></span></li>`).join('\n')}
+  </ul>
 </main>
 ${footer()}
 </body>
@@ -344,9 +353,9 @@ ${footer()}
 function postPage(p) {
   return `${head({ title: p.title, description: p.excerpt, url: `/writing/${p.slug}/`, extraHead: '  <meta property="og:type" content="article">\n' })}
 <body class="notes-page">
-${navbar({ title: 'Writing', back: { href: '/', label: site.title } })}
+${navbar({ title: 'Writing', cls: 'notes-bar', back: { href: '/', label: site.title } })}
 <main>
-  <article class="paper post">
+  <article class="post">
     <h1>${esc(p.title)}</h1>
     ${p.date ? `<p class="post-date"><time datetime="${attr(p.date)}">${esc(longDate(p.date))}</time></p>` : ''}
 ${p.html}
@@ -367,11 +376,11 @@ function projectPage(p) {
 <body class="project-page">
 ${navbar({ title: p.name, back: { href: '/', label: site.title } })}
 <main>
-  <ul class="group glossy project-head">
+  <ul class="list project-head">
     <li class="row">${iconHtml(p, 'small')}<span class="cell-text"><span class="cell-title">${esc(p.name)}</span>${p.date || p.blurb ? `<span class="cell-sub">${[p.date, p.blurb].filter(Boolean).map(esc).join('<span class="sep"> · </span>')}</span>` : ''}</span>${p.status ? `<span class="cell-detail">${esc(p.status)}</span>` : ''}</li>
 ${links.map((l) => `    <li class="row">${l}</li>`).join('\n')}
   </ul>
-  <article class="group prose">
+  <article class="prose">
 ${w.html}
   </article>
 </main>
