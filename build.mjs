@@ -414,6 +414,21 @@ ${posts.map((p) => `  <entry>
 
 // ---------- write ----------
 
+// Standalone app support pages stay outside the simulated iPod interface so
+// TestFlight reviewers and players can read them directly at any screen size.
+const pillarPages=JSON.parse(await read('pillar-valley.json'));
+function pillarPage(kind){
+ const sections=pillarPages[kind],title=sections[0].title;
+ return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(sections[0].text)}"><style>
+ :root{color-scheme:light dark;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#182832;background:#f6f8fa}body{margin:0}main{max-width:680px;margin:auto;padding:32px 24px 64px}nav{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:40px}a{color:#0759a5;text-underline-offset:3px}h1{font-size:2.1rem;line-height:1.2;letter-spacing:-.035em}h2{font-size:1.2rem;margin-top:32px}p{font-size:1rem;line-height:1.65}footer{margin-top:40px;border-top:1px solid #b9c7d0;padding-top:20px}small{font-size:.875rem}@media(prefers-color-scheme:dark){:root{color:#e3edf3;background:#101e27}a{color:#89c7ff}footer{border-color:#435764}}
+ </style></head><body><main><nav aria-label="App support"><a href="/pillar-valley/">Support</a><a href="/pillar-valley/privacy/">Privacy</a><a href="/">Ben Lirio</a></nav>
+ ${sections.map((s,i)=>`<section><h${i?2:1}>${esc(s.title)}</h${i?2:1}><p>${esc(s.text)}</p></section>`).join('\n')}
+ <footer><p><a id="support-email" href="/#mail">Email support</a></p><small>Updated ${esc(pillarPages.updated)}</small></footer></main>
+ <script>const address=${JSON.stringify(site.emailReversed)}.split('').reverse().join('');const link=document.getElementById('support-email');link.href='mailto:'+address+'?subject=Pillar%20Valley%20support';link.textContent=address;</script></body></html>\n`;
+}
+await out('pillar-valley/index.html',pillarPage('support'));
+await out('pillar-valley/privacy/index.html',pillarPage('privacy'));
+
 await out('index.html', indexPage());
 await out('writing/index.html', writingIndexPage());
 for (const p of posts) await out(`writing/${p.slug}/index.html`, postPage(p));
